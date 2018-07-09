@@ -10,11 +10,11 @@ This is for development purposes, e.g. save time to prepare test data and matchi
 * Use parameters to control the sections required to be filled up with dummy content
 
 ## Installation
-The preferred way of installing `allin-data/magento2-content-fuzzyfyr` is through Composer. 
-Simply add `allin-data/magento2-content-fuzzyfyr` as a dependency:
+The preferred way of installing `allindata/magento2-content-fuzzyfyr` is through Composer. 
+Simply add `allindata/magento2-content-fuzzyfyr` as a dependency:
 
 ```
-composer.phar require allin-data/magento2-content-fuzzyfyr
+composer.phar require allindata/magento2-content-fuzzyfyr
 ```
 
 Optional you can download the latest version [here](https://github.com/allin-data/magento2-content-fuzzyfyr/releases) 
