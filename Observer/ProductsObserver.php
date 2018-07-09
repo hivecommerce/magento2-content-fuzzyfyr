@@ -13,9 +13,9 @@ namespace AllInData\ContentFuzzyfyr\Observer;
 use AllInData\ContentFuzzyfyr\Model\Configuration;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
-use Magento\Catalog\Model\ResourceModel\Product as ProductResource;
-use Magento\Catalog\Model\ResourceModel\ProductFactory as ProductResourceFactory;
+use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\Setup\ModuleDataSetupInterface;
 
 class ProductsObserver implements ObserverInterface
 {
@@ -24,20 +24,23 @@ class ProductsObserver implements ObserverInterface
      */
     protected $productCollectionFactory;
     /**
-     * @var ProductResourceFactory
+     * @var ModuleDataSetupInterface
      */
-    protected $productResourceFactory;
+    protected $setup;
 
     /**
      * ProductsObserver constructor.
      * @param ProductCollectionFactory $productCollectionFactory
-     * @param ProductResourceFactory $productResourceFactory
+     * @param ModuleDataSetupInterface $setup
      */
-    public function __construct(ProductCollectionFactory $productCollectionFactory, ProductResourceFactory $productResourceFactory)
-    {
+    public function __construct(
+        ProductCollectionFactory $productCollectionFactory,
+        ModuleDataSetupInterface $setup
+    ) {
         $this->productCollectionFactory = $productCollectionFactory;
-        $this->productResourceFactory = $productResourceFactory;
+        $this->setup = $setup;
     }
+
 
     /**
      * {@inheritdoc}
@@ -51,32 +54,68 @@ class ProductsObserver implements ObserverInterface
             return;
         }
 
-        /** @var ProductResource $productResource */
-        $productResource = $this->productResourceFactory->create();
-
+        $db = $this->setup->getConnection()->startSetup();
         /** @var ProductCollection $productCollection */
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->load();
         foreach ($productCollection->getItems() as $product) {
             /** @var \Magento\Catalog\Model\Product $product */
-            $this->updateData($configuration, $product);
-            $productResource->save($product);
+            $this->updateData($db, $configuration, $product);
         }
+        $db->endSetup();
     }
 
     /**
+     * @param AdapterInterface $db
      * @param Configuration $configuration
      * @param \Magento\Catalog\Model\Product $product
      * @return \Magento\Catalog\Model\Product
+     * @throws \Zend_Db_Statement_Exception
      */
-    protected function updateData(Configuration $configuration, \Magento\Catalog\Model\Product $product)
+    protected function updateData(AdapterInterface $db, Configuration $configuration, \Magento\Catalog\Model\Product $product)
     {
-        $product->setDescription($configuration->getDummyContentText());
-        $product->setShortDescription($configuration->getDummyContentText());
-        $product->setMetaTitle($configuration->getDummyContentText());
-        $product->setMetaKeyword($configuration->getDummyContentText());
-        $product->setMetaDescription($configuration->getDummyContentText());
+        $this->updateAttributeByQuery($db, $product, 'description', $configuration->getDummyContentText());
+        $this->updateAttributeByQuery($db, $product, 'short_description', $configuration->getDummyContentText());
+        $this->updateAttributeByQuery($db, $product, 'meta_title', $configuration->getDummyContentText());
+        $this->updateAttributeByQuery($db, $product, 'meta_keyword', $configuration->getDummyContentText());
+        $this->updateAttributeByQuery($db, $product, 'meta_description', $configuration->getDummyContentText());
 
         return $product;
+    }
+
+    /**
+     * @param AdapterInterface $db
+     * @param \Magento\Catalog\Model\Product $product
+     * @param string $field
+     * @param string $value
+     * @throws \Zend_Db_Statement_Exception
+     * @TODO Create entries if they do not exist yet
+     * @TODO Respect backend type of attribute (text, varchar, ...)
+     */
+    protected function updateAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $field, $value)
+    {
+        $query = 'UPDATE
+                %1$s AS e
+            LEFT JOIN %2$s AS ea ON attribute_code = :field
+            LEFT JOIN %3$s AS eet ON entity_type_code = :code
+            SET
+                e.value = :value
+            WHERE
+              eet.entity_type_id = ea.entity_type_id AND 
+              e.entity_id = :entityid';
+
+        $query = sprintf(
+            $query,
+            $db->getTableName('catalog_product_entity_text'),
+            $db->getTableName('eav_attribute'),
+            $db->getTableName('eav_entity_type')
+        );
+        $stmt = $db->query($query, [
+            ':entityid' => $product->getEntityId(),
+            ':field' => $field,
+            ':value' => $value,
+            ':code' => 'catalog_product'
+        ]);
+        $stmt->execute();
     }
 }
