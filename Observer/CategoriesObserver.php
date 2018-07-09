@@ -81,33 +81,34 @@ class CategoriesObserver implements ObserverInterface
      */
     protected function updateData(AdapterInterface $db, Configuration $configuration, \Magento\Catalog\Model\Category $category)
     {
-        $this->pushData($db, $category, 'description', $configuration->getDummyContentText());
-        $this->pushData($db, $category, 'meta_title', $configuration->getDummyContentText());
-        $this->pushData($db, $category, 'meta_keywords', $configuration->getDummyContentText());
-        $this->pushData($db, $category, 'meta_description', $configuration->getDummyContentText());
+        $this->pushData($db, $configuration, $category, 'description', $configuration->getDummyContentText());
+        $this->pushData($db, $configuration, $category, 'meta_title', $configuration->getDummyContentText());
+        $this->pushData($db, $configuration, $category, 'meta_keywords', $configuration->getDummyContentText());
+        $this->pushData($db, $configuration, $category, 'meta_description', $configuration->getDummyContentText());
 
         return $category;
     }
 
     /**
      * @param AdapterInterface $db
+     * @param Configuration $configuration
      * @param \Magento\Catalog\Model\Category $category
      * @param string $field
      * @param string $value
      * @throws \Zend_Db_Statement_Exception
      */
-    protected function pushData(AdapterInterface $db, \Magento\Catalog\Model\Category $category, $field, $value)
+    protected function pushData(AdapterInterface $db, Configuration $configuration, \Magento\Catalog\Model\Category $category, $field, $value)
     {
         // --- Field type TEXT
         if ($this->hasAttribute($db, $category, self::ENTITY_FIELD_TYPE_TEXT, $field)) {
-            $this->updateAttributeByQuery($db, $category, self::ENTITY_FIELD_TYPE_TEXT, $field, $value);
+            $this->updateAttributeByQuery($db, $category, self::ENTITY_FIELD_TYPE_TEXT, $field, $value, $configuration->isUseOnlyEmpty());
         } else {
             $this->insertAttributeByQuery($db, $category, self::ENTITY_FIELD_TYPE_TEXT, $field, $value);
         }
 
         // --- Field type VARCHAR
         if ($this->hasAttribute($db, $category, self::ENTITY_FIELD_TYPE_VARCHAR, $field)) {
-            $this->updateAttributeByQuery($db, $category, self::ENTITY_FIELD_TYPE_VARCHAR, $field, $value);
+            $this->updateAttributeByQuery($db, $category, self::ENTITY_FIELD_TYPE_VARCHAR, $field, $value, $configuration->isUseOnlyEmpty());
         } else {
             $this->insertAttributeByQuery($db, $category, self::ENTITY_FIELD_TYPE_VARCHAR, $field, $value);
         }
@@ -192,9 +193,10 @@ class CategoriesObserver implements ObserverInterface
      * @param string $fieldType
      * @param string $field
      * @param string $value
+     * @param boolean $useOnlyEmpty
      * @throws \Zend_Db_Statement_Exception
      */
-    protected function updateAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Category $category, $fieldType, $field, $value)
+    protected function updateAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Category $category, $fieldType, $field, $value, $useOnlyEmpty)
     {
         $query = 'UPDATE
                 %1$s AS e
@@ -204,6 +206,10 @@ class CategoriesObserver implements ObserverInterface
               e.attribute_id = :attributeid AND
               e.store_id = :storeid AND
               e.entity_id = :entityid';
+
+        if ($useOnlyEmpty) {
+            $query .= ' AND (e.value = "" OR e.value IS NULL)';
+        }
 
         $queryText = sprintf(
             $query,

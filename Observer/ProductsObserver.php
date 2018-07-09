@@ -81,34 +81,35 @@ class ProductsObserver implements ObserverInterface
      */
     protected function updateData(AdapterInterface $db, Configuration $configuration, \Magento\Catalog\Model\Product $product)
     {
-        $this->pushData($db, $product, 'description', $configuration->getDummyContentText());
-        $this->pushData($db, $product, 'short_description', $configuration->getDummyContentText());
-        $this->pushData($db, $product, 'meta_title', $configuration->getDummyContentText());
-        $this->pushData($db, $product, 'meta_keyword', $configuration->getDummyContentText());
-        $this->pushData($db, $product, 'meta_description', $configuration->getDummyContentText());
+        $this->pushData($db, $configuration, $product, 'description', $configuration->getDummyContentText());
+        $this->pushData($db, $configuration, $product, 'short_description', $configuration->getDummyContentText());
+        $this->pushData($db, $configuration, $product, 'meta_title', $configuration->getDummyContentText());
+        $this->pushData($db, $configuration, $product, 'meta_keyword', $configuration->getDummyContentText());
+        $this->pushData($db, $configuration, $product, 'meta_description', $configuration->getDummyContentText());
 
         return $product;
     }
 
     /**
      * @param AdapterInterface $db
+     * @param Configuration $configuration
      * @param \Magento\Catalog\Model\Product $product
      * @param string $field
      * @param string $value
      * @throws \Zend_Db_Statement_Exception
      */
-    protected function pushData(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $field, $value)
+    protected function pushData(AdapterInterface $db, Configuration $configuration, \Magento\Catalog\Model\Product $product, $field, $value)
     {
         // --- Field type TEXT
         if ($this->hasAttribute($db, $product, self::ENTITY_FIELD_TYPE_TEXT, $field)) {
-            $this->updateAttributeByQuery($db, $product, self::ENTITY_FIELD_TYPE_TEXT, $field, $value);
+            $this->updateAttributeByQuery($db, $product, self::ENTITY_FIELD_TYPE_TEXT, $field, $value, $configuration->isUseOnlyEmpty());
         } else {
             $this->insertAttributeByQuery($db, $product, self::ENTITY_FIELD_TYPE_TEXT, $field, $value);
         }
 
         // --- Field type VARCHAR
         if ($this->hasAttribute($db, $product, self::ENTITY_FIELD_TYPE_VARCHAR, $field)) {
-            $this->updateAttributeByQuery($db, $product, self::ENTITY_FIELD_TYPE_VARCHAR, $field, $value);
+            $this->updateAttributeByQuery($db, $product, self::ENTITY_FIELD_TYPE_VARCHAR, $field, $value, $configuration->isUseOnlyEmpty());
         } else {
             $this->insertAttributeByQuery($db, $product, self::ENTITY_FIELD_TYPE_VARCHAR, $field, $value);
         }
@@ -193,9 +194,10 @@ class ProductsObserver implements ObserverInterface
      * @param string $fieldType
      * @param string $field
      * @param string $value
+     * @param boolean $useOnlyEmpty
      * @throws \Zend_Db_Statement_Exception
      */
-    protected function updateAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $fieldType, $field, $value)
+    protected function updateAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $fieldType, $field, $value, $useOnlyEmpty)
     {
         $query = 'UPDATE
                 %1$s AS e
@@ -205,6 +207,10 @@ class ProductsObserver implements ObserverInterface
               e.attribute_id = :attributeid AND
               e.store_id = :storeid AND
               e.entity_id = :entityid';
+
+        if ($useOnlyEmpty) {
+            $query .= ' AND (e.value = "" OR e.value IS NULL)';
+        }
 
         $queryText = sprintf(
             $query,
