@@ -19,6 +19,13 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 
 class ProductsObserver implements ObserverInterface
 {
+    /*
+     * Flags
+     */
+    const ENTITY_TYPE_CODE = 'catalog_product';
+    const ENTITY_FIELD_TYPE_TEXT = 'text';
+    const ENTITY_FIELD_TYPE_VARCHAR = 'varchar';
+
     /**
      * @var ProductCollectionFactory
      */
@@ -92,100 +99,122 @@ class ProductsObserver implements ObserverInterface
      */
     protected function pushData(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $field, $value)
     {
-        if ($this->hasAttribute($db, $product, $field)) {
-            return $this->updateAttributeByQuery($db, $product, $field, $value);
+        // --- Field type TEXT
+        if ($this->hasAttribute($db, $product, self::ENTITY_FIELD_TYPE_TEXT, $field)) {
+            $this->updateAttributeByQuery($db, $product, self::ENTITY_FIELD_TYPE_TEXT, $field, $value);
+        } else {
+            $this->insertAttributeByQuery($db, $product, self::ENTITY_FIELD_TYPE_TEXT, $field, $value);
         }
 
-        $this->insertAttributeByQuery($db, $product, $field, $value);
+        // --- Field type VARCHAR
+        if ($this->hasAttribute($db, $product, self::ENTITY_FIELD_TYPE_VARCHAR, $field)) {
+            $this->updateAttributeByQuery($db, $product, self::ENTITY_FIELD_TYPE_VARCHAR, $field, $value);
+        } else {
+            $this->insertAttributeByQuery($db, $product, self::ENTITY_FIELD_TYPE_VARCHAR, $field, $value);
+        }
     }
 
     /**
      * @param AdapterInterface $db
      * @param \Magento\Catalog\Model\Product $product
+     * @param string $fieldType
      * @param string $field
      * @return bool
      * @throws \Zend_Db_Statement_Exception
      */
-    protected function hasAttribute(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $field)
+    protected function hasAttribute(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $fieldType, $field)
     {
         $query = 'SELECT e.value
             FROM
                 %1$s AS e
-            LEFT JOIN %2$s AS ea ON attribute_code = :field
-            LEFT JOIN %3$s AS eet ON entity_type_code = :code
             WHERE
-              eet.entity_type_id = ea.entity_type_id AND 
+              e.attribute_id = :attributeid AND
+              e.store_id = :storeid AND
               e.entity_id = :entityid';
 
         $query = sprintf(
             $query,
-            $db->getTableName('catalog_product_entity_text'),
-            $db->getTableName('eav_attribute'),
-            $db->getTableName('eav_entity_type')
+            $db->getTableName('catalog_product_entity_' . $fieldType)
         );
         $stmt = $db->query($query, [
             ':entityid' => $product->getEntityId(),
-            ':field' => $field,
-            ':code' => 'catalog_product'
+            ':attributeid' => $this->getAttributeId($db, $field),
+            ':storeid' => 0
         ]);
+
         if (!$stmt->execute()) {
             return false;
         }
 
-        $result = $stmt->fetchAll(\Zend_Db::FETCH_ASSOC);
+        return !!$stmt->rowCount();
+    }
+
+    /**
+     * @param AdapterInterface $db
+     * @param string $field
+     * @return string|bool FALSE if query fails
+     * @throws \Zend_Db_Statement_Exception
+     */
+    protected function getAttributeId(AdapterInterface $db, $field)
+    {
+        $query = 'SELECT ea.attribute_id
+            FROM
+                %1$s AS ea
+            LEFT JOIN %2$s AS eet ON entity_type_code = :code
+            WHERE
+              eet.entity_type_id = ea.entity_type_id AND 
+              ea.attribute_code = :field';
+
+        $query = sprintf(
+            $query,
+            $db->getTableName('eav_attribute'),
+            $db->getTableName('eav_entity_type')
+        );
+        $stmt = $db->query($query, [
+            ':field' => $field,
+            ':code' => self::ENTITY_TYPE_CODE
+        ]);
+
+        if (!$stmt->execute()) {
+            return false;
+        }
+
+        $result = $stmt->fetch(\Zend_Db::FETCH_ASSOC);
         if (empty($result)) {
             return false;
         }
 
-        return true;
+        return $result['attribute_id'] ?: false;
     }
 
     /**
      * @param AdapterInterface $db
      * @param \Magento\Catalog\Model\Product $product
+     * @param string $fieldType
      * @param string $field
      * @param string $value
      * @throws \Zend_Db_Statement_Exception
      */
-    protected function updateAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $field, $value)
+    protected function updateAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $fieldType, $field, $value)
     {
         $query = 'UPDATE
                 %1$s AS e
-            LEFT JOIN %2$s AS ea ON attribute_code = :field
-            LEFT JOIN %3$s AS eet ON entity_type_code = :code
             SET
                 e.value = :value
             WHERE
-              eet.entity_type_id = ea.entity_type_id AND 
+              e.attribute_id = :attributeid AND
+              e.store_id = :storeid AND
               e.entity_id = :entityid';
 
-        // Field type TEXT
         $queryText = sprintf(
             $query,
-            $db->getTableName('catalog_product_entity_text'),
-            $db->getTableName('eav_attribute'),
-            $db->getTableName('eav_entity_type')
+            $db->getTableName('catalog_product_entity_' . $fieldType)
         );
         $stmt = $db->query($queryText, [
             ':entityid' => $product->getEntityId(),
-            ':field' => $field,
-            ':value' => $value,
-            ':code' => 'catalog_product'
-        ]);
-        $stmt->execute();
-
-        // Field type VARCHAR
-        $queryVarchar = sprintf(
-            $query,
-            $db->getTableName('catalog_product_entity_varchar'),
-            $db->getTableName('eav_attribute'),
-            $db->getTableName('eav_entity_type')
-        );
-        $stmt = $db->query($queryVarchar, [
-            ':entityid' => $product->getEntityId(),
-            ':field' => $field,
-            ':value' => $value,
-            ':code' => 'catalog_product'
+            ':attributeid' => $this->getAttributeId($db, $field),
+            ':storeid' => 0,
+            ':value' => $value
         ]);
         $stmt->execute();
     }
@@ -193,57 +222,26 @@ class ProductsObserver implements ObserverInterface
     /**
      * @param AdapterInterface $db
      * @param \Magento\Catalog\Model\Product $product
+     * @param string $fieldType
      * @param string $field
      * @param string $value
      * @throws \Zend_Db_Statement_Exception
      */
-    protected function insertAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $field, $value)
+    protected function insertAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $fieldType, $field, $value)
     {
         $query = 'INSERT IGNORE INTO
                 %1$s (`attribute_id`, `store_id`, `entity_id`, `value`)
-              (
-                SELECT DISTINCT 
-                    ea.attribute_id AS `attribute_id`, 
-                    0, 
-                    :entityid, 
-                    :value 
-                FROM 
-                    %2$s AS ea 
-                LEFT JOIN %3$s AS eet 
-                    ON entity_type_code = :code 
-                WHERE 
-                    eet.entity_type_id = ea.entity_type_id AND 
-                    attribute_code = :field 
-                LIMIT 1
-              )';
+            VALUES (:attributeid, :storeid, :entityid, :value)';
 
-        // Field type TEXT
-        $query = sprintf(
+        $queryText = sprintf(
             $query,
-            $db->getTableName('catalog_product_entity_text'),
-            $db->getTableName('eav_attribute'),
-            $db->getTableName('eav_entity_type')
+            $db->getTableName('catalog_product_entity_' . $fieldType)
         );
-        $stmt = $db->query($query, [
+        $stmt = $db->query($queryText, [
             ':entityid' => $product->getEntityId(),
-            ':field' => $field,
-            ':value' => $value,
-            ':code' => 'catalog_product'
-        ]);
-        $stmt->execute();
-
-        // Field type VARCHAR
-        $query = sprintf(
-            $query,
-            $db->getTableName('catalog_product_entity_varchar'),
-            $db->getTableName('eav_attribute'),
-            $db->getTableName('eav_entity_type')
-        );
-        $stmt = $db->query($query, [
-            ':entityid' => $product->getEntityId(),
-            ':field' => $field,
-            ':value' => $value,
-            ':code' => 'catalog_product'
+            ':attributeid' => $this->getAttributeId($db, $field),
+            ':storeid' => 0,
+            ':value' => $value
         ]);
         $stmt->execute();
     }
