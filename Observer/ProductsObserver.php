@@ -74,11 +74,11 @@ class ProductsObserver implements ObserverInterface
      */
     protected function updateData(AdapterInterface $db, Configuration $configuration, \Magento\Catalog\Model\Product $product)
     {
-        $this->updateAttributeByQuery($db, $product, 'description', $configuration->getDummyContentText());
-        $this->updateAttributeByQuery($db, $product, 'short_description', $configuration->getDummyContentText());
-        $this->updateAttributeByQuery($db, $product, 'meta_title', $configuration->getDummyContentText());
-        $this->updateAttributeByQuery($db, $product, 'meta_keyword', $configuration->getDummyContentText());
-        $this->updateAttributeByQuery($db, $product, 'meta_description', $configuration->getDummyContentText());
+        $this->pushData($db, $product, 'description', $configuration->getDummyContentText());
+        $this->pushData($db, $product, 'short_description', $configuration->getDummyContentText());
+        $this->pushData($db, $product, 'meta_title', $configuration->getDummyContentText());
+        $this->pushData($db, $product, 'meta_keyword', $configuration->getDummyContentText());
+        $this->pushData($db, $product, 'meta_description', $configuration->getDummyContentText());
 
         return $product;
     }
@@ -89,8 +89,63 @@ class ProductsObserver implements ObserverInterface
      * @param string $field
      * @param string $value
      * @throws \Zend_Db_Statement_Exception
-     * @TODO Create entries if they do not exist yet
-     * @TODO Respect backend type of attribute (text, varchar, ...)
+     */
+    protected function pushData(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $field, $value)
+    {
+        if ($this->hasAttribute($db, $product, $field)) {
+            return $this->updateAttributeByQuery($db, $product, $field, $value);
+        }
+
+        $this->insertAttributeByQuery($db, $product, $field, $value);
+    }
+
+    /**
+     * @param AdapterInterface $db
+     * @param \Magento\Catalog\Model\Product $product
+     * @param string $field
+     * @return bool
+     * @throws \Zend_Db_Statement_Exception
+     */
+    protected function hasAttribute(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $field)
+    {
+        $query = 'SELECT e.value
+            FROM
+                %1$s AS e
+            LEFT JOIN %2$s AS ea ON attribute_code = :field
+            LEFT JOIN %3$s AS eet ON entity_type_code = :code
+            WHERE
+              eet.entity_type_id = ea.entity_type_id AND 
+              e.entity_id = :entityid';
+
+        $query = sprintf(
+            $query,
+            $db->getTableName('catalog_product_entity_text'),
+            $db->getTableName('eav_attribute'),
+            $db->getTableName('eav_entity_type')
+        );
+        $stmt = $db->query($query, [
+            ':entityid' => $product->getEntityId(),
+            ':field' => $field,
+            ':code' => 'catalog_product'
+        ]);
+        if (!$stmt->execute()) {
+            return false;
+        }
+
+        $result = $stmt->fetchAll(\Zend_Db::FETCH_ASSOC);
+        if (empty($result)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param AdapterInterface $db
+     * @param \Magento\Catalog\Model\Product $product
+     * @param string $field
+     * @param string $value
+     * @throws \Zend_Db_Statement_Exception
      */
     protected function updateAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $field, $value)
     {
@@ -104,9 +159,83 @@ class ProductsObserver implements ObserverInterface
               eet.entity_type_id = ea.entity_type_id AND 
               e.entity_id = :entityid';
 
+        // Field type TEXT
+        $queryText = sprintf(
+            $query,
+            $db->getTableName('catalog_product_entity_text'),
+            $db->getTableName('eav_attribute'),
+            $db->getTableName('eav_entity_type')
+        );
+        $stmt = $db->query($queryText, [
+            ':entityid' => $product->getEntityId(),
+            ':field' => $field,
+            ':value' => $value,
+            ':code' => 'catalog_product'
+        ]);
+        $stmt->execute();
+
+        // Field type VARCHAR
+        $queryVarchar = sprintf(
+            $query,
+            $db->getTableName('catalog_product_entity_varchar'),
+            $db->getTableName('eav_attribute'),
+            $db->getTableName('eav_entity_type')
+        );
+        $stmt = $db->query($queryVarchar, [
+            ':entityid' => $product->getEntityId(),
+            ':field' => $field,
+            ':value' => $value,
+            ':code' => 'catalog_product'
+        ]);
+        $stmt->execute();
+    }
+
+    /**
+     * @param AdapterInterface $db
+     * @param \Magento\Catalog\Model\Product $product
+     * @param string $field
+     * @param string $value
+     * @throws \Zend_Db_Statement_Exception
+     */
+    protected function insertAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Product $product, $field, $value)
+    {
+        $query = 'INSERT IGNORE INTO
+                %1$s (`attribute_id`, `store_id`, `entity_id`, `value`)
+              (
+                SELECT DISTINCT 
+                    ea.attribute_id AS `attribute_id`, 
+                    0, 
+                    :entityid, 
+                    :value 
+                FROM 
+                    %2$s AS ea 
+                LEFT JOIN %3$s AS eet 
+                    ON entity_type_code = :code 
+                WHERE 
+                    eet.entity_type_id = ea.entity_type_id AND 
+                    attribute_code = :field 
+                LIMIT 1
+              )';
+
+        // Field type TEXT
         $query = sprintf(
             $query,
             $db->getTableName('catalog_product_entity_text'),
+            $db->getTableName('eav_attribute'),
+            $db->getTableName('eav_entity_type')
+        );
+        $stmt = $db->query($query, [
+            ':entityid' => $product->getEntityId(),
+            ':field' => $field,
+            ':value' => $value,
+            ':code' => 'catalog_product'
+        ]);
+        $stmt->execute();
+
+        // Field type VARCHAR
+        $query = sprintf(
+            $query,
+            $db->getTableName('catalog_product_entity_varchar'),
             $db->getTableName('eav_attribute'),
             $db->getTableName('eav_entity_type')
         );
