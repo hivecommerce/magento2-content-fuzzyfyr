@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<project name="magento2-content-fuzzyfyr" basedir="." default="sniff">
+
+    <target name="unit"
+            description="Runs application unit tests">
+        <exec executable="./vendor/bin/phpunit"
+              passthru="true"
+              checkreturn="true">
+            <arg path="--testsuite=unit" />
+            <arg path="--verbose" />
+            <arg value="--configuration" />
+            <arg value="phpunit.xml" />
+        </exec>
+    </target>
+
+    <target name="unit-with-coverage"
+            description="Runs application unit tests with code coverage">
+        <exec executable="./vendor/bin/phpunit"
+              passthru="true"
+              checkreturn="true">
+            <arg path="--testsuite=unit" />
+            <arg path="--verbose" />
+            <arg value="--configuration" />
+            <arg value="phpunit.xml" />
+            <arg value="--coverage-clover" />
+            <arg value="clover.xml"/>
+        </exec>
+    </target>
+
+    <target name="cs-fix">
+        <exec executable="./vendor/bin/phpcbf"
+              passthru="true"
+              checkreturn="false">
+            <arg path="${phing.dir}/src"/>
+            <arg path="${phing.dir}/tests"/>
+        </exec>
+    </target>
+
+    <target name="sniff">
+        <!-- enable eqp sniff standard -->
+        <exec executable="./vendor/bin/phpcs"
+              passthru="true"
+              checkreturn="true">
+            <arg value="--config-set"/>
+            <arg value="installed_paths"/>
+            <arg value="vendor/magento/marketplace-eqp"/>
+        </exec>
+
+        <exec executable="./vendor/bin/phpcs"
+              passthru="true"
+              checkreturn="true">
+            <arg value="--standard=MEQP2"/>
+            <arg value="--severity=10"/>
+            <arg value="--extensions=php,phtml"/>
+            <arg value="--ignore=**/*.js,build,var,vendor,validate_m2_package.php"/>
+            <arg path="${phing.dir}"/>
+        </exec>
+    </target>
+
+    <target name="lint">
+        <exec executable="php"
+              passthru="true"
+              checkreturn="true">
+            <arg value="-l"/>
+            <arg path="${phing.dir}"/>
+        </exec>
+    </target>
+</project>

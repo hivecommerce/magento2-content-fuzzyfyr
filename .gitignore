@@ -1,0 +1,12 @@
+/npm-debug.log
+/.vagrant/
+/.idea/
+/nbproject/
+/node_modules
+/vendor/
+/dist
+/.docker
+/build
+/tags
+/var
+composer.phar

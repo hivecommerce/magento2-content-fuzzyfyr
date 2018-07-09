@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of the Content Fuzzyfyr module for Magento2.
+ *
+ * (c) All.In Data GmbH
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <event name="aid_content_fuzzyfyr_event">
+        <observer name="aid_content_fuzzyfyr_products" instance="AllInData\ContentFuzzyfyr\Observer\ProductsObserver" />
+        <observer name="aid_content_fuzzyfyr_categories" instance="AllInData\ContentFuzzyfyr\Observer\CategoriesObserver" />
+        <observer name="aid_content_fuzzyfyr_customers" instance="AllInData\ContentFuzzyfyr\Observer\CustomersObserver" />
+        <observer name="aid_content_fuzzyfyr_users" instance="AllInData\ContentFuzzyfyr\Observer\UsersObserver" />
+    </event>
+
+</config>

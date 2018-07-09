@@ -1,0 +1,68 @@
+# Mage Inferno Docker Compose (https://github.com/mageinferno/magento2-docker-compose)
+# Version 7.0.0
+
+version: "3"
+
+services:
+  app:
+    image: mageinferno/magento2-nginx:1.11-1
+    links:
+      - db
+      - phpfpm
+    volumes: &appvolumes
+      - appdata:/var/www/html
+      - ./Console:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Console:cached
+      - ./Model:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Model:cached
+      - ./Observer:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Observer:cached
+      - ./Test:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Test:cached
+      - ./registration.php:/var/www/html/app/code/AllInData/ContentFuzzyfyr/registration.php
+      - ./var:/var/www/html/var
+    ports:
+      - 8000:80
+    networks: &appnetworks
+      - www
+    environment:
+      - APP_MAGE_MODE=developer
+
+  phpfpm:
+    image: mageinferno/magento2-php:7.1-fpm-0
+    links:
+      - db
+    volumes: *appvolumes
+    networks: *appnetworks
+    environment:
+      - PHP_MEMORY_LIMIT=4096M
+      - APP_MAGE_MODE=developer
+
+  unittest:
+    image: mageinferno/magento2-php:7.1-fpm-0
+    volumes:
+      - .:/var/www/html
+    environment:
+      - PHP_MEMORY_LIMIT=4096M
+      - APP_MAGE_MODE=developer
+
+  db:
+    image: percona:5.7
+    volumes:
+      - .docker/db:/var/lib/mysql:cached
+    ports:
+      - 8001:3306
+    networks: *appnetworks
+    env_file: env/mysql.env
+
+  setup:
+    image: mageinferno/magento2-php:7.0-fpm-1
+    command: /usr/local/bin/mage-setup
+    links:
+      - db
+    volumes: *appvolumes
+    networks: *appnetworks
+    env_file: env/setup.env
+
+volumes:
+  dbdata:
+  appdata:
+
+networks:
+  www:
