@@ -54,6 +54,12 @@ The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI 
 
     bin/magento aid:content:fuzzyfyr [options]
     
+**Note:** Be aware the command only runs in non-production mode to avoid messing up production data on mistake.
+
+You may want to switch to *default* or *developer* mode to run the command:
+   
+    bin/magento deploy:mode:set developer
+    
 ### List of flags
 
 Option | Description

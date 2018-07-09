@@ -373,7 +373,7 @@ docker run -v "${SRC}":/www -v ~/.composer:/root/.composer danieldent/php-7.0-co
 ##
 ## Prepare important files
 ##
-cp -pPR "${SRC}/Console" "${TMP}/Api"
+cp -pPR "${SRC}/Console" "${TMP}/Console"
 cp -pPR "${SRC}/docs" "${TMP}/docs"
 cp -pPR "${SRC}/etc" "${TMP}/etc"
 cp -pPR "${SRC}/Model" "${TMP}/Model"

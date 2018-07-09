@@ -135,6 +135,16 @@ class FuzzyfyrCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        // Check on environment
+        $output->writeln(sprintf('You are running in %s mode', $this->state->getMode()));
+        if (\Magento\Framework\App\State::MODE_PRODUCTION === $this->state->getMode()) {
+            // prevent from being executed in production mode
+            // this may mess up to much if it would run without any safety checks
+            $output->writeln('You really should not use this command in production mode.');
+            $output->writeln('If it is really what you want, switch to default or developer mode first.');
+            return false;
+        }
+
         // Set area code
         $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
 
