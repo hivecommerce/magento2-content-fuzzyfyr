@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42bcf1a82427f7eb37314d519770e51b",
+    "content-hash": "babf6a2a786441e9a32e203530226ab9",
     "packages": [
         {
             "name": "colinmollenhour/credis",
@@ -3585,16 +3585,16 @@
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "11c9c1835e60eef6f9234377a480fcec096ebd9e"
+                "reference": "63d920d1c9ebc009d860c3666593a66298727dd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/11c9c1835e60eef6f9234377a480fcec096ebd9e",
-                "reference": "11c9c1835e60eef6f9234377a480fcec096ebd9e",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/63d920d1c9ebc009d860c3666593a66298727dd6",
+                "reference": "63d920d1c9ebc009d860c3666593a66298727dd6",
                 "shasum": ""
             },
             "require": {
@@ -3644,7 +3644,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2018-06-27T18:52:43+00:00"
+            "time": "2018-07-09T21:17:27+00:00"
         },
         {
             "name": "zendframework/zend-escaper",
