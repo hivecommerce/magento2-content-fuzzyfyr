@@ -29,9 +29,11 @@ class FuzzyfyrCommand extends Command
      * Flags
      */
     const FLAG_ONLY_EMPTY = 'only-empty';
-    const FLAG_PRODUCTS = 'products';
     const FLAG_CATEGORIES = 'categories';
+    const FLAG_CMS_BLOCKS = 'cms-blocks';
+    const FLAG_CMS_PAGES = 'cms-pages';
     const FLAG_CUSTOMERS = 'customers';
+    const FLAG_PRODUCTS = 'products';
     const FLAG_USERS = 'users';
 
     /**
@@ -88,22 +90,34 @@ class FuzzyfyrCommand extends Command
                     'Use dummy content only if the original data is equal to empty'
                 ),
                 new InputOption(
-                    self::FLAG_PRODUCTS,
-                    null,
-                    InputOption::VALUE_NONE,
-                    'Apply dummy content to products (description)'
-                ),
-                new InputOption(
                     self::FLAG_CATEGORIES,
                     null,
                     InputOption::VALUE_NONE,
                     'Apply dummy content to categories (content, meta description)'
                 ),
                 new InputOption(
+                    self::FLAG_CMS_BLOCKS,
+                    null,
+                    InputOption::VALUE_NONE,
+                    'Apply dummy content to CMS Blocks (content)'
+                ),
+                new InputOption(
+                    self::FLAG_CMS_PAGES,
+                    null,
+                    InputOption::VALUE_NONE,
+                    'Apply dummy content to CMS Pages (content, meta description)'
+                ),
+                new InputOption(
                     self::FLAG_CUSTOMERS,
                     null,
                     InputOption::VALUE_NONE,
                     'Apply dummy content to customers (Last name, address, email)'
+                ),
+                new InputOption(
+                    self::FLAG_PRODUCTS,
+                    null,
+                    InputOption::VALUE_NONE,
+                    'Apply dummy content to products (description)'
                 ),
                 new InputOption(
                     self::FLAG_USERS,
@@ -155,9 +169,11 @@ class FuzzyfyrCommand extends Command
         $configuration = $this->configurationFactory->create();
         // --- Flags
         $configuration->setUseOnlyEmpty($input->getOption(self::FLAG_ONLY_EMPTY));
-        $configuration->setApplyToProducts($input->getOption(self::FLAG_PRODUCTS));
         $configuration->setApplyToCategories($input->getOption(self::FLAG_CATEGORIES));
+        $configuration->setApplyToCmsBlocks($input->getOption(self::FLAG_CMS_BLOCKS));
+        $configuration->setApplyToCmsPages($input->getOption(self::FLAG_CMS_PAGES));
         $configuration->setApplyToCustomers($input->getOption(self::FLAG_CUSTOMERS));
+        $configuration->setApplyToProducts($input->getOption(self::FLAG_PRODUCTS));
         $configuration->setApplyToUsers($input->getOption(self::FLAG_USERS));
         // --- Options
         $configuration->setDummyContentText($input->getOption(self::OPTION_DUMMY_CONTENT_TEXT));

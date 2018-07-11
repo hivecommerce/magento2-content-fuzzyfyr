@@ -65,9 +65,11 @@ You may want to switch to *default* or *developer* mode to run the command:
 Option | Description
 --- | ---
 --only-empty | Use dummy content only if the original data is equal to empty
---products | Apply dummy content to products (description)
 --categories | Apply dummy content to categories (content, meta description)
+--cms-blocks | Apply dummy content to CMS Blocks (content)
+--cms-pages | Apply dummy content to CMS Pages (content, meta description)
 --customers | Apply dummy content to customers (Last name, address, email)
+--products | Apply dummy content to products (description)
 --users | Apply dummy content to users (Last name, email)
 
 ### List of options

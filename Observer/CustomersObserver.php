@@ -11,6 +11,7 @@
 namespace AllInData\ContentFuzzyfyr\Observer;
 
 use AllInData\ContentFuzzyfyr\Model\Configuration;
+use Magento\Customer\Api\Data\AddressInterface;
 use Magento\Customer\Model\ResourceModel\Customer\Collection as CustomerCollection;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use Magento\Customer\Api\CustomerRepositoryInterface;
@@ -79,6 +80,14 @@ class CustomersObserver implements ObserverInterface
         );
 
         $customer->setLastName($configuration->getDummyContentText());
+
+        $addresses = $customer->getAddressesCollection();
+        foreach ($addresses as $address) {
+            /** @var AddressInterface $address */
+            $address->setStreet([$configuration->getDummyContentText()]);
+            $address->setCity($configuration->getDummyContentText());
+        }
+        $customer->setAddresses($address);
 
         return $customer;
     }

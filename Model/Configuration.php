@@ -23,15 +23,23 @@ class Configuration
     /**
      * @var bool
      */
-    private $applyToProducts;
-    /**
-     * @var bool
-     */
     private $applyToCategories;
     /**
      * @var bool
      */
+    private $applyToCmsBlocks;
+    /**
+     * @var bool
+     */
+    private $applyToCmsPages;
+    /**
+     * @var bool
+     */
     private $applyToCustomers;
+    /**
+     * @var bool
+     */
+    private $applyToProducts;
     /**
      * @var bool
      */
@@ -66,24 +74,6 @@ class Configuration
     /**
      * @return bool
      */
-    public function isApplyToProducts()
-    {
-        return $this->applyToProducts;
-    }
-
-    /**
-     * @param bool $applyToProducts
-     * @return Configuration
-     */
-    public function setApplyToProducts($applyToProducts)
-    {
-        $this->applyToProducts = $applyToProducts;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
     public function isApplyToCategories()
     {
         return $this->applyToCategories;
@@ -102,6 +92,42 @@ class Configuration
     /**
      * @return bool
      */
+    public function isApplyToCmsBlocks()
+    {
+        return $this->applyToCmsBlocks;
+    }
+
+    /**
+     * @param bool $applyToCmsBlocks
+     * @return Configuration
+     */
+    public function setApplyToCmsBlocks($applyToCmsBlocks)
+    {
+        $this->applyToCmsBlocks = $applyToCmsBlocks;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isApplyToCmsPages()
+    {
+        return $this->applyToCmsPages;
+    }
+
+    /**
+     * @param bool $applyToCmsPages
+     * @return Configuration
+     */
+    public function setApplyToCmsPages($applyToCmsPages)
+    {
+        $this->applyToCmsPages = $applyToCmsPages;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
     public function isApplyToCustomers()
     {
         return $this->applyToCustomers;
@@ -114,6 +140,24 @@ class Configuration
     public function setApplyToCustomers($applyToCustomers)
     {
         $this->applyToCustomers = $applyToCustomers;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isApplyToProducts()
+    {
+        return $this->applyToProducts;
+    }
+
+    /**
+     * @param bool $applyToProducts
+     * @return Configuration
+     */
+    public function setApplyToProducts($applyToProducts)
+    {
+        $this->applyToProducts = $applyToProducts;
         return $this;
     }
 
