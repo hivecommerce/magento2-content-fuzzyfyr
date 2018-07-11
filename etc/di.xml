@@ -15,7 +15,7 @@
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="aid_content_fuzzyfyr" xsi:type="object">AllInData\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand</item>
+                <item name="AllInDataContentFuzzyfyrCommand" xsi:type="object">AllInData\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand</item>
             </argument>
         </arguments>
     </type>
