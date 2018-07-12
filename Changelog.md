@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file, in reverse 
 - Added fuzzyfyr for CMS Pages
 - Added fuzzyfyr for CMS Blocks
 - Extended fuzzyfyr for Customers with address fuzzing
+- Changed implementation of fuzzyfyr for Products and Categories to match with EQP of *Magento® 2*
 
 ## 1.0.1
 

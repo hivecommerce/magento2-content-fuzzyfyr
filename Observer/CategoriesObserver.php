@@ -13,41 +13,31 @@ namespace AllInData\ContentFuzzyfyr\Observer;
 use AllInData\ContentFuzzyfyr\Model\Configuration;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
-use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Catalog\Model\ResourceModel\Category as CategoryResource;
+use Magento\Catalog\Model\ResourceModel\CategoryFactory as CategoryResourceFactory;
 use Magento\Framework\Event\ObserverInterface;
-use Magento\Framework\Setup\ModuleDataSetupInterface;
 
 class CategoriesObserver implements ObserverInterface
 {
-    /*
-     * Flags
-     */
-    const ENTITY_TYPE_CODE = 'catalog_category';
-    const ENTITY_FIELD_TYPE_TEXT = 'text';
-    const ENTITY_FIELD_TYPE_VARCHAR = 'varchar';
-
     /**
      * @var CategoryCollectionFactory
      */
     protected $categoryCollectionFactory;
     /**
-     * @var ModuleDataSetupInterface
+     * @var CategoryResourceFactory
      */
-    protected $setup;
+    protected $categoryResourceFactory;
 
     /**
-     * CategoriesObserver constructor.
+     * CategorysObserver constructor.
      * @param CategoryCollectionFactory $categoryCollectionFactory
-     * @param ModuleDataSetupInterface $setup
+     * @param CategoryResourceFactory $categoryResourceFactory
      */
-    public function __construct(
-        CategoryCollectionFactory $categoryCollectionFactory,
-        ModuleDataSetupInterface $setup
-    ) {
+    public function __construct(CategoryCollectionFactory $categoryCollectionFactory, CategoryResourceFactory $categoryResourceFactory)
+    {
         $this->categoryCollectionFactory = $categoryCollectionFactory;
-        $this->setup = $setup;
+        $this->categoryResourceFactory = $categoryResourceFactory;
     }
-
 
     /**
      * {@inheritdoc}
@@ -61,193 +51,43 @@ class CategoriesObserver implements ObserverInterface
             return;
         }
 
-        $db = $this->setup->getConnection()->startSetup();
+        /** @var CategoryResource $categoryResource */
+        $categoryResource = $this->categoryResourceFactory->create();
+
         /** @var CategoryCollection $categoryCollection */
         $categoryCollection = $this->categoryCollectionFactory->create();
         $categoryCollection->load();
         foreach ($categoryCollection->getItems() as $category) {
             /** @var \Magento\Catalog\Model\Category $category */
-            $this->updateData($db, $configuration, $category);
+            $this->updateData($configuration, $category);
+            $categoryResource->save($category);
         }
-        $db->endSetup();
     }
 
     /**
-     * @param AdapterInterface $db
      * @param Configuration $configuration
      * @param \Magento\Catalog\Model\Category $category
      * @return \Magento\Catalog\Model\Category
-     * @throws \Zend_Db_Statement_Exception
      */
-    protected function updateData(AdapterInterface $db, Configuration $configuration, \Magento\Catalog\Model\Category $category)
+    protected function updateData(Configuration $configuration, \Magento\Catalog\Model\Category $category)
     {
-        $this->pushData($db, $configuration, $category, 'description', $configuration->getDummyContentText());
-        $this->pushData($db, $configuration, $category, 'meta_title', $configuration->getDummyContentText());
-        $this->pushData($db, $configuration, $category, 'meta_keywords', $configuration->getDummyContentText());
-        $this->pushData($db, $configuration, $category, 'meta_description', $configuration->getDummyContentText());
+        if (!$configuration->isUseOnlyEmpty() ||
+            ($configuration->isUseOnlyEmpty() && empty($category->getDescription()))) {
+            $category->setDescription($configuration->getDummyContentText());
+        }
+        if (!$configuration->isUseOnlyEmpty() ||
+            ($configuration->isUseOnlyEmpty() && empty($category->getMetaTitle()))) {
+            $category->setMetaTitle($configuration->getDummyContentText());
+        }
+        if (!$configuration->isUseOnlyEmpty() ||
+            ($configuration->isUseOnlyEmpty() && empty($category->getMetaKeywords()))) {
+            $category->setMetaKeywords($configuration->getDummyContentText());
+        }
+        if (!$configuration->isUseOnlyEmpty() ||
+            ($configuration->isUseOnlyEmpty() && empty($category->getMetaDescription()))) {
+            $category->setMetaDescription($configuration->getDummyContentText());
+        }
 
         return $category;
-    }
-
-    /**
-     * @param AdapterInterface $db
-     * @param Configuration $configuration
-     * @param \Magento\Catalog\Model\Category $category
-     * @param string $field
-     * @param string $value
-     * @throws \Zend_Db_Statement_Exception
-     */
-    protected function pushData(AdapterInterface $db, Configuration $configuration, \Magento\Catalog\Model\Category $category, $field, $value)
-    {
-        // --- Field type TEXT
-        if ($this->hasAttribute($db, $category, self::ENTITY_FIELD_TYPE_TEXT, $field)) {
-            $this->updateAttributeByQuery($db, $category, self::ENTITY_FIELD_TYPE_TEXT, $field, $value, $configuration->isUseOnlyEmpty());
-        } else {
-            $this->insertAttributeByQuery($db, $category, self::ENTITY_FIELD_TYPE_TEXT, $field, $value);
-        }
-
-        // --- Field type VARCHAR
-        if ($this->hasAttribute($db, $category, self::ENTITY_FIELD_TYPE_VARCHAR, $field)) {
-            $this->updateAttributeByQuery($db, $category, self::ENTITY_FIELD_TYPE_VARCHAR, $field, $value, $configuration->isUseOnlyEmpty());
-        } else {
-            $this->insertAttributeByQuery($db, $category, self::ENTITY_FIELD_TYPE_VARCHAR, $field, $value);
-        }
-    }
-
-    /**
-     * @param AdapterInterface $db
-     * @param \Magento\Catalog\Model\Category $category
-     * @param string $fieldType
-     * @param string $field
-     * @return bool
-     * @throws \Zend_Db_Statement_Exception
-     */
-    protected function hasAttribute(AdapterInterface $db, \Magento\Catalog\Model\Category $category, $fieldType, $field)
-    {
-        $query = 'SELECT e.value
-            FROM
-                %1$s AS e
-            WHERE
-              e.attribute_id = :attributeid AND
-              e.store_id = :storeid AND
-              e.entity_id = :entityid';
-
-        $query = sprintf(
-            $query,
-            $db->getTableName('catalog_category_entity_' . $fieldType)
-        );
-        $stmt = $db->query($query, [
-            ':entityid' => $category->getEntityId(),
-            ':attributeid' => $this->getAttributeId($db, $field),
-            ':storeid' => 0
-        ]);
-
-        if (!$stmt->execute()) {
-            return false;
-        }
-
-        return !!$stmt->rowCount();
-    }
-
-    /**
-     * @param AdapterInterface $db
-     * @param string $field
-     * @return string|bool FALSE if query fails
-     * @throws \Zend_Db_Statement_Exception
-     */
-    protected function getAttributeId(AdapterInterface $db, $field)
-    {
-        $query = 'SELECT ea.attribute_id
-            FROM
-                %1$s AS ea
-            LEFT JOIN %2$s AS eet ON entity_type_code = :code
-            WHERE
-              eet.entity_type_id = ea.entity_type_id AND 
-              ea.attribute_code = :field';
-
-        $query = sprintf(
-            $query,
-            $db->getTableName('eav_attribute'),
-            $db->getTableName('eav_entity_type')
-        );
-        $stmt = $db->query($query, [
-            ':field' => $field,
-            ':code' => self::ENTITY_TYPE_CODE
-        ]);
-
-        if (!$stmt->execute()) {
-            return false;
-        }
-
-        $result = $stmt->fetch(\Zend_Db::FETCH_ASSOC);
-        if (empty($result)) {
-            return false;
-        }
-
-        return $result['attribute_id'] ?: false;
-    }
-
-    /**
-     * @param AdapterInterface $db
-     * @param \Magento\Catalog\Model\Category $category
-     * @param string $fieldType
-     * @param string $field
-     * @param string $value
-     * @param boolean $useOnlyEmpty
-     * @throws \Zend_Db_Statement_Exception
-     */
-    protected function updateAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Category $category, $fieldType, $field, $value, $useOnlyEmpty)
-    {
-        $query = 'UPDATE
-                %1$s AS e
-            SET
-                e.value = :value
-            WHERE
-              e.attribute_id = :attributeid AND
-              e.store_id = :storeid AND
-              e.entity_id = :entityid';
-
-        if ($useOnlyEmpty) {
-            $query .= ' AND (e.value = "" OR e.value IS NULL)';
-        }
-
-        $queryText = sprintf(
-            $query,
-            $db->getTableName('catalog_category_entity_' . $fieldType)
-        );
-        $stmt = $db->query($queryText, [
-            ':entityid' => $category->getEntityId(),
-            ':attributeid' => $this->getAttributeId($db, $field),
-            ':storeid' => 0,
-            ':value' => $value
-        ]);
-        $stmt->execute();
-    }
-
-    /**
-     * @param AdapterInterface $db
-     * @param \Magento\Catalog\Model\Category $category
-     * @param string $fieldType
-     * @param string $field
-     * @param string $value
-     * @throws \Zend_Db_Statement_Exception
-     */
-    protected function insertAttributeByQuery(AdapterInterface $db, \Magento\Catalog\Model\Category $category, $fieldType, $field, $value)
-    {
-        $query = 'INSERT IGNORE INTO
-                %1$s (`attribute_id`, `store_id`, `entity_id`, `value`)
-            VALUES (:attributeid, :storeid, :entityid, :value)';
-
-        $queryText = sprintf(
-            $query,
-            $db->getTableName('catalog_category_entity_' . $fieldType)
-        );
-        $stmt = $db->query($queryText, [
-            ':entityid' => $category->getEntityId(),
-            ':attributeid' => $this->getAttributeId($db, $field),
-            ':storeid' => 0,
-            ':value' => $value
-        ]);
-        $stmt->execute();
     }
 }
