@@ -74,7 +74,8 @@ class ProductsObserver implements ObserverInterface
         if (!$configuration->isUseOnlyEmpty() ||
             ($configuration->isUseOnlyEmpty() && empty($product->getDescription()))) {
             $product->setDescription($configuration->getDummyContentText());
-        }if (!$configuration->isUseOnlyEmpty() ||
+        }
+        if (!$configuration->isUseOnlyEmpty() ||
             ($configuration->isUseOnlyEmpty() && empty($product->getShortDescription()))) {
             $product->setShortDescription($configuration->getDummyContentText());
         }

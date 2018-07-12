@@ -17,7 +17,6 @@ services:
       - ./Observer:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Observer:cached
       - ./Test:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Test:cached
       - ./registration.php:/var/www/html/app/code/AllInData/ContentFuzzyfyr/registration.php
-      - ./var:/var/www/html/var
     ports:
       - 8000:80
     networks: &appnetworks

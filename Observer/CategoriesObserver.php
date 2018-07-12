@@ -51,6 +51,9 @@ class CategoriesObserver implements ObserverInterface
             return;
         }
 
+        // @TODO clear table url_rewrite for entity_type category
+        // @TODO mark indexer to invalidate index
+
         /** @var CategoryResource $categoryResource */
         $categoryResource = $this->categoryResourceFactory->create();
 

@@ -345,6 +345,7 @@ fi
 
 CURDIR=$(pwd)
 SRC=${arg_s:-"${CURDIR}"}
+EQP=${arg_t:-"${CURDIR}/build/eqp"}
 TMP=${arg_t:-"${CURDIR}/build/tmp"}
 DEST=${arg_d:-"${CURDIR}/build/store"}
 OUTPUT="${DEST}/allindata_contentfuzzyfyr.zip"
@@ -358,6 +359,10 @@ fi
 if [ ! -d "${TMP}" ]; then
     mkdir -p "${TMP}"
 fi
+if [ ! -d "${EQP}" ]; then
+    mkdir -p "${EQP}"
+    composer create-project --repository=https://repo.magento.com magento/marketplace-eqp "${EQP}"
+fi
 rm -rf "${TMP}"/*
 if [ ! -d "${DEST}" ]; then
     mkdir -p "${DEST}"
@@ -368,7 +373,7 @@ rm -rf "${DEST}"/*
 ## Update dependencies
 ## Based upon  PHP 7.0
 ##
-docker run -v "${SRC}":/www -v ~/.composer:/root/.composer danieldent/php-7.0-composer:latest bash -c 'apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev libxslt-dev && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && docker-php-ext-install gd mcrypt xsl && cd /www && composer update'
+docker run -v "${SRC}":/www -v ~/.composer:/root/.composer --rm danieldent/php-7.1-composer:latest bash -c 'apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev libxslt-dev && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && docker-php-ext-install gd mcrypt xsl && cd /www && composer update'
 
 ##
 ## Prepare important files
@@ -387,6 +392,11 @@ cp -pP "${SRC}/LICENSE" "${TMP}/LICENSE"
 cp -pP "${SRC}/phpunit.xml" "${TMP}/phpunit.xml"
 cp -pP "${SRC}/README.md" "${TMP}/README.md"
 cp -pP "${SRC}/registration.php" "${TMP}/registration.php"
+
+##
+## Validation for M2EQB
+##
+docker run -v "${TMP}":/www -v "${EQP}":/m2eqb -v ~/.composer:/root/.composer --rm danieldent/php-7.1-composer:latest bash -c 'cd /m2eqb && vendor/bin/phpcs /www --standard=MEQP2 --severity=10 --extensions=php,phtml'
 
 ##
 ## Build package
