@@ -68,7 +68,7 @@ abstract class FuzzyfyrObserver implements FuzzyfyrObserverInterface
     ) {
         if (!$configuration->isUseOnlyEmpty() ||
             ($configuration->isUseOnlyEmpty() && empty($entity->getData($fieldName)))) {
-            $entity->setData($fieldName, $configuration->getDummyContentText());
+            $entity->setData($fieldName, $value);
         }
     }
 }
