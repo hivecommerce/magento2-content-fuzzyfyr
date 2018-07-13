@@ -353,6 +353,7 @@ OUTPUT="${DEST}/allindata_contentfuzzyfyr.zip"
 ##
 ## Cleanup
 ##
+info "CLEANUP"
 if [ -e "${OUTPUT}" ]; then
     rm "${OUTPUT}"
 fi
@@ -373,11 +374,14 @@ rm -rf "${DEST}"/*
 ## Update dependencies
 ## Based upon  PHP 7.0
 ##
+info "UPDATING DEPENDENCIES"
 docker run -v "${SRC}":/www -v ~/.composer:/root/.composer --rm danieldent/php-7.1-composer:latest bash -c 'apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev libxslt-dev && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && docker-php-ext-install gd mcrypt xsl && cd /www && composer update'
 
 ##
 ## Prepare important files
 ##
+info "Prepare important files"
+cp -pPR "${SRC}/Api" "${TMP}/Api"
 cp -pPR "${SRC}/Console" "${TMP}/Console"
 cp -pPR "${SRC}/docs" "${TMP}/docs"
 cp -pPR "${SRC}/etc" "${TMP}/etc"
@@ -396,11 +400,13 @@ cp -pP "${SRC}/registration.php" "${TMP}/registration.php"
 ##
 ## Validation for M2EQB
 ##
+info "Validation for M2EQB"
 docker run -v "${TMP}":/www -v "${EQP}":/m2eqb -v ~/.composer:/root/.composer --rm danieldent/php-7.1-composer:latest bash -c 'cd /m2eqb && vendor/bin/phpcs /www --standard=MEQP2 --severity=10 --extensions=php,phtml'
 
 ##
 ## Build package
 ##
+info "Build package"
 cd "${TMP}"
 zip -r "${OUTPUT}" .
 
@@ -412,5 +418,6 @@ fi
 ##
 ## Validate package
 ##
+info "Validate package"
 cd "${CURDIR}"
 php -f validate_m2_package.php "${OUTPUT}"
