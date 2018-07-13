@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file, in reverse 
 - Added default value for URLs
 - Added possibility to extend data on configuration model
 - Refactored fuzzyfyr structure
+- Simplified extension of configuration model
 - Added fuzzyfyr for CMS Pages
 - Added fuzzyfyr for CMS Blocks
 - Extended fuzzyfyr for Customers with address fuzzing

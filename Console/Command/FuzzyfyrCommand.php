@@ -181,10 +181,28 @@ class FuzzyfyrCommand extends Command
         $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
 
         /*
-         * Input
+         * Configuration
          */
-        /** @var Configuration $configuration */
-        $configuration = $this->configurationFactory->create();
+        $configuration = $this->loadConfiguration(
+            $this->configurationFactory->create(),
+            $input
+        );
+
+        /*
+         * Processing
+         */
+        $this->eventManager->dispatch('aid_content_fuzzyfyr_event', ['configuration' => $configuration]);
+
+        $output->writeln('Finished content fuzzyfy');
+    }
+
+    /**
+     * @param Configuration $configuration
+     * @param InputInterface $input
+     * @return Configuration
+     */
+    protected function loadConfiguration(Configuration $configuration, InputInterface $input)
+    {
         // --- Flags
         $configuration->setUseOnlyEmpty($input->getOption(self::FLAG_ONLY_EMPTY));
         $configuration->setApplyToCategories($input->getOption(self::FLAG_CATEGORIES));
@@ -193,17 +211,13 @@ class FuzzyfyrCommand extends Command
         $configuration->setApplyToCustomers($input->getOption(self::FLAG_CUSTOMERS));
         $configuration->setApplyToProducts($input->getOption(self::FLAG_PRODUCTS));
         $configuration->setApplyToUsers($input->getOption(self::FLAG_USERS));
+
         // --- Options
         $configuration->setDummyContentText($input->getOption(self::OPTION_DUMMY_CONTENT_TEXT));
         $configuration->setDummyContentEmail($input->getOption(self::OPTION_DUMMY_CONTENT_EMAIL));
         $configuration->setDummyContentUrl($input->getOption(self::OPTION_DUMMY_CONTENT_URL));
         $configuration->setDummyPhoneNumber($input->getOption(self::OPTION_DUMMY_CONTENT_PHONE));
 
-        /*
-         * Processing
-         */
-        $this->eventManager->dispatch('aid_content_fuzzyfyr_event', ['configuration' => $configuration]);
-
-        $output->writeln('Finished content fuzzyfy');
+        return $configuration;
     }
 }
