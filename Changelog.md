@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.2.0
+
+- Added unit test
+- Fixed validation check on products fuzzyfyr
+- Added missing folder to development environment and build script
+
 ## 1.1.0
 
 - Added default value for URLs
