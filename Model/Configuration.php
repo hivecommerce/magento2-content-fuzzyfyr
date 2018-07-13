@@ -52,6 +52,18 @@ class Configuration
      * @var string
      */
     private $dummyContentEmail;
+    /**
+     * @var string
+     */
+    private $dummyContentUrl;
+    /**
+     * @var string
+     */
+    private $dummyPhoneNumber;
+    /**
+     * @var array
+     */
+    private $extendedData;
 
     /**
      * @return bool
@@ -212,6 +224,60 @@ class Configuration
     public function setDummyContentEmail($dummyContentEmail)
     {
         $this->dummyContentEmail = $dummyContentEmail;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDummyContentUrl()
+    {
+        return $this->dummyContentUrl;
+    }
+
+    /**
+     * @param string $dummyContentUrl
+     * @return Configuration
+     */
+    public function setDummyContentUrl($dummyContentUrl)
+    {
+        $this->dummyContentUrl = $dummyContentUrl;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDummyPhoneNumber()
+    {
+        return $this->dummyPhoneNumber;
+    }
+
+    /**
+     * @param string $dummyPhoneNumber
+     * @return Configuration
+     */
+    public function setDummyPhoneNumber($dummyPhoneNumber)
+    {
+        $this->dummyPhoneNumber = $dummyPhoneNumber;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExtendedData()
+    {
+        return $this->extendedData;
+    }
+
+    /**
+     * @param array $extendedData
+     * @return Configuration
+     */
+    public function setExtendedData($extendedData)
+    {
+        $this->extendedData = $extendedData;
         return $this;
     }
 }

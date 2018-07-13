@@ -15,9 +15,8 @@ use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollectio
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Category as CategoryResource;
 use Magento\Catalog\Model\ResourceModel\CategoryFactory as CategoryResourceFactory;
-use Magento\Framework\Event\ObserverInterface;
 
-class CategoriesObserver implements ObserverInterface
+class CategoriesObserver extends FuzzyfyrObserver
 {
     /**
      * @var CategoryCollectionFactory
@@ -42,18 +41,18 @@ class CategoriesObserver implements ObserverInterface
     /**
      * {@inheritdoc}
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function isValid(Configuration $configuration)
     {
-        /** @var Configuration $configuration */
-        $configuration = $observer->getData('configuration');
+        return $configuration->isApplyToCategories();
+    }
 
-        if (!$configuration->isApplyToCategories()) {
-            return;
-        }
-
-        // @TODO clear table url_rewrite for entity_type category
-        // @TODO mark indexer to invalidate index
-
+    /**
+     * {@inheritdoc}
+     * @TODO clear table url_rewrite for entity_type category
+     * @TODO mark indexer to invalidate index
+     */
+    protected function run(Configuration $configuration)
+    {
         /** @var CategoryResource $categoryResource */
         $categoryResource = $this->categoryResourceFactory->create();
 
@@ -62,7 +61,7 @@ class CategoriesObserver implements ObserverInterface
         $categoryCollection->load();
         foreach ($categoryCollection->getItems() as $category) {
             /** @var \Magento\Catalog\Model\Category $category */
-            $this->updateData($configuration, $category);
+            $this->doUpdate($configuration, $category);
             $categoryResource->save($category);
         }
     }
@@ -70,27 +69,12 @@ class CategoriesObserver implements ObserverInterface
     /**
      * @param Configuration $configuration
      * @param \Magento\Catalog\Model\Category $category
-     * @return \Magento\Catalog\Model\Category
      */
-    protected function updateData(Configuration $configuration, \Magento\Catalog\Model\Category $category)
+    protected function doUpdate(Configuration $configuration, \Magento\Catalog\Model\Category $category)
     {
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($category->getDescription()))) {
-            $category->setDescription($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($category->getMetaTitle()))) {
-            $category->setMetaTitle($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($category->getMetaKeywords()))) {
-            $category->setMetaKeywords($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($category->getMetaDescription()))) {
-            $category->setMetaDescription($configuration->getDummyContentText());
-        }
-
-        return $category;
+        $this->updateData($category, 'description', $configuration, $configuration->getDummyContentText());
+        $this->updateData($category, 'meta_title', $configuration, $configuration->getDummyContentText());
+        $this->updateData($category, 'meta_keywords', $configuration, $configuration->getDummyContentText());
+        $this->updateData($category, 'meta_description', $configuration, $configuration->getDummyContentText());
     }
 }

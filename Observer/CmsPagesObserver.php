@@ -15,9 +15,8 @@ use Magento\Cms\Model\ResourceModel\Page\Collection as PageCollection;
 use Magento\Cms\Model\ResourceModel\Page\CollectionFactory as PageCollectionFactory;
 use Magento\Cms\Model\ResourceModel\Page as PageResource;
 use Magento\Cms\Model\ResourceModel\PageFactory as PageResourceFactory;
-use Magento\Framework\Event\ObserverInterface;
 
-class CmsPagesObserver implements ObserverInterface
+class CmsPagesObserver extends FuzzyfyrObserver
 {
     /**
      * @var PageCollectionFactory
@@ -42,15 +41,16 @@ class CmsPagesObserver implements ObserverInterface
     /**
      * {@inheritdoc}
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function isValid(Configuration $configuration)
     {
-        /** @var Configuration $configuration */
-        $configuration = $observer->getData('configuration');
+        return $configuration->isApplyToCmsPages();
+    }
 
-        if (!$configuration->isApplyToCmsPages()) {
-            return;
-        }
-
+    /**
+     * {@inheritdoc}
+     */
+    protected function run(Configuration $configuration)
+    {
         /** @var PageResource $pageResource */
         $pageResource = $this->pageResourceFactory->create();
 
@@ -59,7 +59,7 @@ class CmsPagesObserver implements ObserverInterface
         $pageCollection->load();
         foreach ($pageCollection->getItems() as $page) {
             /** @var \Magento\Cms\Model\Page $page */
-            $this->updateData($configuration, $page);
+            $this->doUpdate($configuration, $page);
             $pageResource->save($page);
         }
     }
@@ -67,31 +67,13 @@ class CmsPagesObserver implements ObserverInterface
     /**
      * @param Configuration $configuration
      * @param \Magento\Cms\Model\Page $page
-     * @return \Magento\Cms\Model\Page
      */
-    protected function updateData(Configuration $configuration, \Magento\Cms\Model\Page $page)
+    protected function doUpdate(Configuration $configuration, \Magento\Cms\Model\Page $page)
     {
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($page->getContent()))) {
-            $page->setContent($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($page->getContentHeading()))) {
-            $page->setContentHeading($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($page->getMetaTitle()))) {
-            $page->setMetaTitle($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($page->getMetaKeywords()))) {
-            $page->setMetaKeywords($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($page->getMetaDescription()))) {
-            $page->setMetaDescription($configuration->getDummyContentText());
-        }
-
-        return $page;
+        $this->updateData($page, 'content', $configuration, $configuration->getDummyContentText());
+        $this->updateData($page, 'content_heading', $configuration, $configuration->getDummyContentText());
+        $this->updateData($page, 'meta_title', $configuration, $configuration->getDummyContentText());
+        $this->updateData($page, 'meta_keywords', $configuration, $configuration->getDummyContentText());
+        $this->updateData($page, 'meta_description', $configuration, $configuration->getDummyContentText());
     }
 }

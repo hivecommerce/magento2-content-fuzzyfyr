@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ## 1.1.0
 
+- Added default value for URLs
+- Added possibility to extend data on configuration model
+- Refactored fuzzyfyr structure
 - Added fuzzyfyr for CMS Pages
 - Added fuzzyfyr for CMS Blocks
 - Extended fuzzyfyr for Customers with address fuzzing

@@ -41,12 +41,16 @@ class FuzzyfyrCommand extends Command
      */
     const OPTION_DUMMY_CONTENT_TEXT = 'dummy-content-text';
     const OPTION_DUMMY_CONTENT_EMAIL = 'dummy-content-email';
+    const OPTION_DUMMY_CONTENT_URL = 'dummy-content-url';
+    const OPTION_DUMMY_CONTENT_PHONE = 'dummy-content-phone';
 
     /**
      * Defaults
      */
     const DEFAULT_DUMMY_CONTENT_TEXT = 'Lorem ipsum.';
     const DEFAULT_DUMMY_CONTENT_EMAIL = 'lorem.ipsum.%1$s@test.localhost';
+    const DEFAULT_DUMMY_CONTENT_URL = 'https://lor.emips.um/foo/bar/';
+    const DEFAULT_DUMMY_CONTENT_PHONE = '+49 (0) 600 987 654 32';
 
     /**
      * @var State
@@ -129,15 +133,29 @@ class FuzzyfyrCommand extends Command
                     self::OPTION_DUMMY_CONTENT_TEXT,
                     null,
                     InputOption::VALUE_OPTIONAL,
-                    'Used as dummy text content. Defaults to \'Lorem ipsum.\'',
+                    sprintf('Used as dummy text content. Defaults to \'%s\'', self::DEFAULT_DUMMY_CONTENT_TEXT),
                     self::DEFAULT_DUMMY_CONTENT_TEXT
                 ),
                 new InputOption(
                     self::OPTION_DUMMY_CONTENT_EMAIL,
                     null,
                     InputOption::VALUE_OPTIONAL,
-                    'Used as dummy email content. Defaults to \'lorem.ipsum.%1$s@test.localhost\'',
+                    sprintf('Used as dummy email content. Defaults to \'%s\'', self::DEFAULT_DUMMY_CONTENT_EMAIL),
                     self::DEFAULT_DUMMY_CONTENT_EMAIL
+                ),
+                new InputOption(
+                    self::OPTION_DUMMY_CONTENT_URL,
+                    null,
+                    InputOption::VALUE_OPTIONAL,
+                    sprintf('Used as dummy URL. Defaults to \'%s\'', self::DEFAULT_DUMMY_CONTENT_URL),
+                    self::DEFAULT_DUMMY_CONTENT_URL
+                ),
+                new InputOption(
+                    self::OPTION_DUMMY_CONTENT_PHONE,
+                    null,
+                    InputOption::VALUE_OPTIONAL,
+                    sprintf('Used as dummy phone number. Defaults to \'%s\'', self::DEFAULT_DUMMY_CONTENT_PHONE),
+                    self::DEFAULT_DUMMY_CONTENT_PHONE
                 )
             ]);
 
@@ -178,6 +196,8 @@ class FuzzyfyrCommand extends Command
         // --- Options
         $configuration->setDummyContentText($input->getOption(self::OPTION_DUMMY_CONTENT_TEXT));
         $configuration->setDummyContentEmail($input->getOption(self::OPTION_DUMMY_CONTENT_EMAIL));
+        $configuration->setDummyContentUrl($input->getOption(self::OPTION_DUMMY_CONTENT_URL));
+        $configuration->setDummyPhoneNumber($input->getOption(self::OPTION_DUMMY_CONTENT_PHONE));
 
         /*
          * Processing

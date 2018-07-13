@@ -15,9 +15,8 @@ use Magento\Customer\Api\Data\AddressInterface;
 use Magento\Customer\Model\ResourceModel\Customer\Collection as CustomerCollection;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use Magento\Customer\Api\CustomerRepositoryInterface;
-use Magento\Framework\Event\ObserverInterface;
 
-class CustomersObserver implements ObserverInterface
+class CustomersObserver extends FuzzyfyrObserver
 {
     /**
      * @var CustomerCollectionFactory
@@ -41,26 +40,27 @@ class CustomersObserver implements ObserverInterface
         $this->customerRepository = $customerRepository;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function isValid(Configuration $configuration)
+    {
+        return $configuration->isApplyToCustomers();
+    }
+
 
     /**
      * {@inheritdoc}
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    protected function run(Configuration $configuration)
     {
-        /** @var Configuration $configuration */
-        $configuration = $observer->getData('configuration');
-
-        if (!$configuration->isApplyToCustomers()) {
-            return;
-        }
-
         /** @var CustomerCollection $customerCollection */
         $customerCollection = $this->customerCollectionFactory->create();
         $customerCollection->load();
         foreach ($customerCollection->getItems() as $customer) {
             /** @var \Magento\Customer\Model\Customer $customer */
             $customerData = $this->customerRepository->getById($customer->getId());
-            $this->updateData($configuration, $customerData);
+            $this->doUpdate($configuration, $customerData);
             $this->customerRepository->save($customerData);
         }
     }
@@ -70,7 +70,7 @@ class CustomersObserver implements ObserverInterface
      * @param \Magento\Customer\Model\Customer $customer
      * @return \Magento\Customer\Model\Customer
      */
-    protected function updateData(Configuration $configuration, \Magento\Customer\Api\Data\CustomerInterface $customer)
+    protected function doUpdate(Configuration $configuration, \Magento\Customer\Api\Data\CustomerInterface $customer)
     {
         $customer->setEmail(
             sprintf(

@@ -15,9 +15,8 @@ use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Product as ProductResource;
 use Magento\Catalog\Model\ResourceModel\ProductFactory as ProductResourceFactory;
-use Magento\Framework\Event\ObserverInterface;
 
-class ProductsObserver implements ObserverInterface
+class ProductsObserver extends FuzzyfyrObserver
 {
     /**
      * @var ProductCollectionFactory
@@ -42,15 +41,16 @@ class ProductsObserver implements ObserverInterface
     /**
      * {@inheritdoc}
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function isValid(Configuration $configuration)
     {
-        /** @var Configuration $configuration */
-        $configuration = $observer->getData('configuration');
+        return $configuration->isApplyToCategories();
+    }
 
-        if (!$configuration->isApplyToCategories()) {
-            return;
-        }
-
+    /**
+     * {@inheritdoc}
+     */
+    protected function run(Configuration $configuration)
+    {
         /** @var ProductResource $productResource */
         $productResource = $this->productResourceFactory->create();
 
@@ -59,7 +59,7 @@ class ProductsObserver implements ObserverInterface
         $productCollection->load();
         foreach ($productCollection->getItems() as $product) {
             /** @var \Magento\Catalog\Model\Product $product */
-            $this->updateData($configuration, $product);
+            $this->doUpdate($configuration, $product);
             $productResource->save($product);
         }
     }
@@ -67,31 +67,13 @@ class ProductsObserver implements ObserverInterface
     /**
      * @param Configuration $configuration
      * @param \Magento\Catalog\Model\Product $product
-     * @return \Magento\Catalog\Model\Product
      */
-    protected function updateData(Configuration $configuration, \Magento\Catalog\Model\Product $product)
+    protected function doUpdate(Configuration $configuration, \Magento\Catalog\Model\Product $product)
     {
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($product->getDescription()))) {
-            $product->setDescription($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($product->getShortDescription()))) {
-            $product->setShortDescription($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($product->getMetaTitle()))) {
-            $product->setMetaTitle($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($product->getMetaKeyword()))) {
-            $product->setMetaKeyword($configuration->getDummyContentText());
-        }
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($product->getMetaDescription()))) {
-            $product->setMetaDescription($configuration->getDummyContentText());
-        }
-
-        return $product;
+        $this->updateData($product, 'description', $configuration, $configuration->getDummyContentText());
+        $this->updateData($product, 'short_description', $configuration, $configuration->getDummyContentText());
+        $this->updateData($product, 'meta_title', $configuration, $configuration->getDummyContentText());
+        $this->updateData($product, 'meta_keyword', $configuration, $configuration->getDummyContentText());
+        $this->updateData($product, 'meta_description', $configuration, $configuration->getDummyContentText());
     }
 }

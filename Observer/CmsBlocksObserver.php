@@ -17,7 +17,7 @@ use Magento\Cms\Model\ResourceModel\Block as BlockResource;
 use Magento\Cms\Model\ResourceModel\BlockFactory as BlockResourceFactory;
 use Magento\Framework\Event\ObserverInterface;
 
-class CmsBlocksObserver implements ObserverInterface
+class CmsBlocksObserver extends FuzzyfyrObserver
 {
     /**
      * @var BlockCollectionFactory
@@ -42,15 +42,16 @@ class CmsBlocksObserver implements ObserverInterface
     /**
      * {@inheritdoc}
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function isValid(Configuration $configuration)
     {
-        /** @var Configuration $configuration */
-        $configuration = $observer->getData('configuration');
+        return $configuration->isApplyToCmsBlocks();
+    }
 
-        if (!$configuration->isApplyToCmsBlocks()) {
-            return;
-        }
-
+    /**
+     * {@inheritdoc}
+     */
+    protected function run(Configuration $configuration)
+    {
         /** @var BlockResource $blockResource */
         $blockResource = $this->blockResourceFactory->create();
 
@@ -59,7 +60,7 @@ class CmsBlocksObserver implements ObserverInterface
         $blockCollection->load();
         foreach ($blockCollection->getItems() as $block) {
             /** @var \Magento\Cms\Model\Block $block */
-            $this->updateData($configuration, $block);
+            $this->doUpdate($configuration, $block);
             $blockResource->save($block);
         }
     }
@@ -67,15 +68,9 @@ class CmsBlocksObserver implements ObserverInterface
     /**
      * @param Configuration $configuration
      * @param \Magento\Cms\Model\Block $block
-     * @return \Magento\Cms\Model\Block
      */
-    protected function updateData(Configuration $configuration, \Magento\Cms\Model\Block $block)
+    protected function doUpdate(Configuration $configuration, \Magento\Cms\Model\Block $block)
     {
-        if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($block->getContent()))) {
-            $block->setContent($configuration->getDummyContentText());
-        }
-
-        return $block;
+        $this->updateData($block, 'content', $configuration, $configuration->getDummyContentText());
     }
 }
