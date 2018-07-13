@@ -26,6 +26,12 @@ use AllInData\ContentFuzzyfyr\Model\ConfigurationFactory;
 class FuzzyfyrCommand extends Command
 {
     /**
+     * Codes
+     */
+    const SUCCESS = 0;
+    const ERROR_PRODUCTION_MODE = 127;
+
+    /**
      * Flags
      */
     const FLAG_ONLY_EMPTY = 'only-empty';
@@ -174,7 +180,7 @@ class FuzzyfyrCommand extends Command
             // this may mess up to much if it would run without any safety checks
             $output->writeln('You really should not use this command in production mode.');
             $output->writeln('If it is really what you want, switch to default or developer mode first.');
-            return false;
+            return self::ERROR_PRODUCTION_MODE;
         }
 
         // Set area code
@@ -194,6 +200,8 @@ class FuzzyfyrCommand extends Command
         $this->eventManager->dispatch('aid_content_fuzzyfyr_event', ['configuration' => $configuration]);
 
         $output->writeln('Finished content fuzzyfy');
+
+        return self::SUCCESS;
     }
 
     /**

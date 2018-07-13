@@ -68,7 +68,6 @@ class CustomersObserver extends FuzzyfyrObserver
     /**
      * @param Configuration $configuration
      * @param \Magento\Customer\Model\Customer $customer
-     * @return \Magento\Customer\Model\Customer
      */
     protected function doUpdate(Configuration $configuration, \Magento\Customer\Api\Data\CustomerInterface $customer)
     {
@@ -81,14 +80,12 @@ class CustomersObserver extends FuzzyfyrObserver
 
         $customer->setLastName($configuration->getDummyContentText());
 
-        $addresses = $customer->getAddressesCollection();
+        $addresses = $customer->getAddresses();
         foreach ($addresses as $address) {
             /** @var AddressInterface $address */
             $address->setStreet([$configuration->getDummyContentText()]);
             $address->setCity($configuration->getDummyContentText());
         }
-        $customer->setAddresses($address);
-
-        return $customer;
+        $customer->setAddresses($addresses);
     }
 }

@@ -43,7 +43,7 @@ class ProductsObserver extends FuzzyfyrObserver
      */
     public function isValid(Configuration $configuration)
     {
-        return $configuration->isApplyToCategories();
+        return $configuration->isApplyToProducts();
     }
 
     /**

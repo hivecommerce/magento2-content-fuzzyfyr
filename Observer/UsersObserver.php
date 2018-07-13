@@ -67,7 +67,6 @@ class UsersObserver extends FuzzyfyrObserver
     /**
      * @param Configuration $configuration
      * @param \Magento\User\Model\User $user
-     * @return \Magento\User\Model\User
      */
     protected function doUpdate(Configuration $configuration, \Magento\User\Model\User $user)
     {
@@ -79,7 +78,5 @@ class UsersObserver extends FuzzyfyrObserver
         );
 
         $user->setLastName($configuration->getDummyContentText());
-
-        return $user;
     }
 }

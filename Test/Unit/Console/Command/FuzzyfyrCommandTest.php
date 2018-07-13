@@ -10,52 +10,123 @@
 
 namespace AllInData\ContentFuzzyfyr\Test\Unit\Console\Command;
 
-use Symfony\Component\Console\Tester\CommandTester;
+use AllInData\ContentFuzzyfyr\Model\Configuration;
+use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
+use Magento\Framework\App\State;
+use Magento\Framework\EntityManager\EventManager;
+use AllInData\ContentFuzzyfyr\Model\ConfigurationFactory;
 use AllInData\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand;
+use PHPUnit\Framework\MockObject\MockObject;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
-class FuzzyfyrCommandTest extends \PHPUnit\Framework\TestCase
+/**
+ * Class FuzzyfyrCommandTest
+ * @package AllInData\ContentFuzzyfyr\Test\Unit\Console\Command
+ */
+class FuzzyfyrCommandTest extends AbstractTest
 {
     /**
-     * @var FuzzyfyrCommand
+     * @test
      */
-    private $command;
-
-    public function setUp()
+    public function runSuccessfully()
     {
-        $this->command = new FuzzyfyrCommand();
-    }
+        $state = $this->getState();
 
-    public function testExecuteAnonymous()
-    {
-        $commandTester = new CommandTester($this->command);
-        $commandTester->execute(
-            [
-                '-a' => true
-            ]
+        $eventManager = $this->getEventManager();
+
+        $configuration = $this->getMockBuilder(Configuration::class)->getMock();
+        $configurationFactory = $this->getConfigurationFactory();
+        $configurationFactory->expects($this->once())
+            ->method('create')
+            ->willReturn($configuration);
+
+        $command = new FuzzyfyrCommand(
+            $state,
+            $eventManager,
+            $configurationFactory
         );
 
-        $this->assertContains('Hello Anonymous!', $commandTester->getDisplay());
-    }
+        $input = $this->getInput();
+        $output = $this->getOutput();
 
-    public function testExecuteName()
+        $this->assertEquals(FuzzyfyrCommand::SUCCESS, $command->run($input, $output));
+    }
+    /**
+     * @test
+     */
+    public function runFailsInProductionMode()
     {
-        $commandTester = new CommandTester($this->command);
-        $commandTester->execute(
-            [
-                FuzzyfyrCommand::NAME_ARGUMENT => 'Test'
-            ]
+        $state = $this->getState();
+        $state->expects($this->any())
+            ->method('getMode')
+            ->willReturn(\Magento\Framework\App\State::MODE_PRODUCTION);
+
+        $eventManager = $this->getEventManager();
+
+        $configurationFactory = $this->getConfigurationFactory();
+        $configurationFactory->expects($this->never())
+            ->method('create');
+
+        $command = new FuzzyfyrCommand(
+            $state,
+            $eventManager,
+            $configurationFactory
         );
 
-        $this->assertContains('Hello Test!', $commandTester->getDisplay());
+        $input = $this->getInput();
+        $output = $this->getOutput();
+
+        $this->assertEquals(FuzzyfyrCommand::ERROR_PRODUCTION_MODE, $command->run($input, $output));
     }
 
     /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Argument name is missing
+     * @return MockObject|State
      */
-    public function testExecuteError()
+    private function getState()
     {
-        $commandTester = new CommandTester($this->command);
-        $commandTester->execute([]);
+        return $this->getMockBuilder(State::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    /**
+     * @return MockObject|EventManager
+     */
+    private function getEventManager()
+    {
+        return $this->getMockBuilder(EventManager::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    /**
+     * @return MockObject|ConfigurationFactory
+     */
+    private function getConfigurationFactory()
+    {
+        return $this->getMockBuilder(ConfigurationFactory::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    /**
+     * @return MockObject|InputInterface
+     */
+    private function getInput()
+    {
+        return $this->getMockBuilder(InputInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    /**
+     * @return MockObject|OutputInterface
+     */
+    private function getOutput()
+    {
+        return $this->getMockBuilder(OutputInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 }

@@ -2,11 +2,12 @@
 
 <phpunit backupGlobals="false"
 	backupStaticAttributes="false"
+	bootstrap="./Test/Unit/bootstrap.php"
 	colors="false"
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
-	processIsolation="false"
+	processIsolation="true"
 	stopOnFailure="false"
 	syntaxCheck="false">
 

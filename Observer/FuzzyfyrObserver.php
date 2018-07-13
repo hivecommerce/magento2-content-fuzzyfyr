@@ -43,7 +43,7 @@ abstract class FuzzyfyrObserver implements FuzzyfyrObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         /** @var Configuration $configuration */
-        $configuration = $observer->getData('configuration');
+        $configuration = $this->getConfigurationByEvent($observer);
 
         if (!$this->isValid($configuration)) {
             return;
