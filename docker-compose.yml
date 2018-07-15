@@ -18,8 +18,6 @@ services:
       - ./Model:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Model:cached
       - ./Observer:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Observer:cached
       - ./Test:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Test:cached
-      - ./var:/var/www/html/app/code/AllInData/ContentFuzzyfyr/var:cached
-      - ./generated:/var/www/html/app/code/AllInData/ContentFuzzyfyr/generated:cached
       - ./registration.php:/var/www/html/app/code/AllInData/ContentFuzzyfyr/registration.php
     ports:
       - 8000:80

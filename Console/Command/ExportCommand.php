@@ -153,35 +153,35 @@ class ExportCommand extends Command
                     self::OPTION_DUMMY_CONTENT_TEXT,
                     null,
                     InputOption::VALUE_OPTIONAL,
-                    sprintf('Used as dummy text content. Defaults to \'%s\'', self::DEFAULT_DUMMY_CONTENT_TEXT),
+                    'Used as dummy text content.',
                     self::DEFAULT_DUMMY_CONTENT_TEXT
                 ),
                 new InputOption(
                     self::OPTION_DUMMY_CONTENT_EMAIL,
                     null,
                     InputOption::VALUE_OPTIONAL,
-                    sprintf('Used as dummy email content. Defaults to \'%s\'', self::DEFAULT_DUMMY_CONTENT_EMAIL),
+                    'Used as dummy email content.',
                     self::DEFAULT_DUMMY_CONTENT_EMAIL
                 ),
                 new InputOption(
                     self::OPTION_DUMMY_CONTENT_URL,
                     null,
                     InputOption::VALUE_OPTIONAL,
-                    sprintf('Used as dummy URL. Defaults to \'%s\'', self::DEFAULT_DUMMY_CONTENT_URL),
+                    'Used as dummy URL.',
                     self::DEFAULT_DUMMY_CONTENT_URL
                 ),
                 new InputOption(
                     self::OPTION_DUMMY_CONTENT_PHONE,
                     null,
                     InputOption::VALUE_OPTIONAL,
-                    sprintf('Used as dummy phone number. Defaults to \'%s\'', self::DEFAULT_DUMMY_CONTENT_PHONE),
+                    'Used as dummy phone number.',
                     self::DEFAULT_DUMMY_CONTENT_PHONE
                 ),
                 new InputOption(
                     self::OPTION_DUMP_OUTPUT,
                     null,
                     InputOption::VALUE_OPTIONAL,
-                    sprintf('Path where the database dump is placed. Defaults to \'%s\'', self::DEFAULT_DUMP_OUTPUT),
+                    'Path where the database dump is placed.',
                     self::DEFAULT_DUMP_OUTPUT
                 )
             ]);
