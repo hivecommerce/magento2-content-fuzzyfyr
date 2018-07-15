@@ -30,8 +30,8 @@ class ExportCommand extends Command
      * Codes
      */
     const SUCCESS = 0;
-    const ERROR_BACKUP_PATH_NOT_RESOLVABLE = 127;
-    const ERROR_EXPORT_FAILED = 156;
+    const ERROR_EXPORT_FAILED = 127;
+    const EVENT_NAME = 'aid_content_export_event';
 
     /**
      * Flags
@@ -60,7 +60,7 @@ class ExportCommand extends Command
     const DEFAULT_DUMMY_CONTENT_EMAIL = 'lorem.ipsum.%1$s@test.localhost';
     const DEFAULT_DUMMY_CONTENT_URL = 'https://lor.emips.um/foo/bar/';
     const DEFAULT_DUMMY_CONTENT_PHONE = '+49 (0) 600 987 654 32';
-    const DEFAULT_DUMP_OUTPUT = './var/backup/';
+    const DEFAULT_DUMP_OUTPUT = './var/backups/';
 
     /**
      * @var State
@@ -212,11 +212,12 @@ class ExportCommand extends Command
         $this->backupHandler->beginTransaction();
 
         try {
-            $this->eventManager->dispatch('aid_content_export_event', [
+            $this->eventManager->dispatch(self::EVENT_NAME, [
                 'configuration' => $configuration
             ]);
 
             $this->backupHandler->run(
+                $output,
                 $input->getOption(self::OPTION_DUMP_OUTPUT)
             );
         } catch (\Exception $e) {

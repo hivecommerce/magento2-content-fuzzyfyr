@@ -10,21 +10,22 @@
 
 namespace AllInData\ContentFuzzyfyr\Test\Unit\Console\Command;
 
+use AllInData\ContentFuzzyfyr\Handler\BackupHandler;
 use AllInData\ContentFuzzyfyr\Model\Configuration;
 use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
 use Magento\Framework\App\State;
 use Magento\Framework\EntityManager\EventManager;
 use AllInData\ContentFuzzyfyr\Model\ConfigurationFactory;
-use AllInData\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand;
+use AllInData\ContentFuzzyfyr\Console\Command\ExportCommand;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class FuzzyfyrCommandTest
+ * Class ExportCommandTest
  * @package AllInData\ContentFuzzyfyr\Test\Unit\Console\Command
  */
-class FuzzyfyrCommandTest extends AbstractTest
+class ExportCommandTest extends AbstractTest
 {
     /**
      * @test
@@ -32,6 +33,13 @@ class FuzzyfyrCommandTest extends AbstractTest
     public function runSuccessfully()
     {
         $state = $this->getState();
+
+        $input = $this->getInput();
+        $input->expects($this->at(15))
+            ->method('getOption')
+            ->with(ExportCommand::OPTION_DUMP_OUTPUT)
+            ->willReturn(ExportCommand::DEFAULT_DUMP_OUTPUT);
+        $output = $this->getOutput();
 
         $configuration = $this->getMockBuilder(Configuration::class)->getMock();
         $configurationFactory = $this->getConfigurationFactory();
@@ -42,50 +50,74 @@ class FuzzyfyrCommandTest extends AbstractTest
         $eventManager = $this->getEventManager();
         $eventManager->expects($this->once())
             ->method('dispatch')
-            ->with(FuzzyfyrCommand::EVENT_NAME, [
+            ->with(ExportCommand::EVENT_NAME, [
                 'configuration' => $configuration
             ]);
 
-        $command = new FuzzyfyrCommand(
+        $backupHandler = $this->getBackupHandler();
+        $backupHandler->expects($this->once())
+            ->method('beginTransaction');
+        $backupHandler->expects($this->once())
+            ->method('endTransaction');
+        $backupHandler->expects($this->once())
+            ->method('run')
+            ->with($output, ExportCommand::DEFAULT_DUMP_OUTPUT);
+
+        $command = new ExportCommand(
             $state,
             $eventManager,
-            $configurationFactory
+            $configurationFactory,
+            $backupHandler
         );
 
-        $input = $this->getInput();
-        $output = $this->getOutput();
-
-        $this->assertEquals(FuzzyfyrCommand::SUCCESS, $command->run($input, $output));
+        $this->assertEquals(ExportCommand::SUCCESS, $command->run($input, $output));
     }
 
     /**
      * @test
      */
-    public function runFailsInProductionMode()
+    public function runFailesRunningBackup()
     {
         $state = $this->getState();
-        $state->expects($this->any())
-            ->method('getMode')
-            ->willReturn(\Magento\Framework\App\State::MODE_PRODUCTION);
-
-        $eventManager = $this->getEventManager();
-        $eventManager->expects($this->never())
-            ->method('dispatch');
-
-        $configurationFactory = $this->getConfigurationFactory();
-        $configurationFactory->expects($this->never())
-            ->method('create');
-
-        $command = new FuzzyfyrCommand(
-            $state,
-            $eventManager,
-            $configurationFactory
-        );
 
         $input = $this->getInput();
+        $input->expects($this->at(15))
+            ->method('getOption')
+            ->with(ExportCommand::OPTION_DUMP_OUTPUT)
+            ->willReturn(ExportCommand::DEFAULT_DUMP_OUTPUT);
         $output = $this->getOutput();
 
-        $this->assertEquals(FuzzyfyrCommand::ERROR_PRODUCTION_MODE, $command->run($input, $output));
+        $configuration = $this->getMockBuilder(Configuration::class)->getMock();
+        $configurationFactory = $this->getConfigurationFactory();
+        $configurationFactory->expects($this->once())
+            ->method('create')
+            ->willReturn($configuration);
+
+        $eventManager = $this->getEventManager();
+        $eventManager->expects($this->once())
+            ->method('dispatch')
+            ->with(ExportCommand::EVENT_NAME, [
+                'configuration' => $configuration
+            ]);
+
+        $backupHandler = $this->getBackupHandler();
+        $backupHandler->expects($this->once())
+            ->method('beginTransaction');
+        $backupHandler->expects($this->once())
+            ->method('endTransaction');
+        $backupHandler->expects($this->once())
+            ->method('run')
+            ->with($output, ExportCommand::DEFAULT_DUMP_OUTPUT)
+            ->willThrowException(new \Exception());
+
+        $command = new ExportCommand(
+            $state,
+            $eventManager,
+            $configurationFactory,
+            $backupHandler
+        );
+
+        $this->assertEquals(ExportCommand::ERROR_EXPORT_FAILED, $command->run($input, $output));
     }
 
     /**
@@ -114,6 +146,16 @@ class FuzzyfyrCommandTest extends AbstractTest
     private function getConfigurationFactory()
     {
         return $this->getMockBuilder(ConfigurationFactory::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
+
+    /**
+     * @return MockObject|BackupHandler
+     */
+    private function getBackupHandler()
+    {
+        return $this->getMockBuilder(BackupHandler::class)
             ->disableOriginalConstructor()
             ->getMock();
     }

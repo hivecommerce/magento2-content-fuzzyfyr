@@ -30,6 +30,7 @@ class FuzzyfyrCommand extends Command
      */
     const SUCCESS = 0;
     const ERROR_PRODUCTION_MODE = 127;
+    const EVENT_NAME = 'aid_content_fuzzyfyr_event';
 
     /**
      * Flags
@@ -197,7 +198,7 @@ class FuzzyfyrCommand extends Command
         /*
          * Processing
          */
-        $this->eventManager->dispatch('aid_content_fuzzyfyr_event', ['configuration' => $configuration]);
+        $this->eventManager->dispatch(self::EVENT_NAME, ['configuration' => $configuration]);
 
         $output->writeln('Finished content fuzzyfy');
 

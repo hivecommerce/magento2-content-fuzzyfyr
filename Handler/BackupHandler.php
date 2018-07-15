@@ -10,11 +10,11 @@
 
 namespace AllInData\ContentFuzzyfyr\Handler;
 
-use Magento\Framework\App\DeploymentConfig;
 use Magento\Framework\App\MaintenanceMode;
 use Magento\Framework\Setup\BackupRollbackFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Filesystem\Io\File;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class BackupHandler
@@ -36,10 +36,6 @@ class BackupHandler
      */
     private $backupRollbackFactory;
     /**
-     * @var DeploymentConfig
-     */
-    private $deploymentConfig;
-    /**
      * @var bool
      */
     private $maintenanceModeInitialState;
@@ -56,23 +52,19 @@ class BackupHandler
      * BackupHandler constructor.
      * @param MaintenanceMode $maintenanceMode
      * @param BackupRollbackFactory $backupRollbackFactory
-     * @param DeploymentConfig $deploymentConfig
      * @param ModuleDataSetupInterface $setup
      * @param File $ioFile
      */
     public function __construct(
         MaintenanceMode $maintenanceMode,
         BackupRollbackFactory $backupRollbackFactory,
-        DeploymentConfig $deploymentConfig,
         ModuleDataSetupInterface $setup,
         File $ioFile
     ) {
         $this->maintenanceMode = $maintenanceMode;
         $this->backupRollbackFactory = $backupRollbackFactory;
-        $this->deploymentConfig = $deploymentConfig;
         $this->setup = $setup;
         $this->ioFile = $ioFile;
-        $this->maintenanceModeInitialState = $this->maintenanceMode->isOn();
     }
 
     /**
@@ -80,6 +72,7 @@ class BackupHandler
      */
     public function beginTransaction()
     {
+        $this->maintenanceModeInitialState = $this->maintenanceMode->isOn();
         $this->maintenanceMode->set(true);
         $this->setup->getConnection()->beginTransaction();
     }
@@ -90,28 +83,25 @@ class BackupHandler
     public function endTransaction()
     {
         $this->setup->getConnection()->rollBack();
-        $this->maintenanceMode->set(false);
+        // disable maintenance only, if it has been disabled in the beginning
+        if (!$this->maintenanceModeInitialState) {
+            $this->maintenanceMode->set(false);
+
+        }
     }
 
     /**
+     * @param OutputInterface $output
      * @param string $backupPath
+     * @throws \Exception
      */
-    public function run($backupPath)
+    public function run(OutputInterface $output, $backupPath)
     {
         /*
          * Backup path
          */
         $backupPath = realpath($backupPath);
-        if (!$backupPath) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    'Could not resolve backup path: "%s"',
-                    $backupPath
-                )
-            );
-        }
-
-        if (!$this->ioFile->mkdir($backupPath, self::BACKUP_DIRECTORY_FILEMODE, true)) {
+        if (!$this->ioFile->checkAndCreateFolder($backupPath, self::BACKUP_DIRECTORY_FILEMODE)) {
             throw new \RuntimeException(
                 sprintf(
                     'Could not create backup folder: "%s"',
@@ -123,12 +113,13 @@ class BackupHandler
         /*
          * Backup Handler
          */
-        $backupHandler = $this->backupRollbackFactory->create();
+        $backupHandler = $this->backupRollbackFactory->create($output);
         $backupFile = $backupHandler->dbBackup(time());
 
         $backupPath .= DIRECTORY_SEPARATOR . basename($backupFile);
         $backupPath = str_replace(DIRECTORY_SEPARATOR . DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, $backupPath);
-        if (!$this->ioFile->cp($backupFile, $backupPath)) {
+        if ($backupFile !== $backupPath &&
+            !$this->ioFile->cp($backupFile, $backupPath)) {
             throw new \RuntimeException(
                 sprintf(
                     'Failed to copy backup file "%s" to target "%s"',

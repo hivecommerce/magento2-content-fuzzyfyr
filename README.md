@@ -100,7 +100,8 @@ switched with some defined default value:
     bin/magento aid:content:export [options]
     
 **Note:** Running the code activates maintenance mode. The maintenance mode will be disabled, if the command has run
-successfully or erroneous, but it is recommended to check manually on production system.
+successfully or erroneous and the maintenance mode has been disabled in the beginning. But it is recommended to check 
+manually on production system after running the command.
     
 #### List of flags
 
@@ -122,7 +123,7 @@ Option | Value | Description
 --dummy-content-email | String | Used as dummy email content. Defaults to 'lorem.ipsum.%1$s@test.localhost'
 --dummy-content-url | String | Used as dummy url content. Defaults to 'https://lor.emips.um/foo/bar/'
 --dummy-content-phone | String | Used as dummy phone content. Defaults to '+49 (0) 600 987 654 32'
---backup-output | String | Path where the database dump is placed. Defaults to './var/backup/'
+--backup-output | String | Path where the database dump is placed. Defaults to './var/backups/'
 
 #### How to apply custom code
 
