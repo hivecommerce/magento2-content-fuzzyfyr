@@ -139,6 +139,7 @@ function help () {
   -s --src    [arg] Source folder.
   -d --dest   [arg] Target folder.
   -t --tmp    [arg] Tmp folder.
+  -u --skip-update    Skip dependencies update.
   -h --help           This page
 EOF
 
@@ -335,6 +336,11 @@ if [[ "${arg_h:?}" = "1" ]]; then
   help "Help using ${0}"
 fi
 
+# help mode
+if [[ "${arg_u:?}" = "1" ]]; then
+  info "Skipping dependency update"
+fi
+
 
 ### Validation. Error out if the things required for your script are not present
 ##############################################################################
@@ -374,8 +380,10 @@ rm -rf "${DEST}"/*
 ## Update dependencies
 ## Based upon  PHP 7.0
 ##
-info "UPDATING DEPENDENCIES"
-docker run -v "${SRC}":/www -v ~/.composer:/root/.composer --rm danieldent/php-7.1-composer:latest bash -c 'apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev libxslt-dev && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && docker-php-ext-install gd mcrypt xsl && cd /www && composer update'
+if [[ "${arg_u:?}" = "0" ]]; then
+    info "UPDATING DEPENDENCIES"
+    docker run -v "${SRC}":/www -v ~/.composer:/root/.composer --rm danieldent/php-7.1-composer:latest bash -c 'apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev libxslt-dev && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && docker-php-ext-install gd mcrypt xsl && cd /www && composer update'
+fi
 
 ##
 ## Prepare important files
