@@ -1,23 +1,24 @@
 # Content Fuzzyfyr Module for Magento® 2
 
-The **Content Fuzzyfyr** module for *Magento® 2* fills up empty content fields - and if needed - switches real content with dummy content. 
+The **Content Fuzzyfyr** module for *Magento® 2* fills up empty content fields - and if needed - switches real content with dummy content.
 This is for development purposes, e.g. save time to prepare test data and matching GDPR restrictions.
 
 
 ## Features:
 * Fill up empty content fields with dummy content - completely automated
-* Match GDPR restrictions for development, when using production data
+* Match GDPR compliance for development, when using production data
+* Export your production database already matching GDPR compliance
 * Use parameters to control the sections required to be filled up with dummy content
 
 ## Installation
-The preferred way of installing `allindata/magento2-content-fuzzyfyr` is through Composer. 
+The preferred way of installing `allindata/magento2-content-fuzzyfyr` is through Composer.
 Simply add `allindata/magento2-content-fuzzyfyr` as a dependency:
 
 ```
 composer.phar require allindata/magento2-content-fuzzyfyr
 ```
 
-Optional you can download the latest version [here](https://github.com/allin-data/magento2-content-fuzzyfyr/releases) 
+Optional you can download the latest version [here](https://github.com/allin-data/magento2-content-fuzzyfyr/releases)
 and install the decompressed code in your projects directory under *app/code/AllInData/ContentFuzzyfyr*.  
 
 ## Post-Install
@@ -30,9 +31,9 @@ bin/magento module:enable AllInData_ContentFuzzyfyr
 
 ## System Upgrade
 
-After enabling the module, the *Magento® 2* system must be upgraded. 
+After enabling the module, the *Magento® 2* system must be upgraded.
 
-If the system mode is set to *production*, run the *compile* command first. 
+If the system mode is set to *production*, run the *compile* command first.
 This is not necessary for the *developer* mode.
 ```
 bin/magento setup:di:compile
@@ -51,17 +52,17 @@ Find the complete user guide [here](./docs/UserGuide.pdf "User Guide").
 ### CLI
 #### Content Fuzzyfyr
 
-The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *aid:content:fuzzyfyr* to modify 
+The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *aid:content:fuzzyfyr* to modify
 existing content (or only empty fields with the *--only-empty* flag) to be switched with some defined default value:
 
     bin/magento aid:content:fuzzyfyr [options]
-    
+
 **Note:** Be aware the command only runs in non-production mode to avoid messing up production data on mistake.
 
 You may want to switch to *default* or *developer* mode to run the command:
-   
+
     bin/magento deploy:mode:set developer
-    
+
 #### List of flags
 
 Option | Description
@@ -98,11 +99,11 @@ database dump with already fuzzyfied content for existing content (or only empty
 switched with some defined default value:
 
     bin/magento aid:content:export [options]
-    
+
 **Note:** Running the code activates maintenance mode. The maintenance mode will be disabled, if the command has run
-successfully or erroneous and the maintenance mode has been disabled in the beginning. But it is recommended to check 
+successfully or erroneous and the maintenance mode has been disabled in the beginning. But it is recommended to check
 manually on production system after running the command.
-    
+
 #### List of flags
 
 Option | Description

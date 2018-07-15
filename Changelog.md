@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.3.0
+
+- Added feature to export database with fuzzyfied content without altering current database content persistently.
+
 ## 1.2.0
 
 - Added unit test
