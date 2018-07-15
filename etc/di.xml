@@ -16,6 +16,7 @@
         <arguments>
             <argument name="commands" xsi:type="array">
                 <item name="AllInDataContentFuzzyfyrCommand" xsi:type="object">AllInData\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand</item>
+                <item name="AllInDataContentExportCommand" xsi:type="object">AllInData\ContentFuzzyfyr\Console\Command\ExportCommand</item>
             </argument>
         </arguments>
     </type>

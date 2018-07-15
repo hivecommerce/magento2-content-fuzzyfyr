@@ -14,9 +14,12 @@ services:
       - ./Api:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Api:cached
       - ./Console:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Console:cached
       - ./etc:/var/www/html/app/code/AllInData/ContentFuzzyfyr/etc
+      - ./Handler:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Handler:cached
       - ./Model:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Model:cached
       - ./Observer:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Observer:cached
       - ./Test:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Test:cached
+      - ./var:/var/www/html/app/code/AllInData/ContentFuzzyfyr/var:cached
+      - ./generated:/var/www/html/app/code/AllInData/ContentFuzzyfyr/generated:cached
       - ./registration.php:/var/www/html/app/code/AllInData/ContentFuzzyfyr/registration.php
     ports:
       - 8000:80
@@ -53,7 +56,7 @@ services:
     env_file: env/mysql.env
 
   setup:
-    image: mageinferno/magento2-php:7.1-fpm-1
+    image: mageinferno/magento2-php:7.1-fpm-0
     command: /usr/local/bin/mage-setup
     links:
       - db

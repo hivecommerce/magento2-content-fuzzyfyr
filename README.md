@@ -49,8 +49,10 @@ Find the complete user guide [here](./docs/UserGuide.pdf "User Guide").
 ## How to use
 
 ### CLI
+#### Content Fuzzyfyr
 
-The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command to be run:
+The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *aid:content:fuzzyfyr* to modify 
+existing content (or only empty fields with the *--only-empty* flag) to be switched with some defined default value:
 
     bin/magento aid:content:fuzzyfyr [options]
     
@@ -60,7 +62,7 @@ You may want to switch to *default* or *developer* mode to run the command:
    
     bin/magento deploy:mode:set developer
     
-### List of flags
+#### List of flags
 
 Option | Description
 --- | ---
@@ -72,7 +74,7 @@ Option | Description
 --products | Apply dummy content to products (description)
 --users | Apply dummy content to users (Last name, email)
 
-### List of options
+#### List of options
 
 Option | Value | Description
 --- | --- | ---
@@ -81,6 +83,53 @@ Option | Value | Description
 --dummy-content-url | String | Used as dummy url content. Defaults to 'https://lor.emips.um/foo/bar/'
 --dummy-content-phone | String | Used as dummy phone content. Defaults to '+49 (0) 600 987 654 32'
 
+#### How to apply custom code
+
+An event is triggered, called *aid_content_fuzzyfyr_event*. Listening to this event, expect the following parameters
+in the *Observer* data:
+
+    'configuration' => \AllInData\ContentFuzzyfyr\Model\Configuration
+
+
+#### Content Export
+
+The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *aid:content:export* to export an
+database dump with already fuzzyfied content for existing content (or only empty fields with the *--only-empty* flag)  
+switched with some defined default value:
+
+    bin/magento aid:content:export [options]
+    
+**Note:** Running the code activates maintenance mode. The maintenance mode will be disabled, if the command has run
+successfully or erroneous, but it is recommended to check manually on production system.
+    
+#### List of flags
+
+Option | Description
+--- | ---
+--only-empty | Use dummy content only if the original data is equal to empty
+--categories | Apply dummy content to categories (content, meta description)
+--cms-blocks | Apply dummy content to CMS Blocks (content)
+--cms-pages | Apply dummy content to CMS Pages (content, meta description)
+--customers | Apply dummy content to customers (Last name, address, email)
+--products | Apply dummy content to products (description)
+--users | Apply dummy content to users (Last name, email)
+
+#### List of options
+
+Option | Value | Description
+--- | --- | ---
+--dummy-content-text | String | Used as dummy text content. Defaults to 'Lorem ipsum.'
+--dummy-content-email | String | Used as dummy email content. Defaults to 'lorem.ipsum.%1$s@test.localhost'
+--dummy-content-url | String | Used as dummy url content. Defaults to 'https://lor.emips.um/foo/bar/'
+--dummy-content-phone | String | Used as dummy phone content. Defaults to '+49 (0) 600 987 654 32'
+--backup-output | String | Path where the database dump is placed. Defaults to './var/backup/'
+
+#### How to apply custom code
+
+An event is triggered, called *aid_content_export_event*. Listening to this event, expect the following parameters
+in the *Observer* data:
+
+    'configuration' => \AllInData\ContentFuzzyfyr\Model\Configuration
 
 ## Contribution
 Feel free to contribute to this module by reporting issues or create some pull requests for improvements.

@@ -19,5 +19,14 @@
         <observer name="aid_content_fuzzyfyr_products" instance="AllInData\ContentFuzzyfyr\Observer\ProductsObserver" />
         <observer name="aid_content_fuzzyfyr_users" instance="AllInData\ContentFuzzyfyr\Observer\UsersObserver" />
     </event>
+    
+    <event name="aid_content_export_event">
+        <observer name="aid_content_export_categories" instance="AllInData\ContentFuzzyfyr\Observer\CategoriesObserver" />
+        <observer name="aid_content_export_cmsblocks" instance="AllInData\ContentFuzzyfyr\Observer\CmsBlocksObserver" />
+        <observer name="aid_content_export_cmspages" instance="AllInData\ContentFuzzyfyr\Observer\CmsPagesObserver" />
+        <observer name="aid_content_export_customers" instance="AllInData\ContentFuzzyfyr\Observer\CustomersObserver" />
+        <observer name="aid_content_export_products" instance="AllInData\ContentFuzzyfyr\Observer\ProductsObserver" />
+        <observer name="aid_content_export_users" instance="AllInData\ContentFuzzyfyr\Observer\UsersObserver" />
+    </event>
 
 </config>

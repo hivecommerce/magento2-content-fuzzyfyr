@@ -9,4 +9,5 @@
 /build
 /tags
 /var
+/generated
 composer.phar
