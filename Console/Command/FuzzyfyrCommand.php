@@ -50,6 +50,7 @@ class FuzzyfyrCommand extends Command
     const OPTION_DUMMY_CONTENT_EMAIL = 'dummy-content-email';
     const OPTION_DUMMY_CONTENT_URL = 'dummy-content-url';
     const OPTION_DUMMY_CONTENT_PHONE = 'dummy-content-phone';
+    const OPTION_DUMMY_CONTENT_IMAGE_PATH = 'dummy-content-image-path';
 
     /**
      * Defaults
@@ -58,6 +59,7 @@ class FuzzyfyrCommand extends Command
     const DEFAULT_DUMMY_CONTENT_EMAIL = 'lorem.ipsum.%1$s@test.localhost';
     const DEFAULT_DUMMY_CONTENT_URL = 'https://lor.emips.um/foo/bar/';
     const DEFAULT_DUMMY_CONTENT_PHONE = '+49 (0) 600 987 654 32';
+    const DEFAULT_DUMMY_CONTENT_IMAGE_PATH = './assets/dummy_image.png';
 
     /**
      * @var State
@@ -163,6 +165,13 @@ class FuzzyfyrCommand extends Command
                     InputOption::VALUE_OPTIONAL,
                     'Used as dummy phone number.',
                     self::DEFAULT_DUMMY_CONTENT_PHONE
+                ),
+                new InputOption(
+                    self::OPTION_DUMMY_CONTENT_IMAGE_PATH,
+                    null,
+                    InputOption::VALUE_OPTIONAL,
+                    'Used as dummy image content.',
+                    realpath(__DIR__ . DIRECTORY_SEPARATOR . '..' .DIRECTORY_SEPARATOR. '..'. DIRECTORY_SEPARATOR . self::DEFAULT_DUMMY_CONTENT_IMAGE_PATH)
                 )
             ]);
 
@@ -226,6 +235,7 @@ class FuzzyfyrCommand extends Command
         $configuration->setDummyContentEmail($input->getOption(self::OPTION_DUMMY_CONTENT_EMAIL));
         $configuration->setDummyContentUrl($input->getOption(self::OPTION_DUMMY_CONTENT_URL));
         $configuration->setDummyPhoneNumber($input->getOption(self::OPTION_DUMMY_CONTENT_PHONE));
+        $configuration->setDummyImagePath($input->getOption(self::OPTION_DUMMY_CONTENT_IMAGE_PATH));
 
         return $configuration;
     }

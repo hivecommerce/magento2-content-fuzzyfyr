@@ -61,6 +61,10 @@ class Configuration
      */
     private $dummyPhoneNumber;
     /**
+     * @var string
+     */
+    private $dummyImagePath;
+    /**
      * @var array
      */
     private $extendedData;
@@ -260,6 +264,24 @@ class Configuration
     public function setDummyPhoneNumber($dummyPhoneNumber)
     {
         $this->dummyPhoneNumber = $dummyPhoneNumber;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDummyImagePath()
+    {
+        return $this->dummyImagePath;
+    }
+
+    /**
+     * @param string $dummyImagePath
+     * @return Configuration
+     */
+    public function setDummyImagePath($dummyImagePath)
+    {
+        $this->dummyImagePath = $dummyImagePath;
         return $this;
     }
 

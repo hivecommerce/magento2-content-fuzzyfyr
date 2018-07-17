@@ -83,6 +83,7 @@ Option | Value | Description
 --dummy-content-email | String | Used as dummy email content. Defaults to 'lorem.ipsum.%1$s@test.localhost'
 --dummy-content-url | String | Used as dummy url content. Defaults to 'https://lor.emips.um/foo/bar/'
 --dummy-content-phone | String | Used as dummy phone content. Defaults to '+49 (0) 600 987 654 32'
+--dummy-content-image-path | String | Used as dummy image content. Defaults to './assets/dummy_image.png'
 
 #### How to apply custom code
 
