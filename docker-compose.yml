@@ -12,6 +12,7 @@ services:
     volumes: &appvolumes
       - appdata:/var/www/html
       - ./Api:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Api:cached
+      - ./assets:/var/www/html/app/code/AllInData/ContentFuzzyfyr/assets:cached
       - ./Console:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Console:cached
       - ./etc:/var/www/html/app/code/AllInData/ContentFuzzyfyr/etc
       - ./Handler:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Handler:cached

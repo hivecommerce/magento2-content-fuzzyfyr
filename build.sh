@@ -390,6 +390,7 @@ fi
 ##
 info "Prepare important files"
 cp -pPR "${SRC}/Api" "${TMP}/Api"
+cp -pPR "${SRC}/assets" "${TMP}/assets"
 cp -pPR "${SRC}/Console" "${TMP}/Console"
 cp -pPR "${SRC}/docs" "${TMP}/docs"
 cp -pPR "${SRC}/etc" "${TMP}/etc"
