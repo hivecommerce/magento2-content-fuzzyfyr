@@ -15,9 +15,16 @@ use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollectio
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Category as CategoryResource;
 use Magento\Catalog\Model\ResourceModel\CategoryFactory as CategoryResourceFactory;
+use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection;
+use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
 
 class CategoriesObserver extends FuzzyfyrObserver
 {
+    /*
+     * Root Category
+     */
+    const ROOT_CATEGORY_ID = "1";
+
     /**
      * @var CategoryCollectionFactory
      */
@@ -26,16 +33,25 @@ class CategoriesObserver extends FuzzyfyrObserver
      * @var CategoryResourceFactory
      */
     protected $categoryResourceFactory;
+    /**
+     * @var UrlRewriteCollectionFactory
+     */
+    protected $urlRewriteCollectionFactory;
 
     /**
-     * CategorysObserver constructor.
+     * CategoriesObserver constructor.
      * @param CategoryCollectionFactory $categoryCollectionFactory
      * @param CategoryResourceFactory $categoryResourceFactory
+     * @param UrlRewriteCollectionFactory $urlRewriteCollectionFactory
      */
-    public function __construct(CategoryCollectionFactory $categoryCollectionFactory, CategoryResourceFactory $categoryResourceFactory)
-    {
+    public function __construct(
+        CategoryCollectionFactory $categoryCollectionFactory,
+        CategoryResourceFactory $categoryResourceFactory,
+        UrlRewriteCollectionFactory $urlRewriteCollectionFactory
+    ) {
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->categoryResourceFactory = $categoryResourceFactory;
+        $this->urlRewriteCollectionFactory = $urlRewriteCollectionFactory;
     }
 
     /**
@@ -48,19 +64,38 @@ class CategoriesObserver extends FuzzyfyrObserver
 
     /**
      * {@inheritdoc}
-     * @TODO clear table url_rewrite for entity_type category
-     * @TODO mark indexer to invalidate index
      */
     protected function run(Configuration $configuration)
     {
         /** @var CategoryResource $categoryResource */
         $categoryResource = $this->categoryResourceFactory->create();
 
+        /*
+         * clear table url_rewrite for entity_type category
+         */
+        /** @var UrlRewriteCollection $urlRewriteCollection */
+        $urlRewriteCollection = $this->urlRewriteCollectionFactory->create();
+        $urlRewriteCollection
+            ->addFieldToFilter('entity_type', ['eq' => 'category'])
+            ->load();
+        foreach ($urlRewriteCollection->getItems() as $urlRewrite) {
+            /** @var \Magento\UrlRewrite\Model\UrlRewrite $urlRewrite */
+            $urlRewrite->delete();
+        }
+
+        /*
+         * Process
+         */
         /** @var CategoryCollection $categoryCollection */
         $categoryCollection = $this->categoryCollectionFactory->create();
         $categoryCollection->load();
         foreach ($categoryCollection->getItems() as $category) {
             /** @var \Magento\Catalog\Model\Category $category */
+            if (self::ROOT_CATEGORY_ID === $category->getId()) {
+                // skip root category
+                continue;
+            }
+            $category->load($category->getId());
             $this->doUpdate($configuration, $category);
             $categoryResource->save($category);
         }

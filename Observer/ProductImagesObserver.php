@@ -12,7 +12,6 @@ namespace AllInData\ContentFuzzyfyr\Observer;
 
 use AllInData\ContentFuzzyfyr\Handler\MediaFileHandler;
 use AllInData\ContentFuzzyfyr\Model\Configuration;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
 
@@ -23,10 +22,6 @@ class ProductImagesObserver extends FuzzyfyrObserver
      */
     protected $productCollectionFactory;
     /**
-     * @var ProductRepositoryInterface
-     */
-    protected $productRepository;
-    /**
      * @var MediaFileHandler
      */
     private $mediaFileHandler;
@@ -34,16 +29,13 @@ class ProductImagesObserver extends FuzzyfyrObserver
     /**
      * ProductImagesObserver constructor.
      * @param ProductCollectionFactory $productCollectionFactory
-     * @param ProductRepositoryInterface $productRepository
      * @param MediaFileHandler $mediaFileHandler
      */
     public function __construct(
         ProductCollectionFactory $productCollectionFactory,
-        ProductRepositoryInterface $productRepository,
         MediaFileHandler $mediaFileHandler
     ) {
         $this->productCollectionFactory = $productCollectionFactory;
-        $this->productRepository = $productRepository;
         $this->mediaFileHandler = $mediaFileHandler;
     }
 
@@ -66,7 +58,7 @@ class ProductImagesObserver extends FuzzyfyrObserver
         foreach ($productCollection->getItems() as $product) {
             /** @var \Magento\Catalog\Model\Product $product */
             $this->doUpdate($configuration, $product);
-            $this->productRepository->save($product);
+            $product->save();
         }
     }
 

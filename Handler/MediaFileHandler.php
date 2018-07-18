@@ -69,7 +69,7 @@ class MediaFileHandler
         $mediaFilePath = $this->mediaDirectory->getAbsolutePath(
             sprintf(
                 '%s/%s',
-                self::MEDIA_MODULE_BASE_PATH,
+                static::MEDIA_MODULE_BASE_PATH,
                 basename($filePath)
             )
         );
@@ -95,11 +95,11 @@ class MediaFileHandler
         /*
          * Create module media folder
          */
-        if (!$this->mediaDirectory->create(self::MEDIA_MODULE_BASE_PATH)) {
+        if (!$this->mediaDirectory->create(static::MEDIA_MODULE_BASE_PATH)) {
             throw new \RuntimeException(
                 sprintf(
                     'Could not create media folder: "%s"',
-                    self::MEDIA_MODULE_BASE_PATH
+                    static::MEDIA_MODULE_BASE_PATH
                 )
             );
         }

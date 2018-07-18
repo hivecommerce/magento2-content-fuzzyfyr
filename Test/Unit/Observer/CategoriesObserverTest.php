@@ -17,6 +17,8 @@ use Magento\Framework\Event\Observer;
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Magento\Catalog\Model\ResourceModel\Category as CategoryResource;
+use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection;
+use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
@@ -30,6 +32,10 @@ class CategoriesObserverTest extends AbstractTest
      */
     public function stopOnFailedValidationSuccessfully()
     {
+        $urlRewriteCollectionFactory = $this->getUrlRewriteCollectionFactory();
+        $urlRewriteCollectionFactory->expects($this->never())
+            ->method('create');
+
         $categoryResourceFactory = $this->getCategoryResourceFactory();
         $categoryResourceFactory->expects($this->never())
             ->method('create');
@@ -49,7 +55,7 @@ class CategoriesObserverTest extends AbstractTest
             ->with('configuration')
             ->willReturn($configuration);
 
-        $observer = new CategoriesObserver($categoryCollectionFactory, $categoryResourceFactory);
+        $observer = new CategoriesObserver($categoryCollectionFactory, $categoryResourceFactory, $urlRewriteCollectionFactory);
 
         $observer->execute($eventObserver);
     }
@@ -59,10 +65,47 @@ class CategoriesObserverTest extends AbstractTest
      */
     public function runSuccessfully()
     {
+        $urlRewrite = $this->getMockBuilder(\Magento\UrlRewrite\Model\UrlRewrite::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $urlRewrite->expects($this->once())
+            ->method('delete');
+
+        $urlRewriteCollection = $this->getMockBuilder(UrlRewriteCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $urlRewriteCollection->expects($this->once())
+            ->method('addFieldToFilter')
+            ->with('entity_type', ['eq' => 'category'])
+            ->willReturnSelf();
+        $urlRewriteCollection->expects($this->once())
+            ->method('load');
+        $urlRewriteCollection->expects($this->once())
+            ->method('getItems')
+            ->willReturn([$urlRewrite]);
+
+        $urlRewriteCollectionFactory = $this->getUrlRewriteCollectionFactory($urlRewriteCollection);
+
+        $rootCategory = $this->getMockBuilder(Category::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $rootCategory->expects($this->once())
+            ->method('getId')
+            ->willReturn(CategoriesObserver::ROOT_CATEGORY_ID);
+
         $category = $this->getMockBuilder(Category::class)
             ->disableOriginalConstructor()
             ->getMock();
         $idx = 0;
+        $category->expects($this->at($idx++))
+            ->method('getId')
+            ->willReturn(42);
+        $category->expects($this->at($idx++))
+            ->method('getId')
+            ->willReturn(42);
+        $category->expects($this->at($idx++))
+            ->method('load')
+            ->with(42);
         $category->expects($this->at($idx++))
             ->method('getData')
             ->With('description')
@@ -107,7 +150,7 @@ class CategoriesObserverTest extends AbstractTest
             ->method('load');
         $categoryCollection->expects($this->once())
             ->method('getItems')
-            ->willReturn([$category]);
+            ->willReturn([$rootCategory, $category]);
         $categoryCollectionFactory = $this->getCategoryCollectionFactory($categoryCollection);
 
         $configuration = $this->getConfiguration();
@@ -131,7 +174,7 @@ class CategoriesObserverTest extends AbstractTest
             ->willReturn($configuration);
 
 
-        $observer = new CategoriesObserver($categoryCollectionFactory, $categoryResourceFactory);
+        $observer = new CategoriesObserver($categoryCollectionFactory, $categoryResourceFactory, $urlRewriteCollectionFactory);
 
         $observer->execute($eventObserver);
     }
@@ -168,5 +211,14 @@ class CategoriesObserverTest extends AbstractTest
     private function getCategoryCollectionFactory(MockObject $instance = null)
     {
         return $this->getFactoryAsMock('\Magento\Catalog\Model\ResourceModel\Category\Collection', $instance);
+    }
+
+    /**
+     * @param MockObject $instance
+     * @return MockObject|\Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
+     */
+    private function getUrlRewriteCollectionFactory(MockObject $instance = null)
+    {
+        return $this->getFactoryAsMock('\Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection', $instance);
     }
 }

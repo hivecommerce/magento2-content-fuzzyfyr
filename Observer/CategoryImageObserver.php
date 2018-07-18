@@ -10,15 +10,22 @@
 
 namespace AllInData\ContentFuzzyfyr\Observer;
 
-use AllInData\ContentFuzzyfyr\Handler\MediaFileHandler;
+use AllInData\ContentFuzzyfyr\Handler\CategoryImageHandler;
 use AllInData\ContentFuzzyfyr\Model\Configuration;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Category as CategoryResource;
 use Magento\Catalog\Model\ResourceModel\CategoryFactory as CategoryResourceFactory;
+use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection;
+use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
 
 class CategoryImageObserver extends FuzzyfyrObserver
 {
+    /*
+     * Root Category
+     */
+    const ROOT_CATEGORY_ID = "1";
+
     /**
      * @var CategoryCollectionFactory
      */
@@ -28,7 +35,11 @@ class CategoryImageObserver extends FuzzyfyrObserver
      */
     protected $categoryResourceFactory;
     /**
-     * @var MediaFileHandler
+     * @var UrlRewriteCollectionFactory
+     */
+    protected $urlRewriteCollectionFactory;
+    /**
+     * @var CategoryImageHandler
      */
     private $mediaFileHandler;
 
@@ -36,15 +47,18 @@ class CategoryImageObserver extends FuzzyfyrObserver
      * CategoryImageObserver constructor.
      * @param CategoryCollectionFactory $categoryCollectionFactory
      * @param CategoryResourceFactory $categoryResourceFactory
-     * @param MediaFileHandler $mediaFileHandler
+     * @param UrlRewriteCollectionFactory $urlRewriteCollectionFactory
+     * @param CategoryImageHandler $mediaFileHandler
      */
     public function __construct(
         CategoryCollectionFactory $categoryCollectionFactory,
         CategoryResourceFactory $categoryResourceFactory,
-        MediaFileHandler $mediaFileHandler
+        UrlRewriteCollectionFactory $urlRewriteCollectionFactory,
+        CategoryImageHandler $mediaFileHandler
     ) {
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->categoryResourceFactory = $categoryResourceFactory;
+        $this->urlRewriteCollectionFactory = $urlRewriteCollectionFactory;
         $this->mediaFileHandler = $mediaFileHandler;
     }
 
@@ -58,19 +72,38 @@ class CategoryImageObserver extends FuzzyfyrObserver
 
     /**
      * {@inheritdoc}
-     * @TODO clear table url_rewrite for entity_type category
-     * @TODO mark indexer to invalidate index
      */
     protected function run(Configuration $configuration)
     {
         /** @var CategoryResource $categoryResource */
         $categoryResource = $this->categoryResourceFactory->create();
 
+        /*
+         * clear table url_rewrite for entity_type category
+         */
+        /** @var UrlRewriteCollection $urlRewriteCollection */
+        $urlRewriteCollection = $this->urlRewriteCollectionFactory->create();
+        $urlRewriteCollection
+            ->addFieldToFilter('entity_type', ['eq' => 'category'])
+            ->load();
+        foreach ($urlRewriteCollection->getItems() as $urlRewrite) {
+            /** @var \Magento\UrlRewrite\Model\UrlRewrite $urlRewrite */
+            $urlRewrite->delete();
+        }
+
+        /*
+         * Process
+         */
         /** @var CategoryCollection $categoryCollection */
         $categoryCollection = $this->categoryCollectionFactory->create();
         $categoryCollection->load();
         foreach ($categoryCollection->getItems() as $category) {
             /** @var \Magento\Catalog\Model\Category $category */
+            if (self::ROOT_CATEGORY_ID === $category->getId()) {
+                // skip root category
+                continue;
+            }
+            $category->load($category->getId());
             $this->doUpdate($configuration, $category);
             $categoryResource->save($category);
         }
@@ -90,6 +123,6 @@ class CategoryImageObserver extends FuzzyfyrObserver
         }
 
         $imagePath = $this->mediaFileHandler->getMediaCopyOfFile($configuration->getDummyImagePath());
-        $category->setData('image', $imagePath);
+        $category->setData('image', basename($imagePath));
     }
 }

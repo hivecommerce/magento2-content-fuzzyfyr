@@ -10,7 +10,7 @@
 
 namespace AllInData\ContentFuzzyfyr\Test\Unit\Observer;
 
-use AllInData\ContentFuzzyfyr\Handler\MediaFileHandler;
+use AllInData\ContentFuzzyfyr\Handler\CategoryImageHandler;
 use AllInData\ContentFuzzyfyr\Model\Configuration;
 use AllInData\ContentFuzzyfyr\Observer\CategoryImageObserver;
 use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
@@ -18,6 +18,8 @@ use Magento\Framework\Event\Observer;
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Magento\Catalog\Model\ResourceModel\Category as CategoryResource;
+use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection;
+use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
@@ -31,6 +33,10 @@ class CategoryImageObserverTest extends AbstractTest
      */
     public function stopOnFailedValidationSuccessfully()
     {
+        $urlRewriteCollectionFactory = $this->getUrlRewriteCollectionFactory();
+        $urlRewriteCollectionFactory->expects($this->never())
+            ->method('create');
+
         $categoryResourceFactory = $this->getCategoryResourceFactory();
         $categoryResourceFactory->expects($this->never())
             ->method('create');
@@ -50,11 +56,11 @@ class CategoryImageObserverTest extends AbstractTest
             ->with('configuration')
             ->willReturn($configuration);
 
-        $mediaFileHandler = $this->getMediaFileHandler();
-        $mediaFileHandler->expects($this->never())
+        $categoryImageHandler = $this->getCategoryImageHandler();
+        $categoryImageHandler->expects($this->never())
             ->method('getMediaCopyOfFile');
 
-        $observer = new CategoryImageObserver($categoryCollectionFactory, $categoryResourceFactory, $mediaFileHandler);
+        $observer = new CategoryImageObserver($categoryCollectionFactory, $categoryResourceFactory, $urlRewriteCollectionFactory, $categoryImageHandler);
 
         $observer->execute($eventObserver);
     }
@@ -64,18 +70,48 @@ class CategoryImageObserverTest extends AbstractTest
      */
     public function runSuccessfully()
     {
-        $expectedImagePath = 'foobar';
+        $expectedImagePath = 'foo/bar/baz.png';
+
+        $urlRewrite = $this->getMockBuilder(\Magento\UrlRewrite\Model\UrlRewrite::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $urlRewrite->expects($this->once())
+            ->method('delete');
+
+        $urlRewriteCollection = $this->getMockBuilder(UrlRewriteCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $urlRewriteCollection->expects($this->once())
+            ->method('addFieldToFilter')
+            ->with('entity_type', ['eq' => 'category'])
+            ->willReturnSelf();
+        $urlRewriteCollection->expects($this->once())
+            ->method('load');
+        $urlRewriteCollection->expects($this->once())
+            ->method('getItems')
+            ->willReturn([$urlRewrite]);
+
+        $urlRewriteCollectionFactory = $this->getUrlRewriteCollectionFactory($urlRewriteCollection);
 
         $category = $this->getMockBuilder(Category::class)
             ->disableOriginalConstructor()
             ->getMock();
         $idx = 0;
         $category->expects($this->at($idx++))
+            ->method('getId')
+            ->willReturn(42);
+        $category->expects($this->at($idx++))
+            ->method('getId')
+            ->willReturn(42);
+        $category->expects($this->at($idx++))
+            ->method('load')
+            ->with(42);
+        $category->expects($this->at($idx++))
             ->method('getImageUrl')
             ->willReturn(' ');
         $category->expects($this->at($idx++))
             ->method('setData')
-            ->With('image', $expectedImagePath);
+            ->With('image', basename($expectedImagePath));
 
         $categoryResource = $this->getMockBuilder(CategoryResource::class)
             ->disableOriginalConstructor()
@@ -112,13 +148,13 @@ class CategoryImageObserverTest extends AbstractTest
             ->with('configuration')
             ->willReturn($configuration);
 
-        $mediaFileHandler = $this->getMediaFileHandler();
-        $mediaFileHandler->expects($this->once())
+        $categoryImageHandler = $this->getCategoryImageHandler();
+        $categoryImageHandler->expects($this->once())
             ->method('getMediaCopyOfFile')
             ->willReturnArgument(0);
 
 
-        $observer = new CategoryImageObserver($categoryCollectionFactory, $categoryResourceFactory, $mediaFileHandler);
+        $observer = new CategoryImageObserver($categoryCollectionFactory, $categoryResourceFactory, $urlRewriteCollectionFactory, $categoryImageHandler);
 
         $observer->execute($eventObserver);
     }
@@ -128,15 +164,52 @@ class CategoryImageObserverTest extends AbstractTest
      */
     public function runSuccessfullyWithOnlyEmptyFlagAndNonEmptyImageUrl()
     {
-        $expectedImagePath = 'foobar';
+        $expectedImagePath = 'foo/bar/baz.png';
+
+        $urlRewrite = $this->getMockBuilder(\Magento\UrlRewrite\Model\UrlRewrite::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $urlRewrite->expects($this->once())
+            ->method('delete');
+
+        $urlRewriteCollection = $this->getMockBuilder(UrlRewriteCollection::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $urlRewriteCollection->expects($this->once())
+            ->method('addFieldToFilter')
+            ->with('entity_type', ['eq' => 'category'])
+            ->willReturnSelf();
+        $urlRewriteCollection->expects($this->once())
+            ->method('load');
+        $urlRewriteCollection->expects($this->once())
+            ->method('getItems')
+            ->willReturn([$urlRewrite]);
+
+        $urlRewriteCollectionFactory = $this->getUrlRewriteCollectionFactory($urlRewriteCollection);
+
+        $rootCategory = $this->getMockBuilder(Category::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $rootCategory->expects($this->once())
+            ->method('getId')
+            ->willReturn(CategoryImageObserver::ROOT_CATEGORY_ID);
 
         $category = $this->getMockBuilder(Category::class)
             ->disableOriginalConstructor()
             ->getMock();
         $idx = 0;
         $category->expects($this->at($idx++))
+            ->method('getId')
+            ->willReturn(42);
+        $category->expects($this->at($idx++))
+            ->method('getId')
+            ->willReturn(42);
+        $category->expects($this->at($idx++))
+            ->method('load')
+            ->with(42);
+        $category->expects($this->at($idx++))
             ->method('getImageUrl')
-            ->willReturn('foo');
+            ->willReturn(basename($expectedImagePath));
 
         $categoryResource = $this->getMockBuilder(CategoryResource::class)
             ->disableOriginalConstructor()
@@ -153,7 +226,7 @@ class CategoryImageObserverTest extends AbstractTest
             ->method('load');
         $categoryCollection->expects($this->once())
             ->method('getItems')
-            ->willReturn([$category]);
+            ->willReturn([$rootCategory, $category]);
         $categoryCollectionFactory = $this->getCategoryCollectionFactory($categoryCollection);
 
         $configuration = $this->getConfiguration();
@@ -173,11 +246,11 @@ class CategoryImageObserverTest extends AbstractTest
             ->with('configuration')
             ->willReturn($configuration);
 
-        $mediaFileHandler = $this->getMediaFileHandler();
-        $mediaFileHandler->expects($this->never())
+        $categoryImageHandler = $this->getCategoryImageHandler();
+        $categoryImageHandler->expects($this->never())
             ->method('getMediaCopyOfFile');
 
-        $observer = new CategoryImageObserver($categoryCollectionFactory, $categoryResourceFactory, $mediaFileHandler);
+        $observer = new CategoryImageObserver($categoryCollectionFactory, $categoryResourceFactory, $urlRewriteCollectionFactory, $categoryImageHandler);
 
         $observer->execute($eventObserver);
     }
@@ -217,12 +290,21 @@ class CategoryImageObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|MediaFileHandler
+     * @return MockObject|CategoryImageHandler
      */
-    private function getMediaFileHandler()
+    private function getCategoryImageHandler()
     {
-        return $this->getMockBuilder(MediaFileHandler::class)
+        return $this->getMockBuilder(CategoryImageHandler::class)
             ->disableOriginalConstructor()
             ->getMock();
+    }
+
+    /**
+     * @param MockObject $instance
+     * @return MockObject|\Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
+     */
+    private function getUrlRewriteCollectionFactory(MockObject $instance = null)
+    {
+        return $this->getFactoryAsMock('\Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection', $instance);
     }
 }

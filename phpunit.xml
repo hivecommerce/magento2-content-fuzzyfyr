@@ -22,7 +22,7 @@
 			<directory suffix=".php">./</directory>
 			<exclude>
 				<directory>./vendor</directory>
-				<directory>./var</directory>
+				<directory>./src</directory>
 				<directory>./build</directory>
 				<directory>./Setup</directory>
 				<directory>./Test</directory>

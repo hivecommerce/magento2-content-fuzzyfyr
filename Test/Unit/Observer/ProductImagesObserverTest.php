@@ -14,7 +14,6 @@ use AllInData\ContentFuzzyfyr\Handler\MediaFileHandler;
 use AllInData\ContentFuzzyfyr\Model\Configuration;
 use AllInData\ContentFuzzyfyr\Observer\ProductImagesObserver;
 use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
@@ -31,8 +30,6 @@ class ProductImagesObserverTest extends AbstractTest
      */
     public function stopOnFailedValidationSuccessfully()
     {
-        $productRepository = $this->getProductRepository();
-
         $productCollection = $this->getMockBuilder(ProductCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -55,7 +52,7 @@ class ProductImagesObserverTest extends AbstractTest
         $mediaFileHandler->expects($this->never())
             ->method('getMediaCopyOfFile');
 
-        $observer = new ProductImagesObserver($productCollectionFactory, $productRepository, $mediaFileHandler);
+        $observer = new ProductImagesObserver($productCollectionFactory, $mediaFileHandler);
 
         $observer->execute($eventObserver);
     }
@@ -80,11 +77,8 @@ class ProductImagesObserverTest extends AbstractTest
         $product->expects($this->at($idx++))
             ->method('addImageToMediaGallery')
             ->With($expectedImagePath, ['image', 'small_image', 'thumbnail'], false, false);
-
-        $productRepository = $this->getProductRepository();
-        $productRepository->expects($this->once())
-            ->method('save')
-            ->with($product);
+        $product->expects($this->once())
+            ->method('save');
 
         $productCollection = $this->getMockBuilder(ProductCollection::class)
             ->disableOriginalConstructor()
@@ -118,7 +112,7 @@ class ProductImagesObserverTest extends AbstractTest
             ->method('getMediaCopyOfFile')
             ->willReturn($expectedImagePath);
 
-        $observer = new ProductImagesObserver($productCollectionFactory, $productRepository, $mediaFileHandler);
+        $observer = new ProductImagesObserver($productCollectionFactory, $mediaFileHandler);
 
         $observer->execute($eventObserver);
     }
@@ -140,11 +134,8 @@ class ProductImagesObserverTest extends AbstractTest
         $product->expects($this->at($idx++))
             ->method('addImageToMediaGallery')
             ->With($expectedImagePath, ['image', 'small_image', 'thumbnail'], false, false);
-
-        $productRepository = $this->getProductRepository();
-        $productRepository->expects($this->once())
-            ->method('save')
-            ->with($product);
+        $product->expects($this->once())
+            ->method('save');
 
         $productCollection = $this->getMockBuilder(ProductCollection::class)
             ->disableOriginalConstructor()
@@ -178,7 +169,7 @@ class ProductImagesObserverTest extends AbstractTest
             ->method('getMediaCopyOfFile')
             ->willReturn($expectedImagePath);
 
-        $observer = new ProductImagesObserver($productCollectionFactory, $productRepository, $mediaFileHandler);
+        $observer = new ProductImagesObserver($productCollectionFactory, $mediaFileHandler);
 
         $observer->execute($eventObserver);
     }
@@ -197,11 +188,8 @@ class ProductImagesObserverTest extends AbstractTest
         $product->expects($this->at($idx++))
             ->method('getMediaGalleryEntries')
             ->willReturn(['foo' => 'bar']);
-
-        $productRepository = $this->getProductRepository();
-        $productRepository->expects($this->once())
-            ->method('save')
-            ->with($product);
+        $product->expects($this->once())
+            ->method('save');
 
         $productCollection = $this->getMockBuilder(ProductCollection::class)
             ->disableOriginalConstructor()
@@ -234,7 +222,7 @@ class ProductImagesObserverTest extends AbstractTest
         $mediaFileHandler->expects($this->never())
             ->method('getMediaCopyOfFile');
 
-        $observer = new ProductImagesObserver($productCollectionFactory, $productRepository, $mediaFileHandler);
+        $observer = new ProductImagesObserver($productCollectionFactory, $mediaFileHandler);
 
         $observer->execute($eventObserver);
     }
@@ -253,15 +241,6 @@ class ProductImagesObserverTest extends AbstractTest
     private function getConfiguration()
     {
         return $this->createMock(Configuration::class);
-    }
-
-    /**
-     * @param MockObject $instance
-     * @return MockObject|ProductRepositoryInterface
-     */
-    private function getProductRepository(MockObject $instance = null)
-    {
-        return $this->createMock(ProductRepositoryInterface::class);
     }
 
     /**
