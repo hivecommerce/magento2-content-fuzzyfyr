@@ -1,11 +1,11 @@
 # Content Fuzzyfyr Module for Magento® 2
 
 The **Content Fuzzyfyr** module for *Magento® 2* fills up empty content fields - and if needed - switches real content with dummy content.
-This is for development purposes, e.g. save time to prepare test data and matching GDPR restrictions.
+This is for development purposes, e.g. save time to prepare test data and being compliant to GDPR.
 
 
 ## Features:
-* Fill up empty content fields with dummy content - completely automated
+* Fill up empty content and image fields with dummy content - completely automated
 * Match GDPR compliance for development, when using production data
 * Export your production database already matching GDPR compliance
 * Use parameters to control the sections required to be filled up with dummy content
