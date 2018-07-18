@@ -8,6 +8,5 @@
 /.docker
 /build
 /tags
-/var
-/generated
+/src
 composer.phar
