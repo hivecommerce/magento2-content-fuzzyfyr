@@ -10,6 +10,7 @@
 
 namespace AllInData\ContentFuzzyfyr\Observer;
 
+use AllInData\ContentFuzzyfyr\Handler\CategoryImageHandler;
 use AllInData\ContentFuzzyfyr\Model\Configuration;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
@@ -18,7 +19,7 @@ use Magento\Catalog\Model\ResourceModel\CategoryFactory as CategoryResourceFacto
 use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection;
 use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
 
-class CategoriesObserver extends FuzzyfyrObserver
+class CategoryImageObserver extends FuzzyfyrObserver
 {
     /*
      * Root Category
@@ -37,21 +38,28 @@ class CategoriesObserver extends FuzzyfyrObserver
      * @var UrlRewriteCollectionFactory
      */
     protected $urlRewriteCollectionFactory;
+    /**
+     * @var CategoryImageHandler
+     */
+    private $mediaFileHandler;
 
     /**
-     * CategoriesObserver constructor.
+     * CategoryImageObserver constructor.
      * @param CategoryCollectionFactory $categoryCollectionFactory
      * @param CategoryResourceFactory $categoryResourceFactory
      * @param UrlRewriteCollectionFactory $urlRewriteCollectionFactory
+     * @param CategoryImageHandler $mediaFileHandler
      */
     public function __construct(
         CategoryCollectionFactory $categoryCollectionFactory,
         CategoryResourceFactory $categoryResourceFactory,
-        UrlRewriteCollectionFactory $urlRewriteCollectionFactory
+        UrlRewriteCollectionFactory $urlRewriteCollectionFactory,
+        CategoryImageHandler $mediaFileHandler
     ) {
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->categoryResourceFactory = $categoryResourceFactory;
         $this->urlRewriteCollectionFactory = $urlRewriteCollectionFactory;
+        $this->mediaFileHandler = $mediaFileHandler;
     }
 
     /**
@@ -104,12 +112,17 @@ class CategoriesObserver extends FuzzyfyrObserver
     /**
      * @param Configuration $configuration
      * @param \Magento\Catalog\Model\Category $category
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function doUpdate(Configuration $configuration, \Magento\Catalog\Model\Category $category)
     {
-        $this->updateData($category, 'description', $configuration, $configuration->getDummyContentText());
-        $this->updateData($category, 'meta_title', $configuration, $configuration->getDummyContentText());
-        $this->updateData($category, 'meta_keywords', $configuration, $configuration->getDummyContentText());
-        $this->updateData($category, 'meta_description', $configuration, $configuration->getDummyContentText());
+        if ($configuration->isUseOnlyEmpty() &&
+            0 !== strlen(trim($category->getImageUrl()))
+        ) {
+            return;
+        }
+
+        $imagePath = $this->mediaFileHandler->getMediaCopyOfFile($configuration->getDummyImagePath());
+        $category->setData('image', basename($imagePath));
     }
 }

@@ -65,6 +65,8 @@ class ConfigurationTest extends AbstractTest
         $this->assertEquals('OPTION_DUMMY_CONTENT_URL', $configuration->getDummyContentUrl());
         $configuration->setDummyPhoneNumber('OPTION_DUMMY_CONTENT_PHONE');
         $this->assertEquals('OPTION_DUMMY_CONTENT_PHONE', $configuration->getDummyPhoneNumber());
+        $configuration->setDummyImagePath('OPTION_DUMMY_CONTENT_IMAGE');
+        $this->assertEquals('OPTION_DUMMY_CONTENT_IMAGE', $configuration->getDummyImagePath());
 
         // --- Extended data
         $extendedData = [
