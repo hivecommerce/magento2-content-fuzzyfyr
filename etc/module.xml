@@ -13,6 +13,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="AllInData_ContentFuzzyfyr" setup_version="1.4.0">
         <sequence>
+            <module name="Magento_Backup"/>
             <module name="Magento_Catalog"/>
             <module name="Magento_Cms"/>
             <module name="Magento_Customer"/>

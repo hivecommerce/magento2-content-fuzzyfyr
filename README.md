@@ -134,6 +134,30 @@ in the *Observer* data:
 
     'configuration' => \AllInData\ContentFuzzyfyr\Model\Configuration
 
+
+### Administration
+#### Content Export
+
+The **Content Fuzzyfyr** Module for *Magento® 2* extends the *Magento® 2* administration backup area with an additional
+option to trigger the export of a GDPR compliant database dump. The database dump will have fuzzyfied customers and user 
+data.
+
+Navigate through the main navigation and selecting *System > Backup*:
+
+![alt text](./resources/aid-content-fuzzyfyr-export-1.png "Dashboard - Menu - Backup")
+
+The backup area is extended by the new button *GDPR conform Database Backup (Content Fuzzyfyr)*:
+
+![alt text](./resources/aid-content-fuzzyfyr-export-2.png "Extended backup area")
+
+By clicking on this button, a wizard is opened to configure the backup - mainly the name of the backup file:
+
+![alt text](./resources/aid-content-fuzzyfyr-export-3.png "Backup wizard")
+
+If the wizard is confirmed, the GDPR compliant backup will be created and visibile in the existing backup list:
+
+![alt text](./resources/aid-content-fuzzyfyr-export-4.png "GDPR compliant backup")
+
 ## Contribution
 Feel free to contribute to this module by reporting issues or create some pull requests for improvements.
 
