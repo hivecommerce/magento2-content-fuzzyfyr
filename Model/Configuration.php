@@ -51,6 +51,10 @@ class Configuration
     /**
      * @var string
      */
+    private $dummyPassword;
+    /**
+     * @var string
+     */
     private $dummyContentEmail;
     /**
      * @var string
@@ -210,6 +214,24 @@ class Configuration
     public function setDummyContentText($dummyContentText)
     {
         $this->dummyContentText = $dummyContentText;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDummyPassword()
+    {
+        return $this->dummyPassword;
+    }
+
+    /**
+     * @param string $dummyPassword
+     * @return Configuration
+     */
+    public function setDummyPassword($dummyPassword)
+    {
+        $this->dummyPassword = $dummyPassword;
         return $this;
     }
 

@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.6.0
+
+- Extended customer fuzzyfyier to alter customer password.
+
 ## 1.5.0
 
 - Extended backup UI in administration area to allow convenient export of database dump matching GDPR compliance

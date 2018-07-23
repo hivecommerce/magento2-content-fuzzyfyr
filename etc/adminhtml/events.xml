@@ -17,6 +17,7 @@
         <observer name="aid_content_fuzzyfyr_cmsblocks" instance="AllInData\ContentFuzzyfyr\Observer\CmsBlocksObserver" />
         <observer name="aid_content_fuzzyfyr_cmspages" instance="AllInData\ContentFuzzyfyr\Observer\CmsPagesObserver" />
         <observer name="aid_content_fuzzyfyr_customers" instance="AllInData\ContentFuzzyfyr\Observer\CustomersObserver" />
+        <observer name="aid_content_fuzzyfyr_customerpasswords" instance="AllInData\ContentFuzzyfyr\Observer\CustomerPasswordsObserver" />
         <observer name="aid_content_fuzzyfyr_products" instance="AllInData\ContentFuzzyfyr\Observer\ProductsObserver" />
         <observer name="aid_content_fuzzyfyr_productimages" instance="AllInData\ContentFuzzyfyr\Observer\ProductImagesObserver" />
         <observer name="aid_content_fuzzyfyr_users" instance="AllInData\ContentFuzzyfyr\Observer\UsersObserver" />
@@ -27,6 +28,7 @@
         <observer name="aid_content_export_cmsblocks" instance="AllInData\ContentFuzzyfyr\Observer\CmsBlocksObserver" />
         <observer name="aid_content_export_cmspages" instance="AllInData\ContentFuzzyfyr\Observer\CmsPagesObserver" />
         <observer name="aid_content_export_customers" instance="AllInData\ContentFuzzyfyr\Observer\CustomersObserver" />
+        <observer name="aid_content_export_customerpasswords" instance="AllInData\ContentFuzzyfyr\Observer\CustomerPasswordsObserver" />
         <observer name="aid_content_export_products" instance="AllInData\ContentFuzzyfyr\Observer\ProductsObserver" />
         <observer name="aid_content_export_users" instance="AllInData\ContentFuzzyfyr\Observer\UsersObserver" />
     </event>

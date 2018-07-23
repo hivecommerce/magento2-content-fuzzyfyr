@@ -48,6 +48,7 @@ class ExportCommand extends Command
      * Options
      */
     const OPTION_DUMMY_CONTENT_TEXT = 'dummy-content-text';
+    const OPTION_DUMMY_CONTENT_PASSWORD = 'dummy-content-password';
     const OPTION_DUMMY_CONTENT_EMAIL = 'dummy-content-email';
     const OPTION_DUMMY_CONTENT_URL = 'dummy-content-url';
     const OPTION_DUMMY_CONTENT_PHONE = 'dummy-content-phone';
@@ -57,6 +58,7 @@ class ExportCommand extends Command
      * Defaults
      */
     const DEFAULT_DUMMY_CONTENT_TEXT = 'Lorem ipsum.';
+    const DEFAULT_DUMMY_CONTENT_PASSWORD = 'lorem42';
     const DEFAULT_DUMMY_CONTENT_EMAIL = 'lorem.ipsum.%1$s@test.localhost';
     const DEFAULT_DUMMY_CONTENT_URL = 'https://lor.emips.um/foo/bar/';
     const DEFAULT_DUMMY_CONTENT_PHONE = '+49 (0) 600 987 654 32';
@@ -157,6 +159,13 @@ class ExportCommand extends Command
                     self::DEFAULT_DUMMY_CONTENT_TEXT
                 ),
                 new InputOption(
+                    self::OPTION_DUMMY_CONTENT_PASSWORD,
+                    null,
+                    InputOption::VALUE_OPTIONAL,
+                    'Used as dummy password.',
+                    self::DEFAULT_DUMMY_CONTENT_PASSWORD
+                ),
+                new InputOption(
                     self::OPTION_DUMMY_CONTENT_EMAIL,
                     null,
                     InputOption::VALUE_OPTIONAL,
@@ -250,6 +259,7 @@ class ExportCommand extends Command
 
         // --- Options
         $configuration->setDummyContentText($input->getOption(self::OPTION_DUMMY_CONTENT_TEXT));
+        $configuration->setDummyPassword($input->getOption(self::OPTION_DUMMY_CONTENT_PASSWORD));
         $configuration->setDummyContentEmail($input->getOption(self::OPTION_DUMMY_CONTENT_EMAIL));
         $configuration->setDummyContentUrl($input->getOption(self::OPTION_DUMMY_CONTENT_URL));
         $configuration->setDummyPhoneNumber($input->getOption(self::OPTION_DUMMY_CONTENT_PHONE));

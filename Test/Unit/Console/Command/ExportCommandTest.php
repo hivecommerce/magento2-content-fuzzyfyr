@@ -35,7 +35,7 @@ class ExportCommandTest extends AbstractTest
         $state = $this->getState();
 
         $input = $this->getInput();
-        $input->expects($this->at(15))
+        $input->expects($this->at(16))
             ->method('getOption')
             ->with(ExportCommand::OPTION_DUMP_OUTPUT)
             ->willReturn(ExportCommand::DEFAULT_DUMP_OUTPUT);
@@ -81,7 +81,7 @@ class ExportCommandTest extends AbstractTest
         $state = $this->getState();
 
         $input = $this->getInput();
-        $input->expects($this->at(15))
+        $input->expects($this->at(16))
             ->method('getOption')
             ->with(ExportCommand::OPTION_DUMP_OUTPUT)
             ->willReturn(ExportCommand::DEFAULT_DUMP_OUTPUT);

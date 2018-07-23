@@ -71,7 +71,7 @@ Option | Description
 --categories | Apply dummy content to categories (content, meta description)
 --cms-blocks | Apply dummy content to CMS Blocks (content)
 --cms-pages | Apply dummy content to CMS Pages (content, meta description)
---customers | Apply dummy content to customers (Last name, address, email)
+--customers | Apply dummy content to customers (Last name, address, email, password)
 --products | Apply dummy content to products (description)
 --users | Apply dummy content to users (Last name, email)
 
@@ -80,6 +80,7 @@ Option | Description
 Option | Value | Description
 --- | --- | ---
 --dummy-content-text | String | Used as dummy text content. Defaults to 'Lorem ipsum.'
+--dummy-content-password | String | Used as dummy text content. Defaults to 'lorem42'
 --dummy-content-email | String | Used as dummy email content. Defaults to 'lorem.ipsum.%1$s@test.localhost'
 --dummy-content-url | String | Used as dummy url content. Defaults to 'https://lor.emips.um/foo/bar/'
 --dummy-content-phone | String | Used as dummy phone content. Defaults to '+49 (0) 600 987 654 32'
@@ -113,7 +114,7 @@ Option | Description
 --categories | Apply dummy content to categories (content, meta description)
 --cms-blocks | Apply dummy content to CMS Blocks (content)
 --cms-pages | Apply dummy content to CMS Pages (content, meta description)
---customers | Apply dummy content to customers (Last name, address, email)
+--customers | Apply dummy content to customers (Last name, address, email, password)
 --products | Apply dummy content to products (description)
 --users | Apply dummy content to users (Last name, email)
 
@@ -122,6 +123,7 @@ Option | Description
 Option | Value | Description
 --- | --- | ---
 --dummy-content-text | String | Used as dummy text content. Defaults to 'Lorem ipsum.'
+--dummy-content-password | String | Used as dummy text content. Defaults to 'lorem42'
 --dummy-content-email | String | Used as dummy email content. Defaults to 'lorem.ipsum.%1$s@test.localhost'
 --dummy-content-url | String | Used as dummy url content. Defaults to 'https://lor.emips.um/foo/bar/'
 --dummy-content-phone | String | Used as dummy phone content. Defaults to '+49 (0) 600 987 654 32'

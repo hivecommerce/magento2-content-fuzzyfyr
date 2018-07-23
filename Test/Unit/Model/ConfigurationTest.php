@@ -59,6 +59,8 @@ class ConfigurationTest extends AbstractTest
         // --- Options
         $configuration->setDummyContentText('OPTION_DUMMY_CONTENT_TEXT');
         $this->assertEquals('OPTION_DUMMY_CONTENT_TEXT', $configuration->getDummyContentText());
+        $configuration->setDummyPassword('OPTION_DUMMY_PASSWORD');
+        $this->assertEquals('OPTION_DUMMY_PASSWORD', $configuration->getDummyPassword());
         $configuration->setDummyContentEmail('OPTION_DUMMY_CONTENT_EMAIL');
         $this->assertEquals('OPTION_DUMMY_CONTENT_EMAIL', $configuration->getDummyContentEmail());
         $configuration->setDummyContentUrl('OPTION_DUMMY_CONTENT_URL');
