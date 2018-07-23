@@ -20,6 +20,7 @@ class Backup extends \Magento\Backup\Block\Adminhtml\Backup
 {
     /**
      * @return AbstractBlock|void
+     * @codeCoverageIgnoreStart
      */
     protected function _prepareLayout()
     {
@@ -35,4 +36,5 @@ class Backup extends \Magento\Backup\Block\Adminhtml\Backup
             ]
         );
     }
+    //@codeCoverageIgnoreEnd
 }
