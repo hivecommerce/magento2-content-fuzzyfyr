@@ -36,6 +36,7 @@ class FuzzyfyrCommand extends Command
      * Flags
      */
     const FLAG_ONLY_EMPTY = 'only-empty';
+    const FLAG_FORCE = 'force';
     const FLAG_CATEGORIES = 'categories';
     const FLAG_CMS_BLOCKS = 'cms-blocks';
     const FLAG_CMS_PAGES = 'cms-pages';
@@ -103,6 +104,12 @@ class FuzzyfyrCommand extends Command
                     null,
                     InputOption::VALUE_NONE,
                     'Use dummy content only if the original data is equal to empty'
+                ),
+                new InputOption(
+                    self::FLAG_FORCE,
+                    null,
+                    InputOption::VALUE_NONE,
+                    'Allow execution in production mode (not recommended!)'
                 ),
                 new InputOption(
                     self::FLAG_CATEGORIES,
@@ -192,13 +199,21 @@ class FuzzyfyrCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // Check on environment
+        $forcedUsage = !!$input->getOption(self::FLAG_FORCE);
+
+        // Check on force option
         $output->writeln(sprintf('You are running in %s mode', $this->state->getMode()));
-        if (\Magento\Framework\App\State::MODE_PRODUCTION === $this->state->getMode()) {
+        if ($forcedUsage) {
+            $output->writeln(sprintf('You are running in forced mode!'));
+            $output->writeln('You really should not use this command in a production environment.');
+        }
+
+        // Check on environment
+        if (!$forcedUsage && \Magento\Framework\App\State::MODE_PRODUCTION === $this->state->getMode()) {
             // prevent from being executed in production mode
-            // this may mess up to much if it would run without any safety checks
+            // this may mess up too much if it would run without any safety checks
             $output->writeln('You really should not use this command in production mode.');
-            $output->writeln('If it is really what you want, switch to default or developer mode first.');
+            $output->writeln('If it is really what you want, switch to default or developer mode first. You also can use --force.');
             return self::ERROR_PRODUCTION_MODE;
         }
 

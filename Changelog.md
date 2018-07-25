@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file, in reverse 
 ## 1.6.0
 
 - Extended customer fuzzyfyier to alter customer password.
+- Added --force flag to fuzzyfyr command to allow execution in production mode.
 
 ## 1.5.0
 

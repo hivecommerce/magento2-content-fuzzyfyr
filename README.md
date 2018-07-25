@@ -68,6 +68,7 @@ You may want to switch to *default* or *developer* mode to run the command:
 Option | Description
 --- | ---
 --only-empty | Use dummy content only if the original data is equal to empty
+--force | Allow execution in production mode (not recommended!)
 --categories | Apply dummy content to categories (content, meta description)
 --cms-blocks | Apply dummy content to CMS Blocks (content)
 --cms-pages | Apply dummy content to CMS Pages (content, meta description)

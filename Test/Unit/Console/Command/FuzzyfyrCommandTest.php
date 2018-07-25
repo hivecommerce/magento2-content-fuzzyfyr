@@ -32,6 +32,9 @@ class FuzzyfyrCommandTest extends AbstractTest
     public function runSuccessfully()
     {
         $state = $this->getState();
+        $state->expects($this->any())
+            ->method('getMode')
+            ->willReturn(\Magento\Framework\App\State::MODE_DEFAULT);
 
         $configuration = $this->getMockBuilder(Configuration::class)->getMock();
         $configurationFactory = $this->getConfigurationFactory();
@@ -53,6 +56,100 @@ class FuzzyfyrCommandTest extends AbstractTest
         );
 
         $input = $this->getInput();
+        $output = $this->getOutput();
+
+        $this->assertEquals(FuzzyfyrCommand::SUCCESS, $command->run($input, $output));
+    }
+
+    /**
+     * @test
+     */
+    public function runSuccessfullyInProductionModeWithForceOption()
+    {
+        $state = $this->getState();
+        $state->expects($this->any())
+            ->method('getMode')
+            ->willReturn(\Magento\Framework\App\State::MODE_PRODUCTION);
+
+        $configuration = $this->getMockBuilder(Configuration::class)->getMock();
+        $configurationFactory = $this->getConfigurationFactory();
+        $configurationFactory->expects($this->once())
+            ->method('create')
+            ->willReturn($configuration);
+
+        $eventManager = $this->getEventManager();
+        $eventManager->expects($this->once())
+            ->method('dispatch')
+            ->with(FuzzyfyrCommand::EVENT_NAME, [
+                'configuration' => $configuration
+            ]);
+
+        $command = new FuzzyfyrCommand(
+            $state,
+            $eventManager,
+            $configurationFactory
+        );
+
+        $input = $this->getInput();
+        $i = 4;
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::FLAG_FORCE)
+            ->willReturn(true);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::FLAG_ONLY_EMPTY)
+            ->willReturn(true);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::FLAG_CATEGORIES)
+            ->willReturn(false);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::FLAG_CMS_BLOCKS)
+            ->willReturn(false);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::FLAG_CMS_PAGES)
+            ->willReturn(false);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::FLAG_CUSTOMERS)
+            ->willReturn(false);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::FLAG_PRODUCTS)
+            ->willReturn(false);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::FLAG_USERS)
+            ->willReturn(false);
+
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::OPTION_DUMMY_CONTENT_TEXT)
+            ->willReturn(FuzzyfyrCommand::DEFAULT_DUMMY_CONTENT_TEXT);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::OPTION_DUMMY_CONTENT_PASSWORD)
+            ->willReturn(FuzzyfyrCommand::DEFAULT_DUMMY_CONTENT_PASSWORD);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::OPTION_DUMMY_CONTENT_EMAIL)
+            ->willReturn(FuzzyfyrCommand::DEFAULT_DUMMY_CONTENT_EMAIL);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::OPTION_DUMMY_CONTENT_URL)
+            ->willReturn(FuzzyfyrCommand::DEFAULT_DUMMY_CONTENT_URL);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::OPTION_DUMMY_CONTENT_PHONE)
+            ->willReturn(FuzzyfyrCommand::DEFAULT_DUMMY_CONTENT_PHONE);
+        $input->expects($this->at($i++))
+            ->method('getOption')
+            ->with(FuzzyfyrCommand::OPTION_DUMMY_CONTENT_IMAGE_PATH)
+            ->willReturn(FuzzyfyrCommand::DEFAULT_DUMMY_CONTENT_IMAGE_PATH);
+
         $output = $this->getOutput();
 
         $this->assertEquals(FuzzyfyrCommand::SUCCESS, $command->run($input, $output));
