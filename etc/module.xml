@@ -11,7 +11,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="AllInData_ContentFuzzyfyr" setup_version="1.5.0">
+    <module name="AllInData_ContentFuzzyfyr" setup_version="1.6.0">
         <sequence>
             <module name="Magento_Backup"/>
             <module name="Magento_Catalog"/>
