@@ -11,12 +11,14 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="AllInData_ContentFuzzyfyr" setup_version="1.6.0">
+    <module name="AllInData_ContentFuzzyfyr" setup_version="1.7.0">
         <sequence>
             <module name="Magento_Backup"/>
             <module name="Magento_Catalog"/>
             <module name="Magento_Cms"/>
             <module name="Magento_Customer"/>
+            <module name="Magento_Quote"/>
+            <module name="Magento_Sales"/>
             <module name="Magento_User"/>
         </sequence>
     </module>

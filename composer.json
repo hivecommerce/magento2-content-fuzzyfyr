@@ -2,7 +2,7 @@
   "name": "allindata/magento2-content-fuzzyfyr",
   "description": "The Content Fuzzyfyr module for Magento2 fills up empty content fields - and if needed - switches real content with dummy content. This is for development purposes, e.g. save time to prepare test data and being compliant to GDPR.",
   "type": "magento2-module",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "minimum-stability": "stable",
   "license": "Apache-2.0",
   "authors": [

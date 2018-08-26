@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.7.0
+
+- Extended customer fuzzyfier to fuzzyfy quote and order addresses.
+
 ## 1.6.0
 
 - Extended customer fuzzyfyier to alter customer password.
