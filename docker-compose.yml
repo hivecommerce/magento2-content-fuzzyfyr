@@ -29,13 +29,13 @@ services:
       - sockdata:/sock
 
   phpfpm:
-    image: markoshust/magento-php:7.1-fpm-3
+    image: markoshust/magento-php:7.1-fpm
     links:
       - db
     volumes: *appvolumes
 
   cron:
-    image: markoshust/magento-php:7.1-fpm-3
+    image: markoshust/magento-php:7.1-fpm
     user: root
     command: /usr/local/bin/cronstart
     tty: true
