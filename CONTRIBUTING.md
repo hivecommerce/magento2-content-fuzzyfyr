@@ -7,7 +7,7 @@ read/subscribe to the following resources:
 
  -  [The PSR-2 Coding Standard](http://www.php-fig.org/psr/psr-2/)
 
-If you are working on new features or refactoring [create a proposal](https://github.com/allin-data/magento2-content-fuzzyfyr/issues/new).
+If you are working on new features or refactoring [create a proposal](https://github.com/hivecommerce/magento2-content-fuzzyfyr/issues/new).
 
 ## Reporting Potential Security Issues
 
@@ -79,7 +79,7 @@ Your first step is to establish a public repository from which we can pull your 
 We recommend using [GitHub](https://github.com), as that is where the component is already hosted.
 
 1. Setup a [GitHub account](http://github.com/), if you haven't yet
-2. Fork the repository (http://github.com/allin-data/magento2-content-fuzzyfyr)
+2. Fork the repository (http://github.com/hivecommerce/magento2-content-fuzzyfyr)
 3. Clone the canonical repository locally and enter it.
 
 ```console

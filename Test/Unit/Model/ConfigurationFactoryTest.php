@@ -2,23 +2,23 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Test\Unit\Model;
+namespace HiveCommerce\ContentFuzzyfyr\Test\Unit\Model;
 
-use AllInData\ContentFuzzyfyr\Model\Configuration;
-use AllInData\ContentFuzzyfyr\Model\ConfigurationFactory;
-use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
+use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use HiveCommerce\ContentFuzzyfyr\Model\ConfigurationFactory;
+use HiveCommerce\ContentFuzzyfyr\Test\Unit\AbstractTest;
 use Magento\Framework\ObjectManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Class ConfigurationFactoryTest
- * @package AllInData\ContentFuzzyfyr\Test\Unit\Model
+ * @package HiveCommerce\ContentFuzzyfyr\Test\Unit\Model
  */
 class ConfigurationFactoryTest extends AbstractTest
 {
@@ -32,7 +32,7 @@ class ConfigurationFactoryTest extends AbstractTest
         $om = $this->getObjectManager();
         $om->expects($this->once())
             ->method('create')
-            ->with('\\AllInData\\ContentFuzzyfyr\\Model\\Configuration', ['foo' => 'bar'])
+            ->with('\\HiveCommerce\\ContentFuzzyfyr\\Model\\Configuration', ['foo' => 'bar'])
             ->willReturn($expectedEntity);
 
         $factory = new ConfigurationFactory($om);

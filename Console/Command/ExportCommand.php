@@ -2,27 +2,27 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Console\Command;
+namespace HiveCommerce\ContentFuzzyfyr\Console\Command;
 
-use AllInData\ContentFuzzyfyr\Handler\BackupHandler;
+use HiveCommerce\ContentFuzzyfyr\Handler\BackupHandler;
 use Magento\Framework\App\State;
 use Magento\Framework\EntityManager\EventManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use AllInData\ContentFuzzyfyr\Model\Configuration;
-use AllInData\ContentFuzzyfyr\Model\ConfigurationFactory;
+use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use HiveCommerce\ContentFuzzyfyr\Model\ConfigurationFactory;
 
 /**
  * Class ExportCommand
- * @package AllInData\ContentFuzzyfyr\Console\Command
+ * @package HiveCommerce\ContentFuzzyfyr\Console\Command
  */
 class ExportCommand extends Command
 {

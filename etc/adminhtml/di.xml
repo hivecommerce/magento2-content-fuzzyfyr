@@ -3,7 +3,7 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,9 +13,9 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <preference for="Magento\Backup\Block\Adminhtml\Backup"
-                type="AllInData\ContentFuzzyfyr\Block\Adminhtml\Backup"/>
+                type="HiveCommerce\ContentFuzzyfyr\Block\Adminhtml\Backup"/>
 
     <preference for="Magento\Framework\Backup\Factory"
-                type="AllInData\ContentFuzzyfyr\Model\Backup\Factory"/>
+                type="HiveCommerce\ContentFuzzyfyr\Model\Backup\Factory"/>
 
 </config>

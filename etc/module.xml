@@ -3,7 +3,7 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="AllInData_ContentFuzzyfyr" setup_version="1.7.0">
+    <module name="HiveCommerce_ContentFuzzyfyr" setup_version="1.7.0">
         <sequence>
             <module name="Magento_Backup"/>
             <module name="Magento_Catalog"/>

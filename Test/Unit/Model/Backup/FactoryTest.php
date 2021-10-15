@@ -2,24 +2,24 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Test\Unit\Model\Backup;
+namespace HiveCommerce\ContentFuzzyfyr\Test\Unit\Model\Backup;
 
-use AllInData\ContentFuzzyfyr\Model\Backup\Factory;
-use AllInData\ContentFuzzyfyr\Handler\Backup\DatabaseHandler;
-use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
+use HiveCommerce\ContentFuzzyfyr\Model\Backup\Factory;
+use HiveCommerce\ContentFuzzyfyr\Handler\Backup\DatabaseHandler;
+use HiveCommerce\ContentFuzzyfyr\Test\Unit\AbstractTest;
 use Magento\Framework\Backup\BackupInterface;
 use Magento\Framework\ObjectManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Class FactoryTest
- * @package AllInData\ContentFuzzyfyr\Test\Unit\Model
+ * @package HiveCommerce\ContentFuzzyfyr\Test\Unit\Model
  */
 class FactoryTest extends AbstractTest
 {

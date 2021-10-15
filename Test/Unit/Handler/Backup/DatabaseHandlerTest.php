@@ -2,29 +2,29 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Test\Unit\Handler\Backup;
+namespace HiveCommerce\ContentFuzzyfyr\Test\Unit\Handler\Backup;
 
-use AllInData\ContentFuzzyfyr\Handler\Backup\DatabaseHandler;
-use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
-use AllInData\ContentFuzzyfyr\Console\Command\ExportCommand;
-use AllInData\ContentFuzzyfyr\Handler\BackupHandler;
+use HiveCommerce\ContentFuzzyfyr\Handler\Backup\DatabaseHandler;
+use HiveCommerce\ContentFuzzyfyr\Test\Unit\AbstractTest;
+use HiveCommerce\ContentFuzzyfyr\Console\Command\ExportCommand;
+use HiveCommerce\ContentFuzzyfyr\Handler\BackupHandler;
 use Magento\Framework\Backup\Db\BackupInterface;
 use Magento\Framework\Backup\Db\BackupDbInterface;
 use Magento\Framework\Backup\Db\BackupFactory;
 use Magento\Framework\EntityManager\EventManager;
-use AllInData\ContentFuzzyfyr\Model\Configuration;
-use AllInData\ContentFuzzyfyr\Model\ConfigurationFactory;
+use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use HiveCommerce\ContentFuzzyfyr\Model\ConfigurationFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Class DatabaseHandlerTest
- * @package AllInData\ContentFuzzyfyr\Test\Unit\Handler\Backup
+ * @package HiveCommerce\ContentFuzzyfyr\Test\Unit\Handler\Backup
  */
 class DatabaseHandlerTest extends AbstractTest
 {

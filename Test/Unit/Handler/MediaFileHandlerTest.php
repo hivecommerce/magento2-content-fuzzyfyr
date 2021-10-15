@@ -2,16 +2,16 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Test\Unit\Handler;
+namespace HiveCommerce\ContentFuzzyfyr\Test\Unit\Handler;
 
-use AllInData\ContentFuzzyfyr\Handler\MediaFileHandler;
-use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
+use HiveCommerce\ContentFuzzyfyr\Handler\MediaFileHandler;
+use HiveCommerce\ContentFuzzyfyr\Test\Unit\AbstractTest;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Catalog\Model\Product\Media\Config;
 use Magento\Framework\Filesystem;
@@ -21,7 +21,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Class BackupHandlerTest
- * @package AllInData\ContentFuzzyfyr\Test\Unit\Handler
+ * @package HiveCommerce\ContentFuzzyfyr\Test\Unit\Handler
  */
 class MediaFileHandlerTest extends AbstractTest
 {

@@ -2,15 +2,15 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Observer;
+namespace HiveCommerce\ContentFuzzyfyr\Observer;
 
-use AllInData\ContentFuzzyfyr\Model\Configuration;
+use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
 use Magento\Cms\Model\ResourceModel\Block\Collection as BlockCollection;
 use Magento\Cms\Model\ResourceModel\Block\CollectionFactory as BlockCollectionFactory;
 use Magento\Cms\Model\ResourceModel\Block as BlockResource;

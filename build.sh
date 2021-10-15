@@ -354,7 +354,7 @@ SRC=${arg_s:-"${CURDIR}"}
 EQP=${arg_t:-"${CURDIR}/build/eqp"}
 TMP=${arg_t:-"${CURDIR}/build/tmp"}
 DEST=${arg_d:-"${CURDIR}/build/store"}
-OUTPUT="${DEST}/allindata_contentfuzzyfyr.zip"
+OUTPUT="${DEST}/HiveCommerce_contentfuzzyfyr.zip"
 
 ##
 ## Cleanup

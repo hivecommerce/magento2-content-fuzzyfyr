@@ -2,19 +2,19 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Test\Unit;
+namespace HiveCommerce\ContentFuzzyfyr\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class AbstractTest
- * @package AllInData\ContentFuzzyfyr\Test\Unit
+ * @package HiveCommerce\ContentFuzzyfyr\Test\Unit
  */
 abstract class AbstractTest extends TestCase
 {

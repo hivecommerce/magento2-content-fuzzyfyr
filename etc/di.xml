@@ -3,7 +3,7 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -15,8 +15,8 @@
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="AllInDataContentFuzzyfyrCommand" xsi:type="object">AllInData\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand</item>
-                <item name="AllInDataContentExportCommand" xsi:type="object">AllInData\ContentFuzzyfyr\Console\Command\ExportCommand</item>
+                <item name="AllInDataContentFuzzyfyrCommand" xsi:type="object">HiveCommerce\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand</item>
+                <item name="AllInDataContentExportCommand" xsi:type="object">HiveCommerce\ContentFuzzyfyr\Console\Command\ExportCommand</item>
             </argument>
         </arguments>
     </type>

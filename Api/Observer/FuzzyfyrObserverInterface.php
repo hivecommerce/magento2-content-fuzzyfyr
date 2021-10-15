@@ -2,16 +2,16 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Api\Observer;
+namespace HiveCommerce\ContentFuzzyfyr\Api\Observer;
 
-use AllInData\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand;
-use AllInData\ContentFuzzyfyr\Model\Configuration;
+use HiveCommerce\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand;
+use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
 use Magento\Framework\Event\ObserverInterface;
 
 interface FuzzyfyrObserverInterface extends ObserverInterface

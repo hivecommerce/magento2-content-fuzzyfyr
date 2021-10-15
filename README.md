@@ -18,7 +18,7 @@ Simply add `allindata/magento2-content-fuzzyfyr` as a dependency:
 composer.phar require allindata/magento2-content-fuzzyfyr
 ```
 
-Optional you can download the latest version [here](https://github.com/allin-data/magento2-content-fuzzyfyr/releases)
+Optional you can download the latest version [here](https://github.com/hivecommerce/magento2-content-fuzzyfyr/releases)
 and install the decompressed code in your projects directory under *app/code/AllInData/ContentFuzzyfyr*.  
 
 ## Post-Install
@@ -26,7 +26,7 @@ and install the decompressed code in your projects directory under *app/code/All
 After the installment of the module source code, the module has to be enabled by the *Magento® 2* CLI.
 
 ```
-bin/magento module:enable AllInData_ContentFuzzyfyr
+bin/magento module:enable HiveCommerce_ContentFuzzyfyr
 ```
 
 ## System Upgrade
@@ -92,7 +92,7 @@ Option | Value | Description
 An event is triggered, called *aid_content_fuzzyfyr_event*. Listening to this event, expect the following parameters
 in the *Observer* data:
 
-    'configuration' => \AllInData\ContentFuzzyfyr\Model\Configuration
+    'configuration' => \HiveCommerce\ContentFuzzyfyr\Model\Configuration
 
 
 #### Content Export
@@ -135,7 +135,7 @@ Option | Value | Description
 An event is triggered, called *aid_content_export_event*. Listening to this event, expect the following parameters
 in the *Observer* data:
 
-    'configuration' => \AllInData\ContentFuzzyfyr\Model\Configuration
+    'configuration' => \HiveCommerce\ContentFuzzyfyr\Model\Configuration
 
 
 ### Administration

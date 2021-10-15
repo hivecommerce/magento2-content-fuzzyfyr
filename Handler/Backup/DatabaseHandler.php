@@ -2,24 +2,24 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Handler\Backup;
+namespace HiveCommerce\ContentFuzzyfyr\Handler\Backup;
 
-use AllInData\ContentFuzzyfyr\Console\Command\ExportCommand;
-use AllInData\ContentFuzzyfyr\Handler\BackupHandler;
+use HiveCommerce\ContentFuzzyfyr\Console\Command\ExportCommand;
+use HiveCommerce\ContentFuzzyfyr\Handler\BackupHandler;
 use Magento\Framework\Backup\Db\BackupFactory;
 use Magento\Framework\EntityManager\EventManager;
-use AllInData\ContentFuzzyfyr\Model\Configuration;
-use AllInData\ContentFuzzyfyr\Model\ConfigurationFactory;
+use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use HiveCommerce\ContentFuzzyfyr\Model\ConfigurationFactory;
 
 /**
  * Class Db
- * @package AllInData\ContentFuzzyfyr\Handler\Backup
+ * @package HiveCommerce\ContentFuzzyfyr\Handler\Backup
  */
 class DatabaseHandler extends \Magento\Framework\Backup\Db
 {

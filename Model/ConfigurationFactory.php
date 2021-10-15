@@ -2,17 +2,17 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Model;
+namespace HiveCommerce\ContentFuzzyfyr\Model;
 
 /**
  * Class ConfigurationFactory
- * @package AllInData\ContentFuzzyfyr\Model
+ * @package HiveCommerce\ContentFuzzyfyr\Model
  */
 class ConfigurationFactory
 {
@@ -38,7 +38,7 @@ class ConfigurationFactory
      */
     public function __construct(
         \Magento\Framework\ObjectManagerInterface $objectManager,
-        $instanceName = '\\AllInData\\ContentFuzzyfyr\\Model\\Configuration'
+        $instanceName = '\\HiveCommerce\\ContentFuzzyfyr\\Model\\Configuration'
     ) {
         $this->_objectManager = $objectManager;
         $this->_instanceName = $instanceName;
@@ -48,7 +48,7 @@ class ConfigurationFactory
      * Create class instance with specified parameters
      *
      * @param array $data
-     * @return \AllInData\ContentFuzzyfyr\Model\Configuration
+     * @return \HiveCommerce\ContentFuzzyfyr\Model\Configuration
      */
     public function create(array $data = array())
     {

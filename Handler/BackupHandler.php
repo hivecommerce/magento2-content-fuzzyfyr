@@ -2,13 +2,13 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Handler;
+namespace HiveCommerce\ContentFuzzyfyr\Handler;
 
 use Magento\Framework\App\MaintenanceMode;
 use Magento\Framework\Setup\BackupRollbackFactory;
@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class BackupHandler
- * @package AllInData\ContentFuzzyfyr\Handler
+ * @package HiveCommerce\ContentFuzzyfyr\Handler
  */
 class BackupHandler
 {

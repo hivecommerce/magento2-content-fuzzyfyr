@@ -2,28 +2,28 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Test\Unit\Console\Command;
+namespace HiveCommerce\ContentFuzzyfyr\Test\Unit\Console\Command;
 
-use AllInData\ContentFuzzyfyr\Handler\BackupHandler;
-use AllInData\ContentFuzzyfyr\Model\Configuration;
-use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
+use HiveCommerce\ContentFuzzyfyr\Handler\BackupHandler;
+use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use HiveCommerce\ContentFuzzyfyr\Test\Unit\AbstractTest;
 use Magento\Framework\App\State;
 use Magento\Framework\EntityManager\EventManager;
-use AllInData\ContentFuzzyfyr\Model\ConfigurationFactory;
-use AllInData\ContentFuzzyfyr\Console\Command\ExportCommand;
+use HiveCommerce\ContentFuzzyfyr\Model\ConfigurationFactory;
+use HiveCommerce\ContentFuzzyfyr\Console\Command\ExportCommand;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class ExportCommandTest
- * @package AllInData\ContentFuzzyfyr\Test\Unit\Console\Command
+ * @package HiveCommerce\ContentFuzzyfyr\Test\Unit\Console\Command
  */
 class ExportCommandTest extends AbstractTest
 {

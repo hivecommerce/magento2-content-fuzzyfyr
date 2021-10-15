@@ -2,18 +2,18 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Test\Unit\Observer;
+namespace HiveCommerce\ContentFuzzyfyr\Test\Unit\Observer;
 
-use AllInData\ContentFuzzyfyr\Handler\MediaFileHandler;
-use AllInData\ContentFuzzyfyr\Model\Configuration;
-use AllInData\ContentFuzzyfyr\Observer\ProductImagesObserver;
-use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
+use HiveCommerce\ContentFuzzyfyr\Handler\MediaFileHandler;
+use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use HiveCommerce\ContentFuzzyfyr\Observer\ProductImagesObserver;
+use HiveCommerce\ContentFuzzyfyr\Test\Unit\AbstractTest;
 use Magento\Framework\Event\Observer;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
@@ -21,7 +21,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Class ProductImagesObserverTest
- * @package AllInData\ContentFuzzyfyr\Test\Unit\Observer
+ * @package HiveCommerce\ContentFuzzyfyr\Test\Unit\Observer
  */
 class ProductImagesObserverTest extends AbstractTest
 {

@@ -2,16 +2,16 @@
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
- * (c) All.In Data GmbH
+ * (c) bitExpert AG
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace AllInData\ContentFuzzyfyr\Test\Unit\Handler;
+namespace HiveCommerce\ContentFuzzyfyr\Test\Unit\Handler;
 
-use AllInData\ContentFuzzyfyr\Handler\BackupHandler;
-use AllInData\ContentFuzzyfyr\Test\Unit\AbstractTest;
+use HiveCommerce\ContentFuzzyfyr\Handler\BackupHandler;
+use HiveCommerce\ContentFuzzyfyr\Test\Unit\AbstractTest;
 use Magento\Framework\App\MaintenanceMode;
 use Magento\Framework\Setup\BackupRollback;
 use Magento\Framework\Setup\BackupRollbackFactory;
@@ -23,7 +23,7 @@ use Magento\Framework\DB\Adapter\AdapterInterface;
 
 /**
  * Class BackupHandlerTest
- * @package AllInData\ContentFuzzyfyr\Test\Unit\Handler
+ * @package HiveCommerce\ContentFuzzyfyr\Test\Unit\Handler
  */
 class BackupHandlerTest extends AbstractTest
 {
