@@ -36,7 +36,6 @@ abstract class AbstractTest extends TestCase
     {
         $factoryFullName = $instanceName . 'Factory';
         $parts = explode('\\', $factoryFullName);
-        $factoryClassName = array_pop($parts);
 
         if (!$mock) {
             $mock = $this->getMockBuilder($instanceName)

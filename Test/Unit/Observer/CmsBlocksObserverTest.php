@@ -23,7 +23,7 @@ use PHPUnit\Framework\MockObject\MockObject;
  * Class BlocksObserverTest
  * @package HiveCommerce\ContentFuzzyfyr\Test\Unit\Observer
  */
-class BlocksObserverTest extends AbstractTest
+class CmsBlocksObserverTest extends AbstractTest
 {
     /**
      * @test
