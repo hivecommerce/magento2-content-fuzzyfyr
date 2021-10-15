@@ -62,12 +62,11 @@ class BlocksObserverTest extends AbstractTest
         $block = $this->getMockBuilder(Block::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $idx = 0;
-        $block->expects($this->at($idx++))
+        $block->expects($this->once())
             ->method('getData')
             ->With('content')
             ->willReturn(null);
-        $block->expects($this->at($idx++))
+        $block->expects($this->once())
             ->method('setData')
             ->with('content', 'dummy-text');
 

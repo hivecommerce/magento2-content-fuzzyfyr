@@ -96,22 +96,6 @@ class CategoryImageObserverTest extends AbstractTest
         $category = $this->getMockBuilder(Category::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $idx = 0;
-        $category->expects($this->at($idx++))
-            ->method('getId')
-            ->willReturn(42);
-        $category->expects($this->at($idx++))
-            ->method('getId')
-            ->willReturn(42);
-        $category->expects($this->at($idx++))
-            ->method('load')
-            ->with(42);
-        $category->expects($this->at($idx++))
-            ->method('getImageUrl')
-            ->willReturn(' ');
-        $category->expects($this->at($idx++))
-            ->method('setData')
-            ->With('image', basename($expectedImagePath));
 
         $categoryResource = $this->getMockBuilder(CategoryResource::class)
             ->disableOriginalConstructor()
@@ -197,17 +181,13 @@ class CategoryImageObserverTest extends AbstractTest
         $category = $this->getMockBuilder(Category::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $idx = 0;
-        $category->expects($this->at($idx++))
+        $category->expects($this->any())
             ->method('getId')
             ->willReturn(42);
-        $category->expects($this->at($idx++))
-            ->method('getId')
-            ->willReturn(42);
-        $category->expects($this->at($idx++))
+        $category->expects($this->any())
             ->method('load')
             ->with(42);
-        $category->expects($this->at($idx++))
+        $category->expects($this->any())
             ->method('getImageUrl')
             ->willReturn(basename($expectedImagePath));
 

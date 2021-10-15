@@ -46,7 +46,6 @@ abstract class AbstractTest extends TestCase
 
         $factory = $this->getMockBuilder($factoryFullName)
             ->disableOriginalConstructor()
-            ->setMockClassName($factoryClassName)
             ->setMethods(['create'])
             ->getMock();
 

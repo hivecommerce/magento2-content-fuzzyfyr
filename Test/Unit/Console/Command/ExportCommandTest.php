@@ -35,10 +35,14 @@ class ExportCommandTest extends AbstractTest
         $state = $this->getState();
 
         $input = $this->getInput();
-        $input->expects($this->at(16))
+        $input->expects($this->any())
             ->method('getOption')
-            ->with(ExportCommand::OPTION_DUMP_OUTPUT)
-            ->willReturn(ExportCommand::DEFAULT_DUMP_OUTPUT);
+            ->willReturnCallback(function ($name) {
+                if ($name === ExportCommand::OPTION_DUMP_OUTPUT) {
+                    return ExportCommand::DEFAULT_DUMP_OUTPUT;
+                }
+                return '';
+            });
         $output = $this->getOutput();
 
         $configuration = $this->getMockBuilder(Configuration::class)->getMock();
@@ -81,10 +85,14 @@ class ExportCommandTest extends AbstractTest
         $state = $this->getState();
 
         $input = $this->getInput();
-        $input->expects($this->at(16))
+        $input->expects($this->any())
             ->method('getOption')
-            ->with(ExportCommand::OPTION_DUMP_OUTPUT)
-            ->willReturn(ExportCommand::DEFAULT_DUMP_OUTPUT);
+            ->willReturnCallback(function ($name) {
+                if ($name === ExportCommand::OPTION_DUMP_OUTPUT) {
+                    return ExportCommand::DEFAULT_DUMP_OUTPUT;
+                }
+                return '';
+            });
         $output = $this->getOutput();
 
         $configuration = $this->getMockBuilder(Configuration::class)->getMock();

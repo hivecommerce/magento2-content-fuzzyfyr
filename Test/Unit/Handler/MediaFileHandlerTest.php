@@ -54,7 +54,7 @@ class MediaFileHandlerTest extends AbstractTest
             ->willReturn($mediaDirectory);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->at(0))
+        $ioFile->expects($this->once())
             ->method('fileExists')
             ->with($expectedMediaFilePath)
             ->willReturn(true);
@@ -72,11 +72,12 @@ class MediaFileHandlerTest extends AbstractTest
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Could not resolve given image path: "foo/bar/baz.png"
      */
     public function runFailsDueToMissingImageAsset()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Could not resolve given image path: "foo/bar/baz.png"');
+
         $inputFilePath = 'foo/bar/baz.png';
         $expectedMediaFilePath = 'media/baz.png';
 
@@ -101,18 +102,20 @@ class MediaFileHandlerTest extends AbstractTest
             ->willReturn($mediaDirectory);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->at(0))
+        $ioFile->expects($this->any())
             ->method('fileExists')
-            ->with($expectedMediaFilePath)
-            ->willReturn(false);
-        $ioFile->expects($this->at(1))
+            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath) {
+                if ($file === $expectedMediaFilePath) {
+                    return false;
+                } else if ($file === $inputFilePath) {
+                    return false;
+                }
+                return null;
+            });
+        $ioFile->expects($this->once())
             ->method('getCleanPath')
             ->with($inputFilePath)
             ->willReturn($inputFilePath);
-        $ioFile->expects($this->at(2))
-            ->method('fileExists')
-            ->with($inputFilePath)
-            ->willReturn(false);
 
 
         $mediaFileHandler = new MediaFileHandler(
@@ -126,11 +129,12 @@ class MediaFileHandlerTest extends AbstractTest
 
     /**
      * @test
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Could not create media folder: "allindata/content/fuzzfyr"
      */
     public function runFailsDueToFailingToCreateMediaSubFolder()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Could not create media folder: "allindata/content/fuzzfyr"');
+
         $inputFilePath = 'foo/bar/baz.png';
         $expectedMediaFilePath = 'media/baz.png';
 
@@ -159,18 +163,20 @@ class MediaFileHandlerTest extends AbstractTest
             ->willReturn($mediaDirectory);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->at(0))
+        $ioFile->expects($this->any())
             ->method('fileExists')
-            ->with($expectedMediaFilePath)
-            ->willReturn(false);
-        $ioFile->expects($this->at(1))
+            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath) {
+                if ($file === $expectedMediaFilePath) {
+                    return false;
+                } else if ($file === $inputFilePath) {
+                    return true;
+                }
+                return null;
+            });
+        $ioFile->expects($this->once())
             ->method('getCleanPath')
             ->with($inputFilePath)
             ->willReturn($inputFilePath);
-        $ioFile->expects($this->at(2))
-            ->method('fileExists')
-            ->with($inputFilePath)
-            ->willReturn(true);
 
 
         $mediaFileHandler = new MediaFileHandler(
@@ -184,11 +190,12 @@ class MediaFileHandlerTest extends AbstractTest
 
     /**
      * @test
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Could not copy media file to: "media/baz.png"
      */
     public function runFailsDueToFailingToCopyFiles()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Could not copy media file to: "media/baz.png"');
+
         $inputFilePath = 'foo/bar/baz.png';
         $expectedMediaFilePath = 'media/baz.png';
 
@@ -217,23 +224,24 @@ class MediaFileHandlerTest extends AbstractTest
             ->willReturn($mediaDirectory);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->at(0))
+        $ioFile->expects($this->any())
             ->method('fileExists')
-            ->with($expectedMediaFilePath)
-            ->willReturn(false);
-        $ioFile->expects($this->at(1))
+            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath) {
+                if ($file === $expectedMediaFilePath) {
+                    return false;
+                } else if ($file === $inputFilePath) {
+                    return true;
+                }
+                return null;
+            });
+        $ioFile->expects($this->once())
             ->method('getCleanPath')
             ->with($inputFilePath)
             ->willReturn($inputFilePath);
-        $ioFile->expects($this->at(2))
-            ->method('fileExists')
-            ->with($inputFilePath)
-            ->willReturn(true);
-        $ioFile->expects($this->at(3))
+        $ioFile->expects($this->once())
             ->method('cp')
             ->with($inputFilePath, $expectedMediaFilePath)
             ->willReturn(false);
-
 
         $mediaFileHandler = new MediaFileHandler(
             $config,
@@ -277,19 +285,21 @@ class MediaFileHandlerTest extends AbstractTest
             ->willReturn($mediaDirectory);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->at(0))
+        $ioFile->expects($this->any())
             ->method('fileExists')
-            ->with($expectedMediaFilePath)
-            ->willReturn(false);
-        $ioFile->expects($this->at(1))
+            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath) {
+                if ($file === $expectedMediaFilePath) {
+                    return false;
+                } else if ($file === $inputFilePath) {
+                    return true;
+                }
+                return null;
+            });
+        $ioFile->expects($this->once())
             ->method('getCleanPath')
             ->with($inputFilePath)
             ->willReturn($inputFilePath);
-        $ioFile->expects($this->at(2))
-            ->method('fileExists')
-            ->with($inputFilePath)
-            ->willReturn(true);
-        $ioFile->expects($this->at(3))
+        $ioFile->expects($this->once())
             ->method('cp')
             ->with($inputFilePath, $expectedMediaFilePath)
             ->willReturn(true);

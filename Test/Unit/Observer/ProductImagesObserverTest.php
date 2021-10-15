@@ -67,16 +67,6 @@ class ProductImagesObserverTest extends AbstractTest
         $product = $this->getMockBuilder(Product::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $idx = 0;
-        $product->expects($this->at($idx++))
-            ->method('getMediaGalleryEntries')
-            ->willReturn([]);
-        $product->expects($this->at($idx++))
-            ->method('setMediaGalleryEntries')
-            ->With([]);
-        $product->expects($this->at($idx++))
-            ->method('addImageToMediaGallery')
-            ->With($expectedImagePath, ['image', 'small_image', 'thumbnail'], false, false);
         $product->expects($this->once())
             ->method('save');
 
@@ -128,10 +118,10 @@ class ProductImagesObserverTest extends AbstractTest
             ->disableOriginalConstructor()
             ->getMock();
         $idx = 0;
-        $product->expects($this->at($idx++))
+        $product->expects($this->once())
             ->method('getMediaGalleryEntries')
             ->willReturn([]);
-        $product->expects($this->at($idx++))
+        $product->expects($this->once())
             ->method('addImageToMediaGallery')
             ->With($expectedImagePath, ['image', 'small_image', 'thumbnail'], false, false);
         $product->expects($this->once())
@@ -184,8 +174,7 @@ class ProductImagesObserverTest extends AbstractTest
         $product = $this->getMockBuilder(Product::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $idx = 0;
-        $product->expects($this->at($idx++))
+        $product->expects($this->once())
             ->method('getMediaGalleryEntries')
             ->willReturn(['foo' => 'bar']);
         $product->expects($this->once())

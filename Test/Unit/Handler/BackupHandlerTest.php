@@ -37,15 +37,9 @@ class BackupHandlerTest extends AbstractTest
         $output = $this->getOutput();
 
         $maintenanceMode = $this->getMaintenanceMode();
-        $maintenanceMode->expects($this->at(0))
+        $maintenanceMode->expects($this->once())
             ->method('isOn')
             ->willReturn(false);
-        $maintenanceMode->expects($this->at(1))
-            ->method('set')
-            ->with(true);
-        $maintenanceMode->expects($this->at(2))
-            ->method('set')
-            ->with(false);
 
         $backupRollback = $this->getMockBuilder(BackupRollback::class)
             ->disableOriginalConstructor()
@@ -91,19 +85,20 @@ class BackupHandlerTest extends AbstractTest
 
     /**
      * @test
-     * @expectedException \RuntimeException
      */
     public function runFailsOnCopyingDumpFile()
     {
+        $this->expectException(\RuntimeException::class);
+
         $expectedBackupPath = sys_get_temp_dir();
 
         $output = $this->getOutput();
 
         $maintenanceMode = $this->getMaintenanceMode();
-        $maintenanceMode->expects($this->at(0))
+        $maintenanceMode->expects($this->once())
             ->method('isOn')
             ->willReturn(false);
-        $maintenanceMode->expects($this->at(1))
+        $maintenanceMode->expects($this->once())
             ->method('set')
             ->with(true);
 
@@ -111,7 +106,8 @@ class BackupHandlerTest extends AbstractTest
             ->disableOriginalConstructor()
             ->getMock();
         $backupRollback->expects($this->once())
-            ->method('dbBackup');
+            ->method('dbBackup')
+            ->willReturn('/mybackup.bak');
         $backupRollbackFactory = $this->getBackupRollbackFactory();
         $backupRollbackFactory->expects($this->once())
             ->method('create')
@@ -148,20 +144,21 @@ class BackupHandlerTest extends AbstractTest
 
     /**
      * @test
-     * @expectedException \RuntimeException
-     * @expectedExceptionMessage Could not create backup folder: "/tmp"
      */
     public function runFailsOnCreatingBackupFolder()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Could not create backup folder: "/tmp"');
+
         $expectedBackupPath = sys_get_temp_dir();
 
         $output = $this->getOutput();
 
         $maintenanceMode = $this->getMaintenanceMode();
-        $maintenanceMode->expects($this->at(0))
+        $maintenanceMode->expects($this->once())
             ->method('isOn')
             ->willReturn(false);
-        $maintenanceMode->expects($this->at(1))
+        $maintenanceMode->expects($this->once())
             ->method('set')
             ->with(true);
 
