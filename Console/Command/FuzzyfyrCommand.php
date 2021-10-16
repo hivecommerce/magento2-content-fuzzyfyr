@@ -96,8 +96,8 @@ class FuzzyfyrCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('aid:content:fuzzyfyr')
-            ->setDescription('Content fuzzyfyr command by All.In Data GmbH')
+        $this->setName('developer:content:fuzzyfyr')
+            ->setDescription('Fuzzyfyr content command')
             ->setDefinition([
                 new InputOption(
                     self::FLAG_ONLY_EMPTY,

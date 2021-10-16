@@ -106,8 +106,8 @@ class ExportCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('aid:content:export')
-            ->setDescription('Fuzzyfied Content export command by All.In Data GmbH')
+        $this->setName('developer:content:export')
+            ->setDescription('Export fuzzyfied content command')
             ->setDefinition([
                 new InputOption(
                     self::FLAG_ONLY_EMPTY,

@@ -133,7 +133,7 @@ class MediaFileHandlerTest extends AbstractTest
     public function runFailsDueToFailingToCreateMediaSubFolder()
     {
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Could not create media folder: "allindata/content/fuzzfyr"');
+        $this->expectExceptionMessage('Could not create media folder: "hivecommerce/content/fuzzfyr"');
 
         $inputFilePath = 'foo/bar/baz.png';
         $expectedMediaFilePath = 'media/baz.png';

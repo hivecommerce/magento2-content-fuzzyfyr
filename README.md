@@ -11,15 +11,15 @@ This is for development purposes, e.g. save time to prepare test data and being 
 * Use parameters to control the sections required to be filled up with dummy content
 
 ## Installation
-The preferred way of installing `allindata/magento2-content-fuzzyfyr` is through Composer.
-Simply add `allindata/magento2-content-fuzzyfyr` as a dependency:
+The preferred way of installing `hivecommerce/magento2-content-fuzzyfyr` is through Composer.
+Simply add `hivecommerce/magento2-content-fuzzyfyr` as a dependency:
 
 ```
-composer.phar require allindata/magento2-content-fuzzyfyr
+composer.phar require hivecommerce/magento2-content-fuzzyfyr
 ```
 
 Optional you can download the latest version [here](https://github.com/hivecommerce/magento2-content-fuzzyfyr/releases)
-and install the decompressed code in your projects directory under *app/code/AllInData/ContentFuzzyfyr*.  
+and install the decompressed code in your projects directory under *app/code/HiveCommerce/ContentFuzzyfyr*.  
 
 ## Post-Install
 
@@ -52,10 +52,10 @@ Find the complete user guide [here](./docs/UserGuide.pdf "User Guide").
 ### CLI
 #### Content Fuzzyfyr
 
-The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *aid:content:fuzzyfyr* to modify
+The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *developer:content:fuzzyfyr* to modify
 existing content (or only empty fields with the *--only-empty* flag) to be switched with some defined default value:
 
-    bin/magento aid:content:fuzzyfyr [options]
+    bin/magento developer:content:fuzzyfyr [options]
 
 **Note:** Be aware the command only runs in non-production mode to avoid messing up production data on mistake.
 
@@ -97,11 +97,11 @@ in the *Observer* data:
 
 #### Content Export
 
-The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *aid:content:export* to export an
+The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *developer:content:export* to export an
 database dump with already fuzzyfied content for existing content (or only empty fields with the *--only-empty* flag)  
 switched with some defined default value:
 
-    bin/magento aid:content:export [options]
+    bin/magento developer:content:export [options]
 
 **Note:** Running the code activates maintenance mode. The maintenance mode will be disabled, if the command has run
 successfully or erroneous and the maintenance mode has been disabled in the beginning. But it is recommended to check

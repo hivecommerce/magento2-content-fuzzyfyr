@@ -25,7 +25,7 @@ class MediaFileHandler
     /*
      * Path
      */
-    const MEDIA_MODULE_BASE_PATH = 'allindata/content/fuzzfyr';
+    const MEDIA_MODULE_BASE_PATH = 'hivecommerce/content/fuzzfyr';
 
     /**
      * @var Config
