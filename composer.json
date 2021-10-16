@@ -23,7 +23,9 @@
     "magento/module-catalog": "~103.0.7-p2|~104.0.0|~104.0.1|~104.0.2|~104.0.3",
     "magento/module-cms": "~103.0.7-p2|~104.0.0|~104.0.1|~104.0.2|~104.0.3",
     "magento/module-customer": "~102.0.7-p2|~103.0.0|~103.0.1|~103.0.2|~103.0.3",
-    "magento/module-user": "~101.1.7|~101.2.0|~101.2.1|~101.2.2|~101.2.3"
+    "magento/module-user": "~101.1.7|~101.2.0|~101.2.1|~101.2.2|~101.2.3",
+    "captainhook/captainhook": "^5.10",
+    "captainhook/plugin-composer": "^5.3"
   },
   "require-dev": {
     "magento/marketplace-eqp": "^1.0.5",
