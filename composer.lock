@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5abe2fa846fac8d8755c3ec4d5572fe8",
+    "content-hash": "8654e9a41ebe8cdd4a525bce5c3642c7",
     "packages": [
         {
             "name": "brick/math",
@@ -2743,8 +2743,7 @@
             "version": "103.0.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/framework/magento-framework-103.0.3.0-patch1.zip",
-                "shasum": "8e40eddf83e5d3414d3237f04426b6c56c47b399"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/framework/magento-framework-103.0.3-p1.zip"
             },
             "require": {
                 "colinmollenhour/php-redis-session-abstract": "~1.4.0",
@@ -2793,6 +2792,7 @@
                     "Magento\\Framework\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -2804,8 +2804,7 @@
             "version": "101.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/framework-bulk/magento-framework-bulk-101.0.0.0.zip",
-                "shasum": "bbb6d8cc0b5072e0d3a7be6ff341f1fd3c737af2"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/framework-bulk/magento-framework-bulk-101.0.0.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -2820,6 +2819,7 @@
                     "registration.php"
                 ]
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -2831,8 +2831,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/framework-message-queue/magento-framework-message-queue-100.4.3.0.zip",
-                "shasum": "95225da56b6b928a91bc8d8b42174543cfec80bb"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/framework-message-queue/magento-framework-message-queue-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -2847,6 +2846,7 @@
                     "Magento\\Framework\\MessageQueue\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -2858,8 +2858,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-asynchronous-operations/magento-module-asynchronous-operations-100.4.3.0.zip",
-                "shasum": "ce1bbcf47020689fae6dd8e2e34dd18a01dd67cf"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-asynchronous-operations/magento-module-asynchronous-operations-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -2883,6 +2882,7 @@
                     "Magento\\AsynchronousOperations\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -2894,8 +2894,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-authorization/magento-module-authorization-100.4.3.0.zip",
-                "shasum": "4dcb2cb669fe80da8b7a007e17ac74e30d6738b8"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-authorization/magento-module-authorization-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -2911,6 +2910,7 @@
                     "Magento\\Authorization\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -2922,8 +2922,7 @@
             "version": "102.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-backend/magento-module-backend-102.0.3.0.zip",
-                "shasum": "cb48d4ae3cf796492b4dc2c963803032563a400f"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-backend/magento-module-backend-102.0.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -2959,6 +2958,7 @@
                     "Magento\\Backend\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -2970,8 +2970,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-backup/magento-module-backup-100.4.3.0.zip",
-                "shasum": "737d3af960c74fc8353967f71a3b0418333f29a0"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-backup/magento-module-backup-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -2989,6 +2988,7 @@
                     "Magento\\Backup\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3000,8 +3000,7 @@
             "version": "101.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-bundle/magento-module-bundle-101.0.3.0.zip",
-                "shasum": "9cf9f2d600b119095ae3eeeb7f248720985bbe2b"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-bundle/magento-module-bundle-101.0.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3036,6 +3035,7 @@
                     "Magento\\Bundle\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3047,8 +3047,7 @@
             "version": "100.4.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-captcha/magento-module-captcha-100.4.3.0-patch1.zip",
-                "shasum": "e6dba2038428bdc801601647dbea821c8ae96c68"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-captcha/magento-module-captcha-100.4.3-p1.zip"
             },
             "require": {
                 "laminas/laminas-captcha": "^2.10",
@@ -3072,6 +3071,7 @@
                     "Magento\\Captcha\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3083,8 +3083,7 @@
             "version": "104.0.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-catalog/magento-module-catalog-104.0.3.0-patch1.zip",
-                "shasum": "76e38d7123413bc86cdfc2efe5911dadbdbdba81"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-catalog/magento-module-catalog-104.0.3-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3129,6 +3128,7 @@
                     "Magento\\Catalog\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3140,8 +3140,7 @@
             "version": "101.1.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-catalog-import-export/magento-module-catalog-import-export-101.1.3.0.zip",
-                "shasum": "e3245ee246c61de0df71ca0e0bff79188d8d8496"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-catalog-import-export/magento-module-catalog-import-export-101.1.3.zip"
             },
             "require": {
                 "ext-ctype": "*",
@@ -3167,6 +3166,7 @@
                     "Magento\\CatalogImportExport\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3178,8 +3178,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-catalog-inventory/magento-module-catalog-inventory-100.4.3.0.zip",
-                "shasum": "cd529dbcb8b1f421d6b92f6f0ed6122a1324bf01"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-catalog-inventory/magento-module-catalog-inventory-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3201,6 +3200,7 @@
                     "Magento\\CatalogInventory\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3212,8 +3212,7 @@
             "version": "101.2.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-catalog-rule/magento-module-catalog-rule-101.2.3.0.zip",
-                "shasum": "eca0cf6a9fe13d24fce4b18eed32262092bcca3a"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-catalog-rule/magento-module-catalog-rule-101.2.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3239,6 +3238,7 @@
                     "Magento\\CatalogRule\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3250,8 +3250,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-catalog-url-rewrite/magento-module-catalog-url-rewrite-100.4.3.0.zip",
-                "shasum": "91076a252f387ae34e384b68a66aeff8c9a9312e"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-catalog-url-rewrite/magento-module-catalog-url-rewrite-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3277,6 +3276,7 @@
                     "Magento\\CatalogUrlRewrite\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3288,8 +3288,7 @@
             "version": "100.4.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-checkout/magento-module-checkout-100.4.3.0-patch1.zip",
-                "shasum": "bc7ff04701a272665594c9ee67b9dd6f517a102a"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-checkout/magento-module-checkout-100.4.3-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3327,6 +3326,7 @@
                     "Magento\\Checkout\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3338,8 +3338,7 @@
             "version": "104.0.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-cms/magento-module-cms-104.0.3.0-patch1.zip",
-                "shasum": "43bc1dc706d5bcc054d82f101894b6088113bdd5"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-cms/magento-module-cms-104.0.3-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3366,6 +3365,7 @@
                     "Magento\\Cms\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3377,8 +3377,7 @@
             "version": "100.4.2",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-cms-url-rewrite/magento-module-cms-url-rewrite-100.4.2.0.zip",
-                "shasum": "a705487cb3e3f4b6e0437491f6ef90eeab8baf72"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-cms-url-rewrite/magento-module-cms-url-rewrite-100.4.2.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3396,6 +3395,7 @@
                     "Magento\\CmsUrlRewrite\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3407,8 +3407,7 @@
             "version": "101.2.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-config/magento-module-config-101.2.3.0.zip",
-                "shasum": "4fa7884b0e560bde0b258676e6b616e9ddd24519"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-config/magento-module-config-101.2.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3430,6 +3429,7 @@
                     "Magento\\Config\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3441,8 +3441,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-contact/magento-module-contact-100.4.3.0.zip",
-                "shasum": "45b53df70c37d319229287130536c6b4ed80ad43"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-contact/magento-module-contact-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3461,6 +3460,7 @@
                     "Magento\\Contact\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3472,8 +3472,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-cron/magento-module-cron-100.4.3.0.zip",
-                "shasum": "01011c85dd90dcd7476c1a1f2945f2a3020faf04"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-cron/magento-module-cron-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3492,6 +3491,7 @@
                     "Magento\\Cron\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3503,8 +3503,7 @@
             "version": "103.0.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-customer/magento-module-customer-103.0.3.0-patch1.zip",
-                "shasum": "e5837092b6b8538a432a8cd4073abed773ffa540"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-customer/magento-module-customer-103.0.3-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3542,6 +3541,7 @@
                     "Magento\\Customer\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3553,8 +3553,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-deploy/magento-module-deploy-100.4.3.0.zip",
-                "shasum": "0bda5442eca52c6eab4e4f1be5d14c6343828422"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-deploy/magento-module-deploy-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3574,6 +3573,7 @@
                     "Magento\\Deploy\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3585,8 +3585,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-developer/magento-module-developer-100.4.3.0.zip",
-                "shasum": "9693cb32d1a17cb912ffca57a14da994a23722e0"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-developer/magento-module-developer-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3603,6 +3602,7 @@
                     "Magento\\Developer\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3614,8 +3614,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-directory/magento-module-directory-100.4.3.0.zip",
-                "shasum": "5664ebbfb0c6314099bf69e70e5d4227c1a122df"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-directory/magento-module-directory-100.4.3.zip"
             },
             "require": {
                 "lib-libxml": "*",
@@ -3634,6 +3633,7 @@
                     "Magento\\Directory\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3645,8 +3645,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-downloadable/magento-module-downloadable-100.4.3.0.zip",
-                "shasum": "028134ec793e7fae6c857449eef503b31df85ea9"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-downloadable/magento-module-downloadable-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3680,6 +3679,7 @@
                     "Magento\\Downloadable\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3691,8 +3691,7 @@
             "version": "102.1.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-eav/magento-module-eav-102.1.3.0.zip",
-                "shasum": "9181eab04961dd0cdb8b6f02f48d31b6df1371b7"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-eav/magento-module-eav-102.1.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3712,6 +3711,7 @@
                     "Magento\\Eav\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3723,8 +3723,7 @@
             "version": "101.1.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-email/magento-module-email-101.1.3.0.zip",
-                "shasum": "a97157e14a0bce042eb6aafd1f3090eb5ff51b2b"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-email/magento-module-email-101.1.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3751,6 +3750,7 @@
                     "Magento\\Email\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3762,8 +3762,7 @@
             "version": "100.4.2",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-gift-message/magento-module-gift-message-100.4.2.0.zip",
-                "shasum": "fbdb20b93b420cd45d42b34e0f7df8d717e32363"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-gift-message/magento-module-gift-message-100.4.2.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3790,6 +3789,7 @@
                     "Magento\\GiftMessage\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3801,8 +3801,7 @@
             "version": "101.0.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-import-export/magento-module-import-export-101.0.3.0.zip",
-                "shasum": "4633899be459f1f8ff27633730726093b2310b0d"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-import-export/magento-module-import-export-101.0.3.zip"
             },
             "require": {
                 "ext-ctype": "*",
@@ -3824,6 +3823,7 @@
                     "Magento\\ImportExport\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3835,8 +3835,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-indexer/magento-module-indexer-100.4.3.0.zip",
-                "shasum": "ccca51905f149a33c35ee3f8a9dfe5f0d040554f"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-indexer/magento-module-indexer-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3852,6 +3851,7 @@
                     "Magento\\Indexer\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3863,8 +3863,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-integration/magento-module-integration-100.4.3.0.zip",
-                "shasum": "c329319bb545f7454d4b5b250b7c4940cbdeceb9"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-integration/magento-module-integration-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3886,6 +3885,7 @@
                     "Magento\\Integration\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3897,8 +3897,7 @@
             "version": "100.4.2-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-media-storage/magento-module-media-storage-100.4.2.0-patch1.zip",
-                "shasum": "bb114080680965901d072f295835558826262a7a"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-media-storage/magento-module-media-storage-100.4.2-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3921,6 +3920,7 @@
                     "Magento\\MediaStorage\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3932,8 +3932,7 @@
             "version": "100.4.2",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-msrp/magento-module-msrp-100.4.2.0.zip",
-                "shasum": "2609029872902a0bcbb56978bffb2da44e3ab18f"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-msrp/magento-module-msrp-100.4.2.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3957,6 +3956,7 @@
                     "Magento\\Msrp\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -3968,8 +3968,7 @@
             "version": "100.4.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-newsletter/magento-module-newsletter-100.4.3.0-patch1.zip",
-                "shasum": "5704261155f57665001f41bd6bda721e441ea077"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-newsletter/magento-module-newsletter-100.4.3-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -3993,6 +3992,7 @@
                     "Magento\\Newsletter\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4004,8 +4004,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-page-cache/magento-module-page-cache-100.4.3.0.zip",
-                "shasum": "2ea8e4927f6d4d981fc3880430b9c68188d475ec"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-page-cache/magento-module-page-cache-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4023,6 +4022,7 @@
                     "Magento\\PageCache\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4034,8 +4034,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-payment/magento-module-payment-100.4.3.0.zip",
-                "shasum": "ed757e21bbe899ba5c5efadf322529e9ea31ea5b"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-payment/magento-module-payment-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4057,6 +4056,7 @@
                     "Magento\\Payment\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4068,8 +4068,7 @@
             "version": "100.4.2",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-product-alert/magento-module-product-alert-100.4.2.0.zip",
-                "shasum": "44b976822380a371fc5e14405fe85e45e96ae920"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-product-alert/magento-module-product-alert-100.4.2.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4092,6 +4091,7 @@
                     "Magento\\ProductAlert\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4103,8 +4103,7 @@
             "version": "101.2.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-quote/magento-module-quote-101.2.3.0.zip",
-                "shasum": "91522269af2fae7d9916299abc70fdb4fa31fa87"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-quote/magento-module-quote-101.2.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4136,6 +4135,7 @@
                     "Magento\\Quote\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4147,8 +4147,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-reports/magento-module-reports-100.4.3.0.zip",
-                "shasum": "fc358d4fe54288a7a6bcc512a683339e9a25bbcc"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-reports/magento-module-reports-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4180,6 +4179,7 @@
                     "Magento\\Reports\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4191,8 +4191,7 @@
             "version": "100.4.0",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-require-js/magento-module-require-js-100.4.0.0.zip",
-                "shasum": "dd3fc06be9622a09dd4f339bed52d2af438deb46"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-require-js/magento-module-require-js-100.4.0.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4207,6 +4206,7 @@
                     "Magento\\RequireJs\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4218,8 +4218,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-review/magento-module-review-100.4.3.0.zip",
-                "shasum": "e79c47dad8cd17e501251854f308816420505573"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-review/magento-module-review-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4246,6 +4245,7 @@
                     "Magento\\Review\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4257,8 +4257,7 @@
             "version": "100.4.2",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-rss/magento-module-rss-100.4.2.0.zip",
-                "shasum": "f9f6dd547703da27d4a5e5720ebabb6df8b468f8"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-rss/magento-module-rss-100.4.2.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4276,6 +4275,7 @@
                     "Magento\\Rss\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4287,8 +4287,7 @@
             "version": "100.4.2",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-rule/magento-module-rule-100.4.2.0.zip",
-                "shasum": "7fe46c6d144d612060dd1d9f5a13c18abb6e064c"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-rule/magento-module-rule-100.4.2.zip"
             },
             "require": {
                 "lib-libxml": "*",
@@ -4308,6 +4307,7 @@
                     "Magento\\Rule\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4319,8 +4319,7 @@
             "version": "103.0.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-sales/magento-module-sales-103.0.3.0-patch1.zip",
-                "shasum": "3976975e882d903ccc6124cbd017e6fef21a21ab"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-sales/magento-module-sales-103.0.3-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4362,6 +4361,7 @@
                     "Magento\\Sales\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4373,8 +4373,7 @@
             "version": "101.2.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-sales-rule/magento-module-sales-rule-101.2.3.0.zip",
-                "shasum": "a2d5ea16744531a74fe1469431050ced9b198ce6"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-sales-rule/magento-module-sales-rule-101.2.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4413,6 +4412,7 @@
                     "Magento\\SalesRule\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4424,8 +4424,7 @@
             "version": "100.4.1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-sales-sequence/magento-module-sales-sequence-100.4.1.0.zip",
-                "shasum": "5508458a59641dccd017849f68a79573c41a4808"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-sales-sequence/magento-module-sales-sequence-100.4.1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4440,6 +4439,7 @@
                     "Magento\\SalesSequence\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4451,8 +4451,7 @@
             "version": "100.4.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-security/magento-module-security-100.4.3.0-patch1.zip",
-                "shasum": "4dc34f465665e4810864e10f775ef9665bc9b597"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-security/magento-module-security-100.4.3-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4474,6 +4473,7 @@
                     "Magento\\Security\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4485,8 +4485,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-shipping/magento-module-shipping-100.4.3.0.zip",
-                "shasum": "252b249a41b830f3079521d6172684e59296f039"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-shipping/magento-module-shipping-100.4.3.zip"
             },
             "require": {
                 "ext-gd": "*",
@@ -4520,6 +4519,7 @@
                     "Magento\\Shipping\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4531,8 +4531,7 @@
             "version": "101.1.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-store/magento-module-store-101.1.3.0.zip",
-                "shasum": "b019ec5adac8c32657a1b1b18e75ec10d3597233"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-store/magento-module-store-101.1.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4558,6 +4557,7 @@
                     "Magento\\Store\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4569,8 +4569,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-tax/magento-module-tax-100.4.3.0.zip",
-                "shasum": "889437fecfe921171b2f1824e2c71e06a26f8573"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-tax/magento-module-tax-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4602,6 +4601,7 @@
                     "Magento\\Tax\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4613,8 +4613,7 @@
             "version": "101.1.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-theme/magento-module-theme-101.1.3.0-patch1.zip",
-                "shasum": "4629bc4d25d4161cef951a60ab2609971cc1565e"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-theme/magento-module-theme-101.1.3-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4644,6 +4643,7 @@
                     "Magento\\Theme\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4655,8 +4655,7 @@
             "version": "100.4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-translation/magento-module-translation-100.4.3.0.zip",
-                "shasum": "2c33155d71709b2fda930d8052c8362462fb51d6"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-translation/magento-module-translation-100.4.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4678,6 +4677,7 @@
                     "Magento\\Translation\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4689,8 +4689,7 @@
             "version": "101.2.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-ui/magento-module-ui-101.2.3.0-patch1.zip",
-                "shasum": "d24de51c2228264518bc99bbcea5fe3436e1093e"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-ui/magento-module-ui-101.2.3-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4713,6 +4712,7 @@
                     "Magento\\Ui\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4724,8 +4724,7 @@
             "version": "102.0.2",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-url-rewrite/magento-module-url-rewrite-102.0.2.0.zip",
-                "shasum": "8e00f257b9bae97ea0af6bb760cc1ad14f3f2406"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-url-rewrite/magento-module-url-rewrite-102.0.2.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4747,6 +4746,7 @@
                     "Magento\\UrlRewrite\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4758,8 +4758,7 @@
             "version": "101.2.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-user/magento-module-user-101.2.3.0.zip",
-                "shasum": "82df73a0a86546ceb20501f11a8666fafb760117"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-user/magento-module-user-101.2.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4781,6 +4780,7 @@
                     "Magento\\User\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4792,8 +4792,7 @@
             "version": "100.4.1-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-variable/magento-module-variable-100.4.1.0-patch1.zip",
-                "shasum": "41c77d71c02f84ea62c669f9009a6a5d1e0f0ea5"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-variable/magento-module-variable-100.4.1-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4812,6 +4811,7 @@
                     "Magento\\Variable\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4823,8 +4823,7 @@
             "version": "101.2.3",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-widget/magento-module-widget-101.2.3.0.zip",
-                "shasum": "fdfbf53cb21255e6e9a4d3d711f7d3f9ee86c4ef"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-widget/magento-module-widget-101.2.3.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4850,6 +4849,7 @@
                     "Magento\\Widget\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -4861,8 +4861,7 @@
             "version": "101.2.3-p1",
             "dist": {
                 "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/module-wishlist/magento-module-wishlist-101.2.3.0-patch1.zip",
-                "shasum": "2151e1bb15134ee0a2c1eaeb5142dd8669f53fba"
+                "url": "https://repo-magento-mirror.fooman.co.nz/dist/magento/module-wishlist/magento-module-wishlist-101.2.3-p1.zip"
             },
             "require": {
                 "magento/framework": "103.0.*",
@@ -4896,6 +4895,7 @@
                     "Magento\\Wishlist\\": ""
                 }
             },
+            "notification-url": "https://stats-magento-mirror.fooman.co.nz/mirror-downloads/",
             "license": [
                 "OSL-3.0",
                 "AFL-3.0"
@@ -8725,33 +8725,6 @@
                 "source": "https://github.com/magento/magento-coding-standard/tree/v13"
             },
             "time": "2021-10-05T14:00:39+00:00"
-        },
-        {
-            "name": "magento/marketplace-eqp",
-            "version": "4.0.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://repo.magento.com/archives/magento/marketplace-eqp/magento-marketplace-eqp-4.0.0.0.zip",
-                "shasum": "790b27d1f7647ffa3da9a27573c25aaf2f00479e"
-            },
-            "require": {
-                "php": ">=5.5.0",
-                "squizlabs/php_codesniffer": "3.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.1.0"
-            },
-            "type": "phpcodesniffer-standard",
-            "autoload": {
-                "psr-4": {
-                    "MEQP\\": "MEQP/",
-                    "MEQP1\\": "MEQP1/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A set of PHP_CodeSniffer rules and sniffs."
         },
         {
             "name": "myclabs/deep-copy",

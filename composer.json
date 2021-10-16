@@ -30,7 +30,6 @@
     "captainhook/captainhook": "^5.10",
     "captainhook/plugin-composer": "^5.3",
     "magento/magento-coding-standard": "^13.0",
-    "magento/marketplace-eqp": "4.0.0",
     "phpstan/extension-installer": "^1.1",
     "phpstan/phpstan": "^0.12.99",
     "phpstan/phpstan-strict-rules": "^0.12.11",
@@ -48,7 +47,7 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "https://repo.magento.com"
+      "url": "https://repo-magento-mirror.fooman.co.nz"
     }
   ],
   "scripts": {
