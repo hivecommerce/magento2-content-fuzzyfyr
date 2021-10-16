@@ -19,11 +19,37 @@
     },
     "pre-push": {
         "enabled": true,
-        "actions": []
+        "actions": [
+            {
+                "action": "composer test",
+                "options": []
+            }
+        ]
     },
     "pre-commit": {
         "enabled": true,
-        "actions": []
+        "actions": [
+            {
+                "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting",
+                "options": [],
+                "conditions": [
+                    {
+                        "exec": "\\CaptainHook\\App\\Hook\\Condition\\FileStaged\\OfType",
+                        "args": ["php"]
+                    }
+                ]
+            },
+            {
+                "action": "composer cs-check {$STAGED_FILES|of-type:php|separated-by: }",
+                "options": [],
+                "conditions": [
+                    {
+                        "exec": "\\CaptainHook\\App\\Hook\\Condition\\FileStaged\\OfType",
+                        "args": ["php"]
+                    }
+                ]
+            }
+        ]
     },
     "prepare-commit-msg": {
         "enabled": false,
@@ -46,7 +72,23 @@
         "actions": []
     },
     "post-change": {
-        "enabled": false,
-        "actions": []
+        "enabled": true,
+        "actions": [
+            {
+                "action": "composer install",
+                "options": [],
+                "conditions": [
+                    {
+                        "exec": "\\CaptainHook\\App\\Hook\\Condition\\FileChanged\\Any",
+                        "args": [
+                            [
+                                "composer.json",
+                                "composer.lock"
+                            ]
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 }
