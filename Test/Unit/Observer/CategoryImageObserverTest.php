@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the Content Fuzzyfyr module for Magento2.
  *
@@ -7,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+declare(strict_types=1);
 
 namespace HiveCommerce\ContentFuzzyfyr\Test\Unit\Observer;
 
@@ -96,6 +98,9 @@ class CategoryImageObserverTest extends AbstractTest
         $category = $this->getMockBuilder(Category::class)
             ->disableOriginalConstructor()
             ->getMock();
+        $category->expects(self::once())
+            ->method('getImageUrl')
+            ->willReturn('');
 
         $categoryResource = $this->getMockBuilder(CategoryResource::class)
             ->disableOriginalConstructor()
@@ -138,7 +143,12 @@ class CategoryImageObserverTest extends AbstractTest
             ->willReturnArgument(0);
 
 
-        $observer = new CategoryImageObserver($categoryCollectionFactory, $categoryResourceFactory, $urlRewriteCollectionFactory, $categoryImageHandler);
+        $observer = new CategoryImageObserver(
+            $categoryCollectionFactory,
+            $categoryResourceFactory,
+            $urlRewriteCollectionFactory,
+            $categoryImageHandler
+        );
 
         $observer->execute($eventObserver);
     }
