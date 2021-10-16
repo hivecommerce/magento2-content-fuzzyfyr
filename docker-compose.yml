@@ -1,56 +1,91 @@
-# Mark Shust's Docker Configuration for Magento (https://github.com/markoshust/docker-magento)
-# Version 13.0.1
+## Mark Shust's Docker Configuration for Magento
+## (https://github.com/markshust/docker-magento)
+##
+## Version 40.0.0
+
+## To use SSH, see https://github.com/markshust/docker-magento#ssh
+## Linux users, see https://github.com/markshust/docker-magento#linux
 
 version: "3"
 
 services:
   app:
-    image: markoshust/magento-nginx:1.13-3
+    image: markoshust/magento-nginx:1.18-5
     ports:
-      - 80:8000
+      - "80:8000"
+      - "443:8443"
     links:
       - db
       - phpfpm
     volumes: &appvolumes
-      - ./src:/var/www/html:delegated
-      - ~/.composer:/var/www/html/var/composer_home:delegated
-      - ~/.composer:/var/www/.composer:delegated
-      - ./Api:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Api:cached
-      - ./assets:/var/www/html/app/code/AllInData/ContentFuzzyfyr/assets:cached
-      - ./Block:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Block:cached
-      - ./Console:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Console:cached
-      - ./etc:/var/www/html/app/code/AllInData/ContentFuzzyfyr/etc
-      - ./Handler:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Handler:cached
-      - ./i18n:/var/www/html/app/code/AllInData/ContentFuzzyfyr/i18n:cached
-      - ./Model:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Model:cached
-      - ./Observer:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Observer:cached
-      - ./Test:/var/www/html/app/code/AllInData/ContentFuzzyfyr/Test:cached
-      - ./registration.php:/var/www/html/app/code/AllInData/ContentFuzzyfyr/registration.php
+      - ~/.composer:/var/www/.composer:cached
+      - appdata:/var/www/html
       - sockdata:/sock
+      - ssldata:/etc/nginx/certs
 
   phpfpm:
-    image: markoshust/magento-php:7.1-fpm
-    links:
-      - db
-    volumes: *appvolumes
-
-  cron:
-    image: markoshust/magento-php:7.1-fpm
-    user: root
-    command: /usr/local/bin/cronstart
-    tty: true
+    image: markoshust/magento-php:7.4-fpm-10
     links:
       - db
     volumes: *appvolumes
 
   db:
-    image: percona:5.7
+    image: mariadb:10.4
+    command: --max_allowed_packet=64M
     ports:
-      - 3306:3306
+      - "3306:3306"
     env_file: env/db.env
     volumes:
       - dbdata:/var/lib/mysql
 
+  redis:
+    image: redis:5.0-alpine
+
+  elasticsearch:
+    image: markoshust/magento-elasticsearch:7.9.3-1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - "discovery.type=single-node"
+      ## Set custom heap size to avoid memory errors
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      ## Avoid test failures due to small disks
+      ## More info at https://github.com/markshust/docker-magento/issues/488
+      - "cluster.routing.allocation.disk.threshold_enabled=false"
+      - "index.blocks.read_only_allow_delete"
+
+  rabbitmq:
+    image: rabbitmq:3.8.22-management-alpine
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - rabbitmqdata:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_VM_MEMORY_HIGH_WATERMARK=1GB
+
+  mailcatcher:
+    image: sj26/mailcatcher
+    ports:
+      - "1080:1080"
+
+  ## Disabling selenium by default as it is not required for all use cases.
+  ## For extra_hosts, replace "magento.test" with the URL of your site,
+  ## and also replace 172.17.0.1 with the result of:
+  ## docker run --rm alpine ip route | awk 'NR==1 {print $3}'
+  #selenium:
+  #  image: selenium/standalone-chrome-debug:3.8.1
+  #  ports:
+  #    - "5900:5900"
+  #  links:
+  #    - app
+  #  extra_hosts:
+  #    - "magento.test:172.17.0.1"
+
 volumes:
+  appdata:
   dbdata:
+  rabbitmqdata:
   sockdata:
+  ssldata:

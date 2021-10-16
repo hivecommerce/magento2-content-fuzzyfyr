@@ -1,25 +1,95 @@
 #!/bin/bash
-./bin/cli chmod u+x bin/magento
+set -o errexit
 
-docker-compose exec phpfpm /usr/local/bin/php ./bin/magento setup:install \
-  --db-host=db \
-  --db-name=magento \
-  --db-user=magento \
-  --db-password=magento \
-  --base-url=http://magento2.test/ \
-  --admin-firstname=Admin \
-  --admin-lastname=User \
-  --admin-email=dummy@gmail.com \
-  --admin-user=magento2 \
-  --admin-password=magento2 \
-  --language=en_US \
-  --currency=USD \
-  --timezone=America/New_York \
+# shellcheck source=../env/db.env
+source env/db.env
+# shellcheck source=../env/magento.env
+source env/magento.env
+
+DOMAIN=${1:-magento.test}
+ES_HOST=elasticsearch
+ES_PORT=9200
+
+bin/download
+
+bin/stop
+
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+[ $? != 0 ] && echo "Failed to start Docker services" && exit
+
+bin/clinotty chmod u+x bin/magento
+
+echo "Waiting for connection to Elasticsearch..."
+bin/clinotty timeout 100 bash -c "
+    until curl --silent --output /dev/null http://$ES_HOST:$ES_PORT/_cat/health?h=st; do
+        printf '.'
+        sleep 2
+    done"
+[ $? != 0 ] && echo "Failed to connect to Elasticsearch" && exit
+
+sleep 2
+
+bin/clinotty bin/magento setup:install \
+  --db-host="$MYSQL_HOST" \
+  --db-name="$MYSQL_DATABASE" \
+  --db-user="$MYSQL_USER" \
+  --db-password="$MYSQL_PASSWORD" \
+  --base-url=https://"$DOMAIN"/ \
+  --base-url-secure=https://"$DOMAIN"/ \
+  --backend-frontname="$MAGENTO_ADMIN_FRONTNAME" \
+  --admin-firstname="$MAGENTO_ADMIN_FIRST_NAME" \
+  --admin-lastname="$MAGENTO_ADMIN_LAST_NAME" \
+  --admin-email="$MAGENTO_ADMIN_EMAIL" \
+  --admin-user="$MAGENTO_ADMIN_USER" \
+  --admin-password="$MAGENTO_ADMIN_PASSWORD" \
+  --language="$MAGENTO_LOCALE" \
+  --currency="$MAGENTO_CURRENCY" \
+  --timezone="$MAGENTO_TIMEZONE" \
+  --amqp-host=rabbitmq \
+  --amqp-port=5672 \
+  --amqp-user=guest \
+  --amqp-password=guest \
+  --amqp-virtualhost=/ \
+  --cache-backend=redis \
+  --cache-backend-redis-server=redis \
+  --cache-backend-redis-db=0 \
+  --page-cache=redis \
+  --page-cache-redis-server=redis \
+  --page-cache-redis-db=1 \
+  --session-save=redis \
+  --session-save-redis-host=redis \
+  --session-save-redis-log-level=4 \
+  --session-save-redis-db=2 \
+  --search-engine=elasticsearch7 \
+  --elasticsearch-host=$ES_HOST \
+  --elasticsearch-port=$ES_PORT \
   --use-rewrites=1
 
-./bin/fixperms
+echo "Installing ContentFuzzyfyr Composer module..."
+bin/rootnotty chmod +x /var/www/html/HiveCommerce/ContentFuzzyfyr/validate_m2_package.php
+bin/rootnotty chown -R app.app /dist
+bin/clinotty composer config minimum-stability dev
+bin/clinotty composer config "repositories.hivecommerce/magento2-content-fuzzyfyr" '{"type": "path", "url": "/var/www/html/HiveCommerce/ContentFuzzyfyr/", "options": {"symlink": true}}'
+bin/clinotty composer require hivecommerce/magento2-content-fuzzyfyr:*
+
+echo "Enabling Force Login module..."
+bin/clinotty bin/magento module:enable HiveCommerce_ContentFuzzyfyr
+bin/clinotty bin/magento setup:upgrade
+
+echo "Forcing deploy of static content to speed up initial requests..."
+bin/clinotty bin/magento setup:static-content:deploy -f
+
+echo "Re-indexing with Elasticsearch..."
+bin/clinotty bin/magento indexer:reindex
+
+echo "Setting basic URL and generating SSL certificate..."
+bin/setup-domain "${DOMAIN}"
+
+echo "Clearing the cache to apply updates..."
+bin/clinotty bin/magento cache:flush
 
 echo "Turning on developer mode.."
-./bin/magento deploy:mode:set developer
+bin/clinotty bin/magento deploy:mode:set developer
 
-./bin/magento indexer:reindex
+echo "Docker development environment setup complete."
+echo "You may now access your Magento instance at https://${DOMAIN}/"

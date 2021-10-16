@@ -1,9 +1,10 @@
 /.idea
 /.docker
-.phpunit.result.cache
 /vendor
 /dist
 /build
 /tags
 /src
+.phpunit.result.cache
 composer.phar
+rootCA.pem
