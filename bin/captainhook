@@ -1,0 +1,3 @@
+#!/bin/bash
+bin/cli /var/www/html/HiveCommerce/ContentFuzzyfyr/vendor/bin/captainhook "$@"
+
