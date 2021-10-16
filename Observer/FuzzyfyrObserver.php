@@ -53,7 +53,7 @@ abstract class FuzzyfyrObserver implements FuzzyfyrObserverInterface
     }
 
     /**
-     * @return mixed
+     * @return void
      */
     abstract protected function run(Configuration $configuration);
 

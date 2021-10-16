@@ -36,7 +36,7 @@ class MediaFileHandlerTest extends AbstractTest
         $config = $this->getConfig();
 
         $mediaDirectory = $this->getMediaDirectory();
-        $mediaDirectory->expects($this->once())
+        $mediaDirectory->expects(self::once())
             ->method('getAbsolutePath')
             ->with(
                 sprintf(
@@ -48,13 +48,13 @@ class MediaFileHandlerTest extends AbstractTest
             ->willReturn($expectedMediaFilePath);
 
         $fileSystem = $this->getFilesystem();
-        $fileSystem->expects($this->once())
+        $fileSystem->expects(self::once())
             ->method('getDirectoryWrite')
             ->with(DirectoryList::MEDIA)
             ->willReturn($mediaDirectory);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('fileExists')
             ->with($expectedMediaFilePath)
             ->willReturn(true);
@@ -67,7 +67,7 @@ class MediaFileHandlerTest extends AbstractTest
         );
 
         $return = $mediaFileHandler->getMediaCopyOfFile($inputFilePath);
-        $this->assertEquals($expectedMediaFilePath, $return);
+        self::assertEquals($expectedMediaFilePath, $return);
     }
 
     /**
@@ -84,7 +84,7 @@ class MediaFileHandlerTest extends AbstractTest
         $config = $this->getConfig();
 
         $mediaDirectory = $this->getMediaDirectory();
-        $mediaDirectory->expects($this->once())
+        $mediaDirectory->expects(self::once())
             ->method('getAbsolutePath')
             ->with(
                 sprintf(
@@ -96,15 +96,15 @@ class MediaFileHandlerTest extends AbstractTest
             ->willReturn($expectedMediaFilePath);
 
         $fileSystem = $this->getFilesystem();
-        $fileSystem->expects($this->once())
+        $fileSystem->expects(self::once())
             ->method('getDirectoryWrite')
             ->with(DirectoryList::MEDIA)
             ->willReturn($mediaDirectory);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->any())
+        $ioFile->expects(self::any())
             ->method('fileExists')
-            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath) {
+            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath): ?bool {
                 if ($file === $expectedMediaFilePath) {
                     return false;
                 } else if ($file === $inputFilePath) {
@@ -112,7 +112,7 @@ class MediaFileHandlerTest extends AbstractTest
                 }
                 return null;
             });
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('getCleanPath')
             ->with($inputFilePath)
             ->willReturn($inputFilePath);
@@ -141,7 +141,7 @@ class MediaFileHandlerTest extends AbstractTest
         $config = $this->getConfig();
 
         $mediaDirectory = $this->getMediaDirectory();
-        $mediaDirectory->expects($this->once())
+        $mediaDirectory->expects(self::once())
             ->method('getAbsolutePath')
             ->with(
                 sprintf(
@@ -151,21 +151,21 @@ class MediaFileHandlerTest extends AbstractTest
                 )
             )
             ->willReturn($expectedMediaFilePath);
-        $mediaDirectory->expects($this->once())
+        $mediaDirectory->expects(self::once())
             ->method('create')
             ->with(MediaFileHandler::MEDIA_MODULE_BASE_PATH)
             ->willReturn(false);
 
         $fileSystem = $this->getFilesystem();
-        $fileSystem->expects($this->once())
+        $fileSystem->expects(self::once())
             ->method('getDirectoryWrite')
             ->with(DirectoryList::MEDIA)
             ->willReturn($mediaDirectory);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->any())
+        $ioFile->expects(self::any())
             ->method('fileExists')
-            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath) {
+            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath): ?bool {
                 if ($file === $expectedMediaFilePath) {
                     return false;
                 } else if ($file === $inputFilePath) {
@@ -173,7 +173,7 @@ class MediaFileHandlerTest extends AbstractTest
                 }
                 return null;
             });
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('getCleanPath')
             ->with($inputFilePath)
             ->willReturn($inputFilePath);
@@ -202,7 +202,7 @@ class MediaFileHandlerTest extends AbstractTest
         $config = $this->getConfig();
 
         $mediaDirectory = $this->getMediaDirectory();
-        $mediaDirectory->expects($this->once())
+        $mediaDirectory->expects(self::once())
             ->method('getAbsolutePath')
             ->with(
                 sprintf(
@@ -212,21 +212,21 @@ class MediaFileHandlerTest extends AbstractTest
                 )
             )
             ->willReturn($expectedMediaFilePath);
-        $mediaDirectory->expects($this->once())
+        $mediaDirectory->expects(self::once())
             ->method('create')
             ->with(MediaFileHandler::MEDIA_MODULE_BASE_PATH)
             ->willReturn(true);
 
         $fileSystem = $this->getFilesystem();
-        $fileSystem->expects($this->once())
+        $fileSystem->expects(self::once())
             ->method('getDirectoryWrite')
             ->with(DirectoryList::MEDIA)
             ->willReturn($mediaDirectory);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->any())
+        $ioFile->expects(self::any())
             ->method('fileExists')
-            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath) {
+            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath): ?bool {
                 if ($file === $expectedMediaFilePath) {
                     return false;
                 } else if ($file === $inputFilePath) {
@@ -234,11 +234,11 @@ class MediaFileHandlerTest extends AbstractTest
                 }
                 return null;
             });
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('getCleanPath')
             ->with($inputFilePath)
             ->willReturn($inputFilePath);
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('cp')
             ->with($inputFilePath, $expectedMediaFilePath)
             ->willReturn(false);
@@ -263,7 +263,7 @@ class MediaFileHandlerTest extends AbstractTest
         $config = $this->getConfig();
 
         $mediaDirectory = $this->getMediaDirectory();
-        $mediaDirectory->expects($this->once())
+        $mediaDirectory->expects(self::once())
             ->method('getAbsolutePath')
             ->with(
                 sprintf(
@@ -273,21 +273,21 @@ class MediaFileHandlerTest extends AbstractTest
                 )
             )
             ->willReturn($expectedMediaFilePath);
-        $mediaDirectory->expects($this->once())
+        $mediaDirectory->expects(self::once())
             ->method('create')
             ->with(MediaFileHandler::MEDIA_MODULE_BASE_PATH)
             ->willReturn(true);
 
         $fileSystem = $this->getFilesystem();
-        $fileSystem->expects($this->once())
+        $fileSystem->expects(self::once())
             ->method('getDirectoryWrite')
             ->with(DirectoryList::MEDIA)
             ->willReturn($mediaDirectory);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->any())
+        $ioFile->expects(self::any())
             ->method('fileExists')
-            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath) {
+            ->willReturnCallback(function ($file) use($expectedMediaFilePath, $inputFilePath): ?bool {
                 if ($file === $expectedMediaFilePath) {
                     return false;
                 } else if ($file === $inputFilePath) {
@@ -295,11 +295,11 @@ class MediaFileHandlerTest extends AbstractTest
                 }
                 return null;
             });
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('getCleanPath')
             ->with($inputFilePath)
             ->willReturn($inputFilePath);
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('cp')
             ->with($inputFilePath, $expectedMediaFilePath)
             ->willReturn(true);
@@ -312,7 +312,7 @@ class MediaFileHandlerTest extends AbstractTest
         );
 
         $return = $mediaFileHandler->getMediaCopyOfFile($inputFilePath);
-        $this->assertEquals($expectedMediaFilePath, $return);
+        self::assertEquals($expectedMediaFilePath, $return);
     }
 
     /**

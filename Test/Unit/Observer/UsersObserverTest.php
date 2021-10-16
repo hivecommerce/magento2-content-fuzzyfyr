@@ -31,20 +31,20 @@ class UsersObserverTest extends AbstractTest
     public function stopOnFailedValidationSuccessfully()
     {
         $userResourceFactory = $this->getUserResourceFactory();
-        $userResourceFactory->expects($this->never())
+        $userResourceFactory->expects(self::never())
             ->method('create');
 
         $userCollectionFactory = $this->getUserCollectionFactory();
-        $userCollectionFactory->expects($this->never())
+        $userCollectionFactory->expects(self::never())
             ->method('create');
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToUsers')
             ->willReturn(false);
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
@@ -62,17 +62,17 @@ class UsersObserverTest extends AbstractTest
         $user = $this->getMockBuilder(User::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $user->expects($this->once())
+        $user->expects(self::once())
             ->method('setEmail')
             ->with('dummy-email');
-        $user->expects($this->once())
+        $user->expects(self::once())
             ->method('setLastname')
             ->with('dummy-text');
 
         $userResource = $this->getMockBuilder(UserResource::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $userResource->expects($this->once())
+        $userResource->expects(self::once())
             ->method('save')
             ->with($user);
         $userResourceFactory = $this->getUserResourceFactory($userResource);
@@ -80,26 +80,26 @@ class UsersObserverTest extends AbstractTest
         $userCollection = $this->getMockBuilder(UserCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $userCollection->expects($this->once())
+        $userCollection->expects(self::once())
             ->method('load');
-        $userCollection->expects($this->once())
+        $userCollection->expects(self::once())
             ->method('getItems')
             ->willReturn([$user]);
         $userCollectionFactory = $this->getUserCollectionFactory($userCollection);
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToUsers')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyContentText')
             ->willReturn('dummy-text');
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyContentEmail')
             ->willReturn('dummy-email');
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);

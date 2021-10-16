@@ -33,6 +33,6 @@ class FuzzyObserverTest extends AbstractTest
         $class = new \ReflectionClass(FuzzyfyrObserver::class);
         $method = $class->getMethod('isValid');
         $method->setAccessible(true);
-        $this->assertTrue($method->invokeArgs($observer, [$configuration]));
+        self::assertTrue($method->invokeArgs($observer, [$configuration]));
     }
 }

@@ -36,52 +36,52 @@ class DatabaseHandlerTest extends AbstractTest
         $configuration = $this->getMockBuilder(Configuration::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('setApplyToUsers')
             ->with(true);
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('setApplyToCustomers')
             ->with(true);
         $configurationFactory = $this->getConfigurationFactory();
-        $configurationFactory->expects($this->once())
+        $configurationFactory->expects(self::once())
             ->method('create')
             ->willReturn($configuration);
 
         $eventManager = $this->getEventManager();
-        $eventManager->expects($this->once())
+        $eventManager->expects(self::once())
             ->method('dispatch')
             ->with(ExportCommand::EVENT_NAME, [
                 'configuration' => $configuration
             ]);
 
         $backupHandler = $this->getBackupHandler();
-        $backupHandler->expects($this->once())
+        $backupHandler->expects(self::once())
             ->method('beginTransaction');
-        $backupHandler->expects($this->once())
+        $backupHandler->expects(self::once())
             ->method('endTransaction');
 
         $backupEntity = $this->createMock(BackupInterface::class);
-        $backupEntity->expects($this->once())
+        $backupEntity->expects(self::once())
             ->method('setTime')
             ->willReturn($backupEntity);
-        $backupEntity->expects($this->once())
+        $backupEntity->expects(self::once())
             ->method('setType')
             ->willReturn($backupEntity);
-        $backupEntity->expects($this->once())
+        $backupEntity->expects(self::once())
             ->method('setPath')
             ->willReturn($backupEntity);
-        $backupEntity->expects($this->once())
+        $backupEntity->expects(self::once())
             ->method('setName')
             ->willReturn($backupEntity);
         $backupDbEntity = $this->createMock(BackupDbInterface::class);
-        $backupDbEntity->expects($this->once())
+        $backupDbEntity->expects(self::once())
             ->method('createBackup')
             ->with($backupEntity);
         $backupFactory = $this->getBackupFactory();
-        $backupFactory->expects($this->once())
+        $backupFactory->expects(self::once())
             ->method('createBackupModel')
             ->willReturn($backupEntity);
-        $backupFactory->expects($this->once())
+        $backupFactory->expects(self::once())
             ->method('createBackupDbModel')
             ->willReturn($backupDbEntity);
 
@@ -92,8 +92,8 @@ class DatabaseHandlerTest extends AbstractTest
             $backupHandler
         );
 
-        $this->assertEquals($databaseHandler, $databaseHandler->addIgnorePaths([]));
-        $this->assertTrue($databaseHandler->create());
+        self::assertEquals($databaseHandler, $databaseHandler->addIgnorePaths([]));
+        self::assertTrue($databaseHandler->create());
     }
     /**
      * @test
@@ -103,53 +103,53 @@ class DatabaseHandlerTest extends AbstractTest
         $configuration = $this->getMockBuilder(Configuration::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('setApplyToUsers')
             ->with(true);
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('setApplyToCustomers')
             ->with(true);
         $configurationFactory = $this->getConfigurationFactory();
-        $configurationFactory->expects($this->once())
+        $configurationFactory->expects(self::once())
             ->method('create')
             ->willReturn($configuration);
 
         $eventManager = $this->getEventManager();
-        $eventManager->expects($this->once())
+        $eventManager->expects(self::once())
             ->method('dispatch')
             ->with(ExportCommand::EVENT_NAME, [
                 'configuration' => $configuration
             ]);
 
         $backupHandler = $this->getBackupHandler();
-        $backupHandler->expects($this->once())
+        $backupHandler->expects(self::once())
             ->method('beginTransaction');
-        $backupHandler->expects($this->once())
+        $backupHandler->expects(self::once())
             ->method('endTransaction');
 
         $backupEntity = $this->createMock(BackupInterface::class);
-        $backupEntity->expects($this->once())
+        $backupEntity->expects(self::once())
             ->method('setTime')
             ->willReturn($backupEntity);
-        $backupEntity->expects($this->once())
+        $backupEntity->expects(self::once())
             ->method('setType')
             ->willReturn($backupEntity);
-        $backupEntity->expects($this->once())
+        $backupEntity->expects(self::once())
             ->method('setPath')
             ->willReturn($backupEntity);
-        $backupEntity->expects($this->once())
+        $backupEntity->expects(self::once())
             ->method('setName')
             ->willReturn($backupEntity);
         $backupDbEntity = $this->createMock(BackupDbInterface::class);
-        $backupDbEntity->expects($this->once())
+        $backupDbEntity->expects(self::once())
             ->method('createBackup')
             ->with($backupEntity)
             ->willThrowException(new \Exception());
         $backupFactory = $this->getBackupFactory();
-        $backupFactory->expects($this->once())
+        $backupFactory->expects(self::once())
             ->method('createBackupModel')
             ->willReturn($backupEntity);
-        $backupFactory->expects($this->once())
+        $backupFactory->expects(self::once())
             ->method('createBackupDbModel')
             ->willReturn($backupDbEntity);
 
@@ -160,7 +160,7 @@ class DatabaseHandlerTest extends AbstractTest
             $backupHandler
         );
 
-        $this->assertEquals(ExportCommand::ERROR_EXPORT_FAILED, $databaseHandler->create());
+        self::assertEquals(ExportCommand::ERROR_EXPORT_FAILED, $databaseHandler->create());
     }
 
     /**

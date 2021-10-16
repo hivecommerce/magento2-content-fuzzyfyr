@@ -35,9 +35,9 @@ class ExportCommandTest extends AbstractTest
         $state = $this->getState();
 
         $input = $this->getInput();
-        $input->expects($this->any())
+        $input->expects(self::any())
             ->method('getOption')
-            ->willReturnCallback(function ($name) {
+            ->willReturnCallback(function ($name): string {
                 if ($name === ExportCommand::OPTION_DUMP_OUTPUT) {
                     return ExportCommand::DEFAULT_DUMP_OUTPUT;
                 }
@@ -47,23 +47,23 @@ class ExportCommandTest extends AbstractTest
 
         $configuration = $this->getMockBuilder(Configuration::class)->getMock();
         $configurationFactory = $this->getConfigurationFactory();
-        $configurationFactory->expects($this->once())
+        $configurationFactory->expects(self::once())
             ->method('create')
             ->willReturn($configuration);
 
         $eventManager = $this->getEventManager();
-        $eventManager->expects($this->once())
+        $eventManager->expects(self::once())
             ->method('dispatch')
             ->with(ExportCommand::EVENT_NAME, [
                 'configuration' => $configuration
             ]);
 
         $backupHandler = $this->getBackupHandler();
-        $backupHandler->expects($this->once())
+        $backupHandler->expects(self::once())
             ->method('beginTransaction');
-        $backupHandler->expects($this->once())
+        $backupHandler->expects(self::once())
             ->method('endTransaction');
-        $backupHandler->expects($this->once())
+        $backupHandler->expects(self::once())
             ->method('run')
             ->with($output, ExportCommand::DEFAULT_DUMP_OUTPUT);
 
@@ -74,7 +74,7 @@ class ExportCommandTest extends AbstractTest
             $backupHandler
         );
 
-        $this->assertEquals(ExportCommand::SUCCESS, $command->run($input, $output));
+        self::assertEquals(ExportCommand::SUCCESS, $command->run($input, $output));
     }
 
     /**
@@ -85,9 +85,9 @@ class ExportCommandTest extends AbstractTest
         $state = $this->getState();
 
         $input = $this->getInput();
-        $input->expects($this->any())
+        $input->expects(self::any())
             ->method('getOption')
-            ->willReturnCallback(function ($name) {
+            ->willReturnCallback(function ($name): string {
                 if ($name === ExportCommand::OPTION_DUMP_OUTPUT) {
                     return ExportCommand::DEFAULT_DUMP_OUTPUT;
                 }
@@ -97,23 +97,23 @@ class ExportCommandTest extends AbstractTest
 
         $configuration = $this->getMockBuilder(Configuration::class)->getMock();
         $configurationFactory = $this->getConfigurationFactory();
-        $configurationFactory->expects($this->once())
+        $configurationFactory->expects(self::once())
             ->method('create')
             ->willReturn($configuration);
 
         $eventManager = $this->getEventManager();
-        $eventManager->expects($this->once())
+        $eventManager->expects(self::once())
             ->method('dispatch')
             ->with(ExportCommand::EVENT_NAME, [
                 'configuration' => $configuration
             ]);
 
         $backupHandler = $this->getBackupHandler();
-        $backupHandler->expects($this->once())
+        $backupHandler->expects(self::once())
             ->method('beginTransaction');
-        $backupHandler->expects($this->once())
+        $backupHandler->expects(self::once())
             ->method('endTransaction');
-        $backupHandler->expects($this->once())
+        $backupHandler->expects(self::once())
             ->method('run')
             ->with($output, ExportCommand::DEFAULT_DUMP_OUTPUT)
             ->willThrowException(new \Exception());
@@ -125,7 +125,7 @@ class ExportCommandTest extends AbstractTest
             $backupHandler
         );
 
-        $this->assertEquals(ExportCommand::ERROR_EXPORT_FAILED, $command->run($input, $output));
+        self::assertEquals(ExportCommand::ERROR_EXPORT_FAILED, $command->run($input, $output));
     }
 
     /**

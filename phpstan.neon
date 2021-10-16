@@ -1,0 +1,14 @@
+parameters:
+    level: 5
+    fileExtensions:
+        - php
+    paths:
+        - Api
+        - Block
+        - Console
+        - Handler
+        - Model
+        - Observer
+        - Test
+    bootstrapFiles:
+            - vendor/bitexpert/phpstan-magento/autoload.php

@@ -34,22 +34,22 @@ class ProductImagesObserverTest extends AbstractTest
             ->disableOriginalConstructor()
             ->getMock();
         $productCollectionFactory = $this->getProductCollectionFactory($productCollection);
-        $productCollectionFactory->expects($this->never())
+        $productCollectionFactory->expects(self::never())
             ->method('create');
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToProducts')
             ->willReturn(false);
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
 
         $mediaFileHandler = $this->getMediaFileHandler();
-        $mediaFileHandler->expects($this->never())
+        $mediaFileHandler->expects(self::never())
             ->method('getMediaCopyOfFile');
 
         $observer = new ProductImagesObserver($productCollectionFactory, $mediaFileHandler);
@@ -67,38 +67,38 @@ class ProductImagesObserverTest extends AbstractTest
         $product = $this->getMockBuilder(Product::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $product->expects($this->once())
+        $product->expects(self::once())
             ->method('save');
 
         $productCollection = $this->getMockBuilder(ProductCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $productCollection->expects($this->once())
+        $productCollection->expects(self::once())
             ->method('load');
-        $productCollection->expects($this->once())
+        $productCollection->expects(self::once())
             ->method('getItems')
             ->willReturn([$product]);
         $productCollectionFactory = $this->getProductCollectionFactory($productCollection);
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToProducts')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('isUseOnlyEmpty')
             ->willReturn(false);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyImagePath')
             ->willReturn($expectedImagePath);
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
 
         $mediaFileHandler = $this->getMediaFileHandler();
-        $mediaFileHandler->expects($this->once())
+        $mediaFileHandler->expects(self::once())
             ->method('getMediaCopyOfFile')
             ->willReturn($expectedImagePath);
 
@@ -118,44 +118,44 @@ class ProductImagesObserverTest extends AbstractTest
             ->disableOriginalConstructor()
             ->getMock();
         $idx = 0;
-        $product->expects($this->once())
+        $product->expects(self::once())
             ->method('getMediaGalleryEntries')
             ->willReturn([]);
-        $product->expects($this->once())
+        $product->expects(self::once())
             ->method('addImageToMediaGallery')
-            ->With($expectedImagePath, ['image', 'small_image', 'thumbnail'], false, false);
-        $product->expects($this->once())
+            ->with($expectedImagePath, ['image', 'small_image', 'thumbnail'], false, false);
+        $product->expects(self::once())
             ->method('save');
 
         $productCollection = $this->getMockBuilder(ProductCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $productCollection->expects($this->once())
+        $productCollection->expects(self::once())
             ->method('load');
-        $productCollection->expects($this->once())
+        $productCollection->expects(self::once())
             ->method('getItems')
             ->willReturn([$product]);
         $productCollectionFactory = $this->getProductCollectionFactory($productCollection);
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToProducts')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('isUseOnlyEmpty')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyImagePath')
             ->willReturn($expectedImagePath);
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
 
         $mediaFileHandler = $this->getMediaFileHandler();
-        $mediaFileHandler->expects($this->once())
+        $mediaFileHandler->expects(self::once())
             ->method('getMediaCopyOfFile')
             ->willReturn($expectedImagePath);
 
@@ -174,41 +174,41 @@ class ProductImagesObserverTest extends AbstractTest
         $product = $this->getMockBuilder(Product::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $product->expects($this->once())
+        $product->expects(self::once())
             ->method('getMediaGalleryEntries')
             ->willReturn(['foo' => 'bar']);
-        $product->expects($this->once())
+        $product->expects(self::once())
             ->method('save');
 
         $productCollection = $this->getMockBuilder(ProductCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $productCollection->expects($this->once())
+        $productCollection->expects(self::once())
             ->method('load');
-        $productCollection->expects($this->once())
+        $productCollection->expects(self::once())
             ->method('getItems')
             ->willReturn([$product]);
         $productCollectionFactory = $this->getProductCollectionFactory($productCollection);
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToProducts')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('isUseOnlyEmpty')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyImagePath')
             ->willReturn($expectedImagePath);
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
 
         $mediaFileHandler = $this->getMediaFileHandler();
-        $mediaFileHandler->expects($this->never())
+        $mediaFileHandler->expects(self::never())
             ->method('getMediaCopyOfFile');
 
         $observer = new ProductImagesObserver($productCollectionFactory, $mediaFileHandler);
@@ -242,7 +242,7 @@ class ProductImagesObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|MediaMediaFileHandlerHandler
+     * @return MockObject|MediaFileHandler
      */
     private function getMediaFileHandler()
     {

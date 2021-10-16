@@ -31,20 +31,20 @@ class CmsPagesObserverTest extends AbstractTest
     public function stopOnFailedValidationSuccessfully()
     {
         $pageResourceFactory = $this->getPageResourceFactory();
-        $pageResourceFactory->expects($this->never())
+        $pageResourceFactory->expects(self::never())
             ->method('create');
 
         $pageCollectionFactory = $this->getPageCollectionFactory();
-        $pageCollectionFactory->expects($this->never())
+        $pageCollectionFactory->expects(self::never())
             ->method('create');
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToCmsPages')
             ->willReturn(false);
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
@@ -66,7 +66,7 @@ class CmsPagesObserverTest extends AbstractTest
         $pageResource = $this->getMockBuilder(PageResource::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $pageResource->expects($this->once())
+        $pageResource->expects(self::once())
             ->method('save')
             ->with($page);
         $pageResourceFactory = $this->getPageResourceFactory($pageResource);
@@ -74,29 +74,29 @@ class CmsPagesObserverTest extends AbstractTest
         $pageCollection = $this->getMockBuilder(PageCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $pageCollection->expects($this->once())
+        $pageCollection->expects(self::once())
             ->method('load');
-        $pageCollection->expects($this->once())
+        $pageCollection->expects(self::once())
             ->method('getItems')
             ->willReturn([$page]);
         $pageCollectionFactory = $this->getPageCollectionFactory($pageCollection);
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToCmsPages')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('isUseOnlyEmpty')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyContentText')
             ->willReturn('dummy-text');
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyContentEmail')
             ->willReturn('dummy-email');
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
