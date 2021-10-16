@@ -1,0 +1,10 @@
+#!/bin/bash
+set -o errexit
+
+if [ ! -d pwa-studio ]; then
+    echo "PWA studio must first be installed by running bin/setup-pwa-studio"
+    exit
+fi
+
+cd pwa-studio
+NODE_TLS_REJECT_UNAUTHORIZED=0 yarn run watch:all

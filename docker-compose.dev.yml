@@ -1,0 +1,15 @@
+## Mark Shust's Docker Configuration for Magento
+## (https://github.com/markshust/docker-magento)
+##
+## Version 40.0.0
+
+version: "3"
+
+services:
+  app:
+    volumes: &appvolumes
+      - ./:/var/www/html/HiveCommerce/ContentFuzzyfyr/
+      - ./dist:/dist
+
+  phpfpm:
+    volumes: *appvolumes
