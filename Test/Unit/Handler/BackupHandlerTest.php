@@ -37,37 +37,37 @@ class BackupHandlerTest extends AbstractTest
         $output = $this->getOutput();
 
         $maintenanceMode = $this->getMaintenanceMode();
-        $maintenanceMode->expects($this->once())
+        $maintenanceMode->expects(self::once())
             ->method('isOn')
             ->willReturn(false);
 
         $backupRollback = $this->getMockBuilder(BackupRollback::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $backupRollback->expects($this->once())
+        $backupRollback->expects(self::once())
             ->method('dbBackup');
         $backupRollbackFactory = $this->getBackupRollbackFactory();
-        $backupRollbackFactory->expects($this->once())
+        $backupRollbackFactory->expects(self::once())
             ->method('create')
             ->with($output)
             ->willReturn($backupRollback);
 
         $connection = $this->createMock(AdapterInterface::class);
-        $connection->expects($this->once())
+        $connection->expects(self::once())
             ->method('beginTransaction');
-        $connection->expects($this->once())
+        $connection->expects(self::once())
             ->method('rollBack');
         $setup = $this->getModuleDataSetup();
-        $setup->expects($this->exactly(2))
+        $setup->expects(self::exactly(2))
             ->method('getConnection')
             ->willReturn($connection);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('checkAndCreateFolder')
             ->with($expectedBackupPath, BackupHandler::BACKUP_DIRECTORY_FILEMODE)
             ->willReturn(true);
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('cp')
             ->willReturn(true);
 
@@ -95,39 +95,39 @@ class BackupHandlerTest extends AbstractTest
         $output = $this->getOutput();
 
         $maintenanceMode = $this->getMaintenanceMode();
-        $maintenanceMode->expects($this->once())
+        $maintenanceMode->expects(self::once())
             ->method('isOn')
             ->willReturn(false);
-        $maintenanceMode->expects($this->once())
+        $maintenanceMode->expects(self::once())
             ->method('set')
             ->with(true);
 
         $backupRollback = $this->getMockBuilder(BackupRollback::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $backupRollback->expects($this->once())
+        $backupRollback->expects(self::once())
             ->method('dbBackup')
             ->willReturn('/mybackup.bak');
         $backupRollbackFactory = $this->getBackupRollbackFactory();
-        $backupRollbackFactory->expects($this->once())
+        $backupRollbackFactory->expects(self::once())
             ->method('create')
             ->with($output)
             ->willReturn($backupRollback);
 
         $connection = $this->createMock(AdapterInterface::class);
-        $connection->expects($this->once())
+        $connection->expects(self::once())
             ->method('beginTransaction');
         $setup = $this->getModuleDataSetup();
-        $setup->expects($this->exactly(1))
+        $setup->expects(self::exactly(1))
             ->method('getConnection')
             ->willReturn($connection);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('checkAndCreateFolder')
             ->with($expectedBackupPath, BackupHandler::BACKUP_DIRECTORY_FILEMODE)
             ->willReturn(true);
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('cp')
             ->willReturn(false);
 
@@ -155,25 +155,25 @@ class BackupHandlerTest extends AbstractTest
         $output = $this->getOutput();
 
         $maintenanceMode = $this->getMaintenanceMode();
-        $maintenanceMode->expects($this->once())
+        $maintenanceMode->expects(self::once())
             ->method('isOn')
             ->willReturn(false);
-        $maintenanceMode->expects($this->once())
+        $maintenanceMode->expects(self::once())
             ->method('set')
             ->with(true);
 
         $backupRollbackFactory = $this->getBackupRollbackFactory();
 
         $connection = $this->createMock(AdapterInterface::class);
-        $connection->expects($this->once())
+        $connection->expects(self::once())
             ->method('beginTransaction');
         $setup = $this->getModuleDataSetup();
-        $setup->expects($this->exactly(1))
+        $setup->expects(self::exactly(1))
             ->method('getConnection')
             ->willReturn($connection);
 
         $ioFile = $this->getFile();
-        $ioFile->expects($this->once())
+        $ioFile->expects(self::once())
             ->method('checkAndCreateFolder')
             ->with($expectedBackupPath, BackupHandler::BACKUP_DIRECTORY_FILEMODE)
             ->willReturn(false);

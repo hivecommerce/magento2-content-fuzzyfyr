@@ -48,7 +48,7 @@ abstract class AbstractTest extends TestCase
             ->setMethods(['create'])
             ->getMock();
 
-        $factory->expects($this->any())
+        $factory->expects(self::any())
             ->method('create')
             ->willReturn($mock);
 

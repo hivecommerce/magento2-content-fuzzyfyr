@@ -42,20 +42,20 @@ class CustomersObserverTest extends AbstractTest
         $quoteRepository = $this->getQuoteRepository();
 
         $customerRepository = $this->getCustomerRepository();
-        $customerRepository->expects($this->never())
+        $customerRepository->expects(self::never())
             ->method('getById');
 
         $customerCollectionFactory = $this->getCustomerCollectionFactory();
-        $customerCollectionFactory->expects($this->never())
+        $customerCollectionFactory->expects(self::never())
             ->method('create');
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToCustomers')
             ->willReturn(false);
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
@@ -80,151 +80,151 @@ class CustomersObserverTest extends AbstractTest
         $searchCriteriaInterfaceFactory = $this->getSearchCriteriaInterfaceFactory($searchCriteria);
 
         $quoteAddress = $this->createMock(\Magento\Quote\Api\Data\AddressInterface::class);
-        $quoteAddress->expects($this->once())
+        $quoteAddress->expects(self::once())
             ->method('setFirstname')
             ->with('dummy-text');
-        $quoteAddress->expects($this->once())
+        $quoteAddress->expects(self::once())
             ->method('setMiddlename')
             ->with('dummy-text');
-        $quoteAddress->expects($this->once())
+        $quoteAddress->expects(self::once())
             ->method('setLastname')
             ->with('dummy-text');
-        $quoteAddress->expects($this->once())
+        $quoteAddress->expects(self::once())
             ->method('setCompany')
             ->with('dummy-text');
-        $quoteAddress->expects($this->once())
+        $quoteAddress->expects(self::once())
             ->method('setEmail')
             ->with('dummy-email');
-        $quoteAddress->expects($this->once())
+        $quoteAddress->expects(self::once())
             ->method('setCity')
             ->with('dummy-text');
-        $quoteAddress->expects($this->once())
+        $quoteAddress->expects(self::once())
             ->method('setPostcode')
             ->with('dummy-text');
-        $quoteAddress->expects($this->once())
+        $quoteAddress->expects(self::once())
             ->method('setStreet')
             ->with('dummy-text');
-        $quoteAddress->expects($this->once())
+        $quoteAddress->expects(self::once())
             ->method('setVatId')
             ->with('dummy-text');
         $quote = $this->createMock(\Magento\Quote\Api\Data\CartInterface::class);
-        $quote->expects($this->once())
+        $quote->expects(self::once())
             ->method('getBillingAddress')
             ->willReturn($quoteAddress);
         $searchData = $this->createMock(\Magento\Quote\Api\Data\CartSearchResultsInterface::class);
-        $searchData->expects($this->once())
+        $searchData->expects(self::once())
             ->method('getItems')
             ->willReturn([$quote]);
         $quoteRepository = $this->getQuoteRepository();
-        $quoteRepository->expects($this->once())
+        $quoteRepository->expects(self::once())
             ->method('getList')
             ->with($searchCriteria)
             ->willReturn($searchData);
-        $quoteRepository->expects($this->once())
+        $quoteRepository->expects(self::once())
             ->method('save')
             ->with($quote);
 
         $orderAddress = $this->createMock(\Magento\Sales\Api\Data\OrderAddressInterface::class);
-        $orderAddress->expects($this->once())
+        $orderAddress->expects(self::once())
             ->method('setFirstname')
             ->with('dummy-text');
-        $orderAddress->expects($this->once())
+        $orderAddress->expects(self::once())
             ->method('setMiddlename')
             ->with('dummy-text');
-        $orderAddress->expects($this->once())
+        $orderAddress->expects(self::once())
             ->method('setLastname')
             ->with('dummy-text');
-        $orderAddress->expects($this->once())
+        $orderAddress->expects(self::once())
             ->method('setCompany')
             ->with('dummy-text');
-        $orderAddress->expects($this->once())
+        $orderAddress->expects(self::once())
             ->method('setEmail')
             ->with('dummy-email');
-        $orderAddress->expects($this->once())
+        $orderAddress->expects(self::once())
             ->method('setCity')
             ->with('dummy-text');
-        $orderAddress->expects($this->once())
+        $orderAddress->expects(self::once())
             ->method('setPostcode')
             ->with('dummy-text');
-        $orderAddress->expects($this->once())
+        $orderAddress->expects(self::once())
             ->method('setStreet')
             ->with('dummy-text');
-        $orderAddress->expects($this->once())
+        $orderAddress->expects(self::once())
             ->method('setVatId')
             ->with('dummy-text');
         $searchData = $this->createMock(\Magento\Sales\Api\Data\OrderAddressSearchResultInterface::class);
-        $searchData->expects($this->once())
+        $searchData->expects(self::once())
             ->method('getItems')
             ->willReturn([$orderAddress]);
         $orderAddressRepository = $this->getOrderAddressRepository();
-        $orderAddressRepository->expects($this->once())
+        $orderAddressRepository->expects(self::once())
             ->method('getList')
             ->with($searchCriteria)
             ->willReturn($searchData);
-        $orderAddressRepository->expects($this->once())
+        $orderAddressRepository->expects(self::once())
             ->method('save')
             ->with($orderAddress);
 
         $address = $this->createMock(AddressInterface::class);
-        $address->expects($this->once())
+        $address->expects(self::once())
             ->method('setStreet')
             ->with(['dummy-text']);
-        $address->expects($this->once())
+        $address->expects(self::once())
             ->method('setCity')
             ->with('dummy-text');
 
         $customer = $this->getMockBuilder(Customer::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $customer->expects($this->once())
+        $customer->expects(self::once())
             ->method('getId')
             ->willReturn(42);
         $customerData = $this->createMock(CustomerInterface::class);
-        $customerData->expects($this->once())
+        $customerData->expects(self::once())
             ->method('setEmail')
             ->with('dummy-email');
-        $customerData->expects($this->once())
+        $customerData->expects(self::once())
             ->method('setLastname')
             ->with('dummy-text');
-        $customerData->expects($this->once())
+        $customerData->expects(self::once())
             ->method('getAddresses')
             ->willReturn([$address]);
-        $customerData->expects($this->once())
+        $customerData->expects(self::once())
             ->method('setAddresses')
             ->with([$address]);
 
         $customerRepository = $this->getCustomerRepository();
-        $customerRepository->expects($this->once())
+        $customerRepository->expects(self::once())
             ->method('getById')
             ->with(42)
             ->willReturn($customerData);
-        $customerRepository->expects($this->once())
+        $customerRepository->expects(self::once())
             ->method('save')
             ->with($customerData);
 
         $customerCollection = $this->getMockBuilder(CustomerCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $customerCollection->expects($this->once())
+        $customerCollection->expects(self::once())
             ->method('load');
-        $customerCollection->expects($this->once())
+        $customerCollection->expects(self::once())
             ->method('getItems')
             ->willReturn([$customer]);
         $customerCollectionFactory = $this->getCustomerCollectionFactory($customerCollection);
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToCustomers')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyContentText')
             ->willReturn('dummy-text');
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyContentEmail')
             ->willReturn('dummy-email');
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);

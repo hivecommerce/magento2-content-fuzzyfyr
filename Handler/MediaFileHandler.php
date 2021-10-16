@@ -58,11 +58,11 @@ class MediaFileHandler
     }
 
     /**
-     * @param $filePath
+     * @param string $filePath
      * @return string
      * @throws \Magento\Framework\Exception\FileSystemException
      */
-    public function getMediaCopyOfFile($filePath)
+    public function getMediaCopyOfFile(string $filePath)
     {
         $this->init();
 

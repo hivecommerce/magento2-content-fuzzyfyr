@@ -32,18 +32,18 @@ class FuzzyfyrCommandTest extends AbstractTest
     public function runSuccessfully()
     {
         $state = $this->getState();
-        $state->expects($this->any())
+        $state->expects(self::any())
             ->method('getMode')
             ->willReturn(\Magento\Framework\App\State::MODE_DEFAULT);
 
         $configuration = $this->getMockBuilder(Configuration::class)->getMock();
         $configurationFactory = $this->getConfigurationFactory();
-        $configurationFactory->expects($this->once())
+        $configurationFactory->expects(self::once())
             ->method('create')
             ->willReturn($configuration);
 
         $eventManager = $this->getEventManager();
-        $eventManager->expects($this->once())
+        $eventManager->expects(self::once())
             ->method('dispatch')
             ->with(FuzzyfyrCommand::EVENT_NAME, [
                 'configuration' => $configuration
@@ -58,7 +58,7 @@ class FuzzyfyrCommandTest extends AbstractTest
         $input = $this->getInput();
         $output = $this->getOutput();
 
-        $this->assertEquals(FuzzyfyrCommand::SUCCESS, $command->run($input, $output));
+        self::assertEquals(FuzzyfyrCommand::SUCCESS, $command->run($input, $output));
     }
 
     /**
@@ -67,18 +67,18 @@ class FuzzyfyrCommandTest extends AbstractTest
     public function runSuccessfullyInProductionModeWithForceOption()
     {
         $state = $this->getState();
-        $state->expects($this->any())
+        $state->expects(self::any())
             ->method('getMode')
             ->willReturn(\Magento\Framework\App\State::MODE_PRODUCTION);
 
         $configuration = $this->getMockBuilder(Configuration::class)->getMock();
         $configurationFactory = $this->getConfigurationFactory();
-        $configurationFactory->expects($this->once())
+        $configurationFactory->expects(self::once())
             ->method('create')
             ->willReturn($configuration);
 
         $eventManager = $this->getEventManager();
-        $eventManager->expects($this->once())
+        $eventManager->expects(self::once())
             ->method('dispatch')
             ->with(FuzzyfyrCommand::EVENT_NAME, [
                 'configuration' => $configuration
@@ -91,7 +91,7 @@ class FuzzyfyrCommandTest extends AbstractTest
         );
 
         $input = $this->getInput();
-        $input->expects($this->any())
+        $input->expects(self::any())
             ->method('getOption')
             ->willReturnCallback(function ($name) {
                 switch($name) {
@@ -115,7 +115,7 @@ class FuzzyfyrCommandTest extends AbstractTest
             });
         $output = $this->getOutput();
 
-        $this->assertEquals(FuzzyfyrCommand::SUCCESS, $command->run($input, $output));
+        self::assertEquals(FuzzyfyrCommand::SUCCESS, $command->run($input, $output));
     }
 
     /**
@@ -124,16 +124,16 @@ class FuzzyfyrCommandTest extends AbstractTest
     public function runFailsInProductionMode()
     {
         $state = $this->getState();
-        $state->expects($this->any())
+        $state->expects(self::any())
             ->method('getMode')
             ->willReturn(\Magento\Framework\App\State::MODE_PRODUCTION);
 
         $eventManager = $this->getEventManager();
-        $eventManager->expects($this->never())
+        $eventManager->expects(self::never())
             ->method('dispatch');
 
         $configurationFactory = $this->getConfigurationFactory();
-        $configurationFactory->expects($this->never())
+        $configurationFactory->expects(self::never())
             ->method('create');
 
         $command = new FuzzyfyrCommand(
@@ -145,7 +145,7 @@ class FuzzyfyrCommandTest extends AbstractTest
         $input = $this->getInput();
         $output = $this->getOutput();
 
-        $this->assertEquals(FuzzyfyrCommand::ERROR_PRODUCTION_MODE, $command->run($input, $output));
+        self::assertEquals(FuzzyfyrCommand::ERROR_PRODUCTION_MODE, $command->run($input, $output));
     }
 
     /**

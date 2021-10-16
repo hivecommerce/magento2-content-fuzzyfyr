@@ -116,7 +116,7 @@ class CustomersObserver extends FuzzyfyrObserver
 
     /**
      * @param Configuration $configuration
-     * @param \Magento\Customer\Model\Customer $customer
+     * @param \Magento\Customer\Api\Data\CustomerInterface $customer
      */
     protected function doUpdateCustomer(
         Configuration $configuration,
@@ -129,7 +129,7 @@ class CustomersObserver extends FuzzyfyrObserver
             )
         );
 
-        $customer->setLastName($configuration->getDummyContentText());
+        $customer->setLastname($configuration->getDummyContentText());
 
         $addresses = $customer->getAddresses();
         foreach ($addresses as $address) {

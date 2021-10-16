@@ -32,15 +32,15 @@ class FactoryTest extends AbstractTest
         $backupEntity = $this->createMock(BackupInterface::class);
 
         $om = $this->getObjectManager();
-        $om->expects($this->once())
+        $om->expects(self::once())
             ->method('create')
             ->with('Magento\Framework\Backup\Filesystem')
             ->willReturn($backupEntity);
 
         $factory = new Factory($om, $databaseHandler);
 
-        $this->assertEquals($databaseHandler, $factory->create(Factory::TYPE_GDPR_DB));
-        $this->assertEquals($backupEntity, $factory->create(Factory::TYPE_FILESYSTEM));
+        self::assertEquals($databaseHandler, $factory->create(Factory::TYPE_GDPR_DB));
+        self::assertEquals($backupEntity, $factory->create(Factory::TYPE_FILESYSTEM));
     }
 
     /**

@@ -32,20 +32,20 @@ class CustomerPasswordsObserverTest extends AbstractTest
     public function stopOnFailedValidationSuccessfully()
     {
         $customerRepository = $this->getCustomerRepository();
-        $customerRepository->expects($this->never())
+        $customerRepository->expects(self::never())
             ->method('getById');
 
         $customerCollectionFactory = $this->getCustomerCollectionFactory();
-        $customerCollectionFactory->expects($this->never())
+        $customerCollectionFactory->expects(self::never())
             ->method('create');
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToCustomers')
             ->willReturn(false);
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
@@ -63,7 +63,7 @@ class CustomerPasswordsObserverTest extends AbstractTest
         $customer = $this->getMockBuilder(Customer::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $customer->expects($this->once())
+        $customer->expects(self::once())
             ->method('getId')
             ->willReturn(42);
         $customerData = $this->getMockBuilder(CustomerInterface::class)
@@ -119,39 +119,39 @@ class CustomerPasswordsObserverTest extends AbstractTest
                 'setCustomAttributes'
             ])
             ->getMock();
-        $customerData->expects($this->once())
+        $customerData->expects(self::once())
             ->method('setPassword')
             ->with('password');
 
         $customerRepository = $this->getCustomerRepository();
-        $customerRepository->expects($this->once())
+        $customerRepository->expects(self::once())
             ->method('getById')
             ->with(42)
             ->willReturn($customerData);
-        $customerRepository->expects($this->once())
+        $customerRepository->expects(self::once())
             ->method('save')
             ->with($customerData);
 
         $customerCollection = $this->getMockBuilder(CustomerCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $customerCollection->expects($this->once())
+        $customerCollection->expects(self::once())
             ->method('load');
-        $customerCollection->expects($this->once())
+        $customerCollection->expects(self::once())
             ->method('getItems')
             ->willReturn([$customer]);
         $customerCollectionFactory = $this->getCustomerCollectionFactory($customerCollection);
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToCustomers')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyPassword')
             ->willReturn('password');
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);

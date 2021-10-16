@@ -33,24 +33,24 @@ class CategoriesObserverTest extends AbstractTest
     public function stopOnFailedValidationSuccessfully()
     {
         $urlRewriteCollectionFactory = $this->getUrlRewriteCollectionFactory();
-        $urlRewriteCollectionFactory->expects($this->never())
+        $urlRewriteCollectionFactory->expects(self::never())
             ->method('create');
 
         $categoryResourceFactory = $this->getCategoryResourceFactory();
-        $categoryResourceFactory->expects($this->never())
+        $categoryResourceFactory->expects(self::never())
             ->method('create');
 
         $categoryCollectionFactory = $this->getCategoryCollectionFactory();
-        $categoryCollectionFactory->expects($this->never())
+        $categoryCollectionFactory->expects(self::never())
             ->method('create');
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToCategories')
             ->willReturn(false);
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
@@ -68,19 +68,19 @@ class CategoriesObserverTest extends AbstractTest
         $urlRewrite = $this->getMockBuilder(\Magento\UrlRewrite\Model\UrlRewrite::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $urlRewrite->expects($this->once())
+        $urlRewrite->expects(self::once())
             ->method('delete');
 
         $urlRewriteCollection = $this->getMockBuilder(UrlRewriteCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $urlRewriteCollection->expects($this->once())
+        $urlRewriteCollection->expects(self::once())
             ->method('addFieldToFilter')
             ->with('entity_type', ['eq' => 'category'])
             ->willReturnSelf();
-        $urlRewriteCollection->expects($this->once())
+        $urlRewriteCollection->expects(self::once())
             ->method('load');
-        $urlRewriteCollection->expects($this->once())
+        $urlRewriteCollection->expects(self::once())
             ->method('getItems')
             ->willReturn([$urlRewrite]);
 
@@ -89,7 +89,7 @@ class CategoriesObserverTest extends AbstractTest
         $rootCategory = $this->getMockBuilder(Category::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $rootCategory->expects($this->once())
+        $rootCategory->expects(self::once())
             ->method('getId')
             ->willReturn(CategoriesObserver::ROOT_CATEGORY_ID);
 
@@ -100,7 +100,7 @@ class CategoriesObserverTest extends AbstractTest
         $categoryResource = $this->getMockBuilder(CategoryResource::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $categoryResource->expects($this->once())
+        $categoryResource->expects(self::once())
             ->method('save')
             ->with($category);
         $categoryResourceFactory = $this->getCategoryResourceFactory($categoryResource);
@@ -108,29 +108,29 @@ class CategoriesObserverTest extends AbstractTest
         $categoryCollection = $this->getMockBuilder(CategoryCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $categoryCollection->expects($this->once())
+        $categoryCollection->expects(self::once())
             ->method('load');
-        $categoryCollection->expects($this->once())
+        $categoryCollection->expects(self::once())
             ->method('getItems')
             ->willReturn([$rootCategory, $category]);
         $categoryCollectionFactory = $this->getCategoryCollectionFactory($categoryCollection);
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToCategories')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('isUseOnlyEmpty')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyContentText')
             ->willReturn('dummy-text');
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyContentEmail')
             ->willReturn('dummy-email');
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);

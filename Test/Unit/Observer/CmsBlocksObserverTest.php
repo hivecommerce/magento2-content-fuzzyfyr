@@ -31,20 +31,20 @@ class CmsBlocksObserverTest extends AbstractTest
     public function stopOnFailedValidationSuccessfully()
     {
         $blockResourceFactory = $this->getBlockResourceFactory();
-        $blockResourceFactory->expects($this->never())
+        $blockResourceFactory->expects(self::never())
             ->method('create');
 
         $blockCollectionFactory = $this->getBlockCollectionFactory();
-        $blockCollectionFactory->expects($this->never())
+        $blockCollectionFactory->expects(self::never())
             ->method('create');
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToCmsBlocks')
             ->willReturn(false);
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
@@ -62,18 +62,18 @@ class CmsBlocksObserverTest extends AbstractTest
         $block = $this->getMockBuilder(Block::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $block->expects($this->once())
+        $block->expects(self::once())
             ->method('getData')
-            ->With('content')
+            ->with('content')
             ->willReturn(null);
-        $block->expects($this->once())
+        $block->expects(self::once())
             ->method('setData')
             ->with('content', 'dummy-text');
 
         $blockResource = $this->getMockBuilder(BlockResource::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $blockResource->expects($this->once())
+        $blockResource->expects(self::once())
             ->method('save')
             ->with($block);
         $blockResourceFactory = $this->getBlockResourceFactory($blockResource);
@@ -81,29 +81,29 @@ class CmsBlocksObserverTest extends AbstractTest
         $blockCollection = $this->getMockBuilder(BlockCollection::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $blockCollection->expects($this->once())
+        $blockCollection->expects(self::once())
             ->method('load');
-        $blockCollection->expects($this->once())
+        $blockCollection->expects(self::once())
             ->method('getItems')
             ->willReturn([$block]);
         $blockCollectionFactory = $this->getBlockCollectionFactory($blockCollection);
 
         $configuration = $this->getConfiguration();
-        $configuration->expects($this->once())
+        $configuration->expects(self::once())
             ->method('isApplyToCmsBlocks')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('isUseOnlyEmpty')
             ->willReturn(true);
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyContentText')
             ->willReturn('dummy-text');
-        $configuration->expects($this->any())
+        $configuration->expects(self::any())
             ->method('getDummyContentEmail')
             ->willReturn('dummy-email');
 
         $eventObserver = $this->getObserver();
-        $eventObserver->expects($this->once())
+        $eventObserver->expects(self::once())
             ->method('getData')
             ->with('configuration')
             ->willReturn($configuration);
