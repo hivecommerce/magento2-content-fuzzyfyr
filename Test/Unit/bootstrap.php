@@ -1,7 +1,11 @@
 <?php
+/**
+ * This file is part of the Content Fuzzyfyr module for Magento2.
+ *
+ * (c) bitExpert AG
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 require_once './vendor/autoload.php';
-
-if (!class_exists('\\Zend_Db_Select')) {
-    class Zend_Db_Select {}
-}
