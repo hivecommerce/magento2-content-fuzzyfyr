@@ -11,26 +11,26 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
 
-    <event name="aid_content_fuzzyfyr_event">
-        <observer name="aid_content_fuzzyfyr_categories" instance="HiveCommerce\ContentFuzzyfyr\Observer\CategoriesObserver" />
-        <observer name="aid_content_fuzzyfyr_categoryimage" instance="HiveCommerce\ContentFuzzyfyr\Observer\CategoryImageObserver" />
-        <observer name="aid_content_fuzzyfyr_cmsblocks" instance="HiveCommerce\ContentFuzzyfyr\Observer\CmsBlocksObserver" />
-        <observer name="aid_content_fuzzyfyr_cmspages" instance="HiveCommerce\ContentFuzzyfyr\Observer\CmsPagesObserver" />
-        <observer name="aid_content_fuzzyfyr_customers" instance="HiveCommerce\ContentFuzzyfyr\Observer\CustomersObserver" />
-        <observer name="aid_content_fuzzyfyr_customerpasswords" instance="HiveCommerce\ContentFuzzyfyr\Observer\CustomerPasswordsObserver" />
-        <observer name="aid_content_fuzzyfyr_products" instance="HiveCommerce\ContentFuzzyfyr\Observer\ProductsObserver" />
-        <observer name="aid_content_fuzzyfyr_productimages" instance="HiveCommerce\ContentFuzzyfyr\Observer\ProductImagesObserver" />
-        <observer name="aid_content_fuzzyfyr_users" instance="HiveCommerce\ContentFuzzyfyr\Observer\UsersObserver" />
+    <event name="hc_content_fuzzyfyr_event">
+        <observer name="hc_content_fuzzyfyr_categories" instance="HiveCommerce\ContentFuzzyfyr\Observer\CategoriesObserver" />
+        <observer name="hc_content_fuzzyfyr_categoryimage" instance="HiveCommerce\ContentFuzzyfyr\Observer\CategoryImageObserver" />
+        <observer name="hc_content_fuzzyfyr_cmsblocks" instance="HiveCommerce\ContentFuzzyfyr\Observer\CmsBlocksObserver" />
+        <observer name="hc_content_fuzzyfyr_cmspages" instance="HiveCommerce\ContentFuzzyfyr\Observer\CmsPagesObserver" />
+        <observer name="hc_content_fuzzyfyr_customers" instance="HiveCommerce\ContentFuzzyfyr\Observer\CustomersObserver" />
+        <observer name="hc_content_fuzzyfyr_customerpasswords" instance="HiveCommerce\ContentFuzzyfyr\Observer\CustomerPasswordsObserver" />
+        <observer name="hc_content_fuzzyfyr_products" instance="HiveCommerce\ContentFuzzyfyr\Observer\ProductsObserver" />
+        <observer name="hc_content_fuzzyfyr_productimages" instance="HiveCommerce\ContentFuzzyfyr\Observer\ProductImagesObserver" />
+        <observer name="hc_content_fuzzyfyr_users" instance="HiveCommerce\ContentFuzzyfyr\Observer\UsersObserver" />
     </event>
     
-    <event name="aid_content_export_event">
-        <observer name="aid_content_export_categories" instance="HiveCommerce\ContentFuzzyfyr\Observer\CategoriesObserver" />
-        <observer name="aid_content_export_cmsblocks" instance="HiveCommerce\ContentFuzzyfyr\Observer\CmsBlocksObserver" />
-        <observer name="aid_content_export_cmspages" instance="HiveCommerce\ContentFuzzyfyr\Observer\CmsPagesObserver" />
-        <observer name="aid_content_export_customers" instance="HiveCommerce\ContentFuzzyfyr\Observer\CustomersObserver" />
-        <observer name="aid_content_export_customerpasswords" instance="HiveCommerce\ContentFuzzyfyr\Observer\CustomerPasswordsObserver" />
-        <observer name="aid_content_export_products" instance="HiveCommerce\ContentFuzzyfyr\Observer\ProductsObserver" />
-        <observer name="aid_content_export_users" instance="HiveCommerce\ContentFuzzyfyr\Observer\UsersObserver" />
+    <event name="hc_content_export_event">
+        <observer name="hc_content_export_categories" instance="HiveCommerce\ContentFuzzyfyr\Observer\CategoriesObserver" />
+        <observer name="hc_content_export_cmsblocks" instance="HiveCommerce\ContentFuzzyfyr\Observer\CmsBlocksObserver" />
+        <observer name="hc_content_export_cmspages" instance="HiveCommerce\ContentFuzzyfyr\Observer\CmsPagesObserver" />
+        <observer name="hc_content_export_customers" instance="HiveCommerce\ContentFuzzyfyr\Observer\CustomersObserver" />
+        <observer name="hc_content_export_customerpasswords" instance="HiveCommerce\ContentFuzzyfyr\Observer\CustomerPasswordsObserver" />
+        <observer name="hc_content_export_products" instance="HiveCommerce\ContentFuzzyfyr\Observer\ProductsObserver" />
+        <observer name="hc_content_export_users" instance="HiveCommerce\ContentFuzzyfyr\Observer\UsersObserver" />
     </event>
 
 </config>

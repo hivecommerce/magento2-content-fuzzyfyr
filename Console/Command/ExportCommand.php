@@ -33,7 +33,7 @@ class ExportCommand extends Command
      */
     const SUCCESS = 0;
     const ERROR_EXPORT_FAILED = 127;
-    const EVENT_NAME = 'aid_content_export_event';
+    const EVENT_NAME = 'hc_content_export_event';
 
     /**
      * Flags
@@ -108,8 +108,8 @@ class ExportCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('developer:content:export')
-            ->setDescription('Export fuzzyfied content command')
+        $this->setName('dev:content:export')
+            ->setDescription('Export fuzzyfied content')
             ->setDefinition([
                 new InputOption(
                     self::FLAG_ONLY_EMPTY,

@@ -32,7 +32,7 @@ class FuzzyfyrCommand extends Command
      */
     const SUCCESS = 0;
     const ERROR_PRODUCTION_MODE = 127;
-    const EVENT_NAME = 'aid_content_fuzzyfyr_event';
+    const EVENT_NAME = 'hc_content_fuzzyfyr_event';
 
     /**
      * Flags
@@ -98,8 +98,8 @@ class FuzzyfyrCommand extends Command
      */
     protected function configure()
     {
-        $this->setName('developer:content:fuzzyfyr')
-            ->setDescription('Fuzzyfyr content command')
+        $this->setName('dev:content:fuzzyfyr')
+            ->setDescription('fuzzyfy content')
             ->setDefinition([
                 new InputOption(
                     self::FLAG_ONLY_EMPTY,

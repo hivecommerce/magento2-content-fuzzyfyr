@@ -52,10 +52,10 @@ Find the complete user guide [here](./docs/UserGuide.pdf "User Guide").
 ### CLI
 #### Content Fuzzyfyr
 
-The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *developer:content:fuzzyfyr* to modify
+The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *dev:content:fuzzyfyr* to modify
 existing content (or only empty fields with the *--only-empty* flag) to be switched with some defined default value:
 
-    bin/magento developer:content:fuzzyfyr [options]
+    bin/magento dev:content:fuzzyfyr [options]
 
 **Note:** Be aware the command only runs in non-production mode to avoid messing up production data on mistake.
 
@@ -89,7 +89,7 @@ Option | Value | Description
 
 #### How to apply custom code
 
-An event is triggered, called *aid_content_fuzzyfyr_event*. Listening to this event, expect the following parameters
+An event is triggered, called *hc_content_fuzzyfyr_event*. Listening to this event, expect the following parameters
 in the *Observer* data:
 
     'configuration' => \HiveCommerce\ContentFuzzyfyr\Model\Configuration
@@ -97,11 +97,11 @@ in the *Observer* data:
 
 #### Content Export
 
-The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *developer:content:export* to export an
+The **Content Fuzzyfyr** Module for *Magento® 2* provides an *Magento® 2* CLI command *dev:content:export* to export an
 database dump with already fuzzyfied content for existing content (or only empty fields with the *--only-empty* flag)  
 switched with some defined default value:
 
-    bin/magento developer:content:export [options]
+    bin/magento dev:content:export [options]
 
 **Note:** Running the code activates maintenance mode. The maintenance mode will be disabled, if the command has run
 successfully or erroneous and the maintenance mode has been disabled in the beginning. But it is recommended to check
@@ -132,7 +132,7 @@ Option | Value | Description
 
 #### How to apply custom code
 
-An event is triggered, called *aid_content_export_event*. Listening to this event, expect the following parameters
+An event is triggered, called *hc_content_export_event*. Listening to this event, expect the following parameters
 in the *Observer* data:
 
     'configuration' => \HiveCommerce\ContentFuzzyfyr\Model\Configuration

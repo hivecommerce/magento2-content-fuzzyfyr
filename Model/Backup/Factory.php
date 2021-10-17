@@ -24,7 +24,7 @@ class Factory extends \Magento\Framework\Backup\Factory
     /*
      * Types
      */
-    const TYPE_GDPR_DB = 'aid_content_export_db';
+    const TYPE_GDPR_DB = 'hc_content_export_db';
 
     /**
      * @var DatabaseHandler
