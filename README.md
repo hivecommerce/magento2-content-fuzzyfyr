@@ -1,8 +1,9 @@
 # Content Fuzzyfyr Module for Magento® 2
 
+[![ci](https://github.com/hivecommerce/magento2-content-fuzzyfyr/actions/workflows/ci.yml/badge.svg)](https://github.com/hivecommerce/magento2-content-fuzzyfyr/actions/workflows/ci.yml)
+
 The **Content Fuzzyfyr** module for *Magento® 2* fills up empty content fields - and if needed - switches real content with dummy content.
 This is for development purposes, e.g. save time to prepare test data and being compliant to GDPR.
-
 
 ## Features:
 * Fill up empty content and image fields with dummy content - completely automated
