@@ -33,7 +33,7 @@ class CategoryImageObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function stopOnFailedValidationSuccessfully()
+    public function stopOnFailedValidationSuccessfully(): void
     {
         $urlRewriteCollectionFactory = $this->getUrlRewriteCollectionFactory();
         $urlRewriteCollectionFactory->expects(self::never())
@@ -70,7 +70,7 @@ class CategoryImageObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $expectedImagePath = 'foo/bar/baz.png';
 
@@ -156,7 +156,7 @@ class CategoryImageObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfullyWithOnlyEmptyFlagAndNonEmptyImageUrl()
+    public function runSuccessfullyWithOnlyEmptyFlagAndNonEmptyImageUrl(): void
     {
         $expectedImagePath = 'foo/bar/baz.png';
 
@@ -246,7 +246,7 @@ class CategoryImageObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Observer
+     * @return MockObject&Observer
      */
     private function getObserver()
     {
@@ -254,7 +254,7 @@ class CategoryImageObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Configuration
+     * @return MockObject&Configuration
      */
     private function getConfiguration()
     {
@@ -263,7 +263,7 @@ class CategoryImageObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Catalog\Model\ResourceModel\CategoryFactory
+     * @return MockObject&\Magento\Catalog\Model\ResourceModel\CategoryFactory
      */
     private function getCategoryResourceFactory(MockObject $instance = null)
     {
@@ -272,7 +272,7 @@ class CategoryImageObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
+     * @return MockObject&\Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
      */
     private function getCategoryCollectionFactory(MockObject $instance = null)
     {
@@ -280,7 +280,7 @@ class CategoryImageObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|CategoryImageHandler
+     * @return MockObject&CategoryImageHandler
      */
     private function getCategoryImageHandler()
     {
@@ -291,7 +291,7 @@ class CategoryImageObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
+     * @return MockObject&\Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
      */
     private function getUrlRewriteCollectionFactory(MockObject $instance = null)
     {

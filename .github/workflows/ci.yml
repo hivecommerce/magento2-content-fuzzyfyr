@@ -31,5 +31,8 @@ jobs:
       - name: Codesniffer
         run: composer cs-check
 
+      - name: Static code analysis
+        run: composer analyze
+
       - name: Unittests
         run: composer test

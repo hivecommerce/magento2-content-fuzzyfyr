@@ -15,13 +15,15 @@ namespace HiveCommerce\ContentFuzzyfyr\Observer;
 use HiveCommerce\ContentFuzzyfyr\Api\Observer\FuzzyfyrObserverInterface;
 use HiveCommerce\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand;
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use Magento\Framework\DataObject;
+use Magento\Framework\Event\Observer;
 
 abstract class FuzzyfyrObserver implements FuzzyfyrObserverInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function getConfigurationByEvent(\Magento\Framework\Event\Observer $observer)
+    public function getConfigurationByEvent(Observer $observer): Configuration
     {
         /** @var Configuration $configuration */
         $configuration = $observer->getData('configuration');
@@ -31,9 +33,9 @@ abstract class FuzzyfyrObserver implements FuzzyfyrObserverInterface
 
     /**
      * @param Configuration $configuration
-     * @return mixed
+     * @return bool
      */
-    protected function isValid(Configuration $configuration)
+    protected function isValid(Configuration $configuration): bool
     {
         return true;
     }
@@ -41,8 +43,9 @@ abstract class FuzzyfyrObserver implements FuzzyfyrObserverInterface
 
     /**
      * {@inheritdoc}
+     * @return void
      */
-    public function execute(\Magento\Framework\Event\Observer $observer)
+    public function execute(Observer $observer)
     {
         /** @var Configuration $configuration */
         $configuration = $this->getConfigurationByEvent($observer);
@@ -63,13 +66,14 @@ abstract class FuzzyfyrObserver implements FuzzyfyrObserverInterface
      * {@inheritdoc}
      */
     public function updateData(
-        \Magento\Framework\DataObject $entity,
-        $fieldName,
+        DataObject $entity,
+        string $fieldName,
         Configuration $configuration,
         $value = FuzzyfyrCommand::DEFAULT_DUMMY_CONTENT_TEXT
-    ) {
+    ): void {
+        $data = (string) $entity->getData($fieldName);
         if (!$configuration->isUseOnlyEmpty() ||
-            ($configuration->isUseOnlyEmpty() && empty($entity->getData($fieldName)))) {
+            ($configuration->isUseOnlyEmpty() && ($data === ''))) {
             $entity->setData($fieldName, $value);
         }
     }

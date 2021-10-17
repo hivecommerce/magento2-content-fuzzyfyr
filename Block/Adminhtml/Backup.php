@@ -12,7 +12,10 @@ declare(strict_types=1);
 
 namespace HiveCommerce\ContentFuzzyfyr\Block\Adminhtml;
 
+use HiveCommerce\ContentFuzzyfyr\Model\Backup\Factory;
 use Magento\Backend\Block\AbstractBlock;
+use Magento\Backend\Block\Widget\Button;
+use Magento\Framework\View\Element\BlockInterface;
 
 /**
  * Class Backup
@@ -28,15 +31,19 @@ class Backup extends \Magento\Backup\Block\Adminhtml\Backup
     {
         parent::_prepareLayout();
 
-        $this->getToolbar()->addChild(
-            'createGdprConformDatabaseBackupButton',
-            \Magento\Backend\Block\Widget\Button::class,
-            [
-                'label' => __('GDPR conform Database Backup (Content Fuzzyfyr)'),
-                'onclick' => "return backup.backup('" . \HiveCommerce\ContentFuzzyfyr\Model\Backup\Factory::TYPE_GDPR_DB . "')",
-                'class' => 'task primary aid-content-export'
-            ]
-        );
+        $toolbar = $this->getToolbar();
+        if ($toolbar instanceof BlockInterface) {
+            /** @var \Magento\Framework\View\Element\AbstractBlock $toolbar */
+            $toolbar->addChild(
+                'createGdprConformDatabaseBackupButton',
+                Button::class,
+                [
+                    'label' => __('GDPR conform Database Backup (Content Fuzzyfyr)'),
+                    'onclick' => "return backup.backup('" . Factory::TYPE_GDPR_DB . "')",
+                    'class' => 'task primary aid-content-export'
+                ]
+            );
+        }
     }
     //@codeCoverageIgnoreEnd
 }

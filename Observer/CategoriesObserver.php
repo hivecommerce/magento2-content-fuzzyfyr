@@ -13,12 +13,14 @@ declare(strict_types=1);
 namespace HiveCommerce\ContentFuzzyfyr\Observer;
 
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Category as CategoryResource;
 use Magento\Catalog\Model\ResourceModel\CategoryFactory as CategoryResourceFactory;
 use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection;
 use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
+use Magento\UrlRewrite\Model\UrlRewrite;
 
 class CategoriesObserver extends FuzzyfyrObserver
 {
@@ -59,7 +61,7 @@ class CategoriesObserver extends FuzzyfyrObserver
     /**
      * {@inheritdoc}
      */
-    public function isValid(Configuration $configuration)
+    public function isValid(Configuration $configuration): bool
     {
         return $configuration->isApplyToCategories();
     }
@@ -81,7 +83,7 @@ class CategoriesObserver extends FuzzyfyrObserver
             ->addFieldToFilter('entity_type', ['eq' => 'category'])
             ->load();
         foreach ($urlRewriteCollection->getItems() as $urlRewrite) {
-            /** @var \Magento\UrlRewrite\Model\UrlRewrite $urlRewrite */
+            /** @var UrlRewrite $urlRewrite */
             $urlRewrite->delete();
         }
 
@@ -92,7 +94,7 @@ class CategoriesObserver extends FuzzyfyrObserver
         $categoryCollection = $this->categoryCollectionFactory->create();
         $categoryCollection->load();
         foreach ($categoryCollection->getItems() as $category) {
-            /** @var \Magento\Catalog\Model\Category $category */
+            /** @var Category $category */
             if (self::ROOT_CATEGORY_ID === $category->getId()) {
                 // skip root category
                 continue;
@@ -105,9 +107,10 @@ class CategoriesObserver extends FuzzyfyrObserver
 
     /**
      * @param Configuration $configuration
-     * @param \Magento\Catalog\Model\Category $category
+     * @param Category $category
+     * @return void
      */
-    protected function doUpdate(Configuration $configuration, \Magento\Catalog\Model\Category $category)
+    protected function doUpdate(Configuration $configuration, Category $category): void
     {
         $this->updateData($category, 'description', $configuration, $configuration->getDummyContentText());
         $this->updateData($category, 'meta_title', $configuration, $configuration->getDummyContentText());

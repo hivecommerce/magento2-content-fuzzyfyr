@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace HiveCommerce\ContentFuzzyfyr\Observer;
 
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Product as ProductResource;
@@ -43,7 +44,7 @@ class ProductsObserver extends FuzzyfyrObserver
     /**
      * {@inheritdoc}
      */
-    public function isValid(Configuration $configuration)
+    public function isValid(Configuration $configuration): bool
     {
         return $configuration->isApplyToProducts();
     }
@@ -60,7 +61,7 @@ class ProductsObserver extends FuzzyfyrObserver
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->load();
         foreach ($productCollection->getItems() as $product) {
-            /** @var \Magento\Catalog\Model\Product $product */
+            /** @var Product $product */
             $this->doUpdate($configuration, $product);
             $productResource->save($product);
         }
@@ -68,9 +69,10 @@ class ProductsObserver extends FuzzyfyrObserver
 
     /**
      * @param Configuration $configuration
-     * @param \Magento\Catalog\Model\Product $product
+     * @param Product $product
+     * @return void
      */
-    protected function doUpdate(Configuration $configuration, \Magento\Catalog\Model\Product $product)
+    protected function doUpdate(Configuration $configuration, Product $product): void
     {
         $this->updateData($product, 'description', $configuration, $configuration->getDummyContentText());
         $this->updateData($product, 'short_description', $configuration, $configuration->getDummyContentText());

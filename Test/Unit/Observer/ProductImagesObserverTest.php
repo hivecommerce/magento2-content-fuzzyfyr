@@ -30,7 +30,7 @@ class ProductImagesObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function stopOnFailedValidationSuccessfully()
+    public function stopOnFailedValidationSuccessfully(): void
     {
         $productCollection = $this->getMockBuilder(ProductCollection::class)
             ->disableOriginalConstructor()
@@ -62,7 +62,7 @@ class ProductImagesObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $expectedImagePath = 'foobar';
 
@@ -112,7 +112,7 @@ class ProductImagesObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfullyWithOnlyEmptyFlag()
+    public function runSuccessfullyWithOnlyEmptyFlag(): void
     {
         $expectedImagePath = 'foobar';
 
@@ -169,7 +169,7 @@ class ProductImagesObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfullyWithOnlyEmptyFlagAndNonEmptyGallery()
+    public function runSuccessfullyWithOnlyEmptyFlagAndNonEmptyGallery(): void
     {
         $expectedImagePath = 'foobar';
 
@@ -219,7 +219,7 @@ class ProductImagesObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Observer
+     * @return MockObject&Observer
      */
     private function getObserver()
     {
@@ -227,7 +227,7 @@ class ProductImagesObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Configuration
+     * @return MockObject&Configuration
      */
     private function getConfiguration()
     {
@@ -236,7 +236,7 @@ class ProductImagesObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
+     * @return MockObject&\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
      */
     private function getProductCollectionFactory(MockObject $instance = null)
     {
@@ -244,7 +244,7 @@ class ProductImagesObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|MediaFileHandler
+     * @return MockObject&MediaFileHandler
      */
     private function getMediaFileHandler()
     {

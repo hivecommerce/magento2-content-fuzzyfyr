@@ -1,5 +1,8 @@
 parameters:
-    level: 5
+    level: max
+    checkMissingIterableValueType: false
+    magento:
+        checkServiceContracts: false
     fileExtensions:
         - php
     paths:
@@ -11,4 +14,4 @@ parameters:
         - Observer
         - Test
     bootstrapFiles:
-            - vendor/bitexpert/phpstan-magento/autoload.php
+        - vendor/bitexpert/phpstan-magento/autoload.php

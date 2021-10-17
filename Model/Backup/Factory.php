@@ -14,6 +14,8 @@ namespace HiveCommerce\ContentFuzzyfyr\Model\Backup;
 
 use HiveCommerce\ContentFuzzyfyr\Handler\Backup\DatabaseHandler;
 use Magento\Framework\Backup\BackupInterface;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\ObjectManagerInterface;
 
 /**
  * Class Factory
@@ -32,10 +34,10 @@ class Factory extends \Magento\Framework\Backup\Factory
     protected $dbBackupHandler;
 
     /**
-     * @param \Magento\Framework\ObjectManagerInterface $objectManager
+     * @param ObjectManagerInterface $objectManager
      * @param DatabaseHandler $dbBackupHandler
      */
-    public function __construct(\Magento\Framework\ObjectManagerInterface $objectManager, DatabaseHandler $dbBackupHandler)
+    public function __construct(ObjectManagerInterface $objectManager, DatabaseHandler $dbBackupHandler)
     {
         parent::__construct($objectManager);
 
@@ -51,7 +53,7 @@ class Factory extends \Magento\Framework\Backup\Factory
      *
      * @param string $type
      * @return BackupInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
     public function create($type)
     {

@@ -14,6 +14,7 @@ namespace HiveCommerce\ContentFuzzyfyr\Handler;
 
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Catalog\Model\Product\Media\Config;
+use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Filesystem;
 use Magento\Framework\Filesystem\Io\File;
 use Magento\Framework\Filesystem\Directory\WriteInterface;
@@ -44,7 +45,7 @@ class MediaFileHandler
     /**
      * @var WriteInterface
      */
-    private $mediaDirectory;
+    private $mediaDirectory = null;
 
     /**
      * MediaFileHandler constructor.
@@ -62,9 +63,9 @@ class MediaFileHandler
     /**
      * @param string $filePath
      * @return string
-     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws FileSystemException
      */
-    public function getMediaCopyOfFile(string $filePath)
+    public function getMediaCopyOfFile(string $filePath): string
     {
         $this->init();
 
@@ -122,11 +123,12 @@ class MediaFileHandler
     }
 
     /**
-     * @throws \Magento\Framework\Exception\FileSystemException
+     * @return void
+     * @throws FileSystemException
      */
-    private function init()
+    private function init(): void
     {
-        if (!$this->mediaDirectory) {
+        if ($this->mediaDirectory === null) {
             $this->mediaDirectory = $this->fileSystem->getDirectoryWrite(DirectoryList::MEDIA);
         }
     }

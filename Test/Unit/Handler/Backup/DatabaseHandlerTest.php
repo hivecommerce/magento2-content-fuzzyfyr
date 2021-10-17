@@ -33,7 +33,7 @@ class DatabaseHandlerTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $configuration = $this->getMockBuilder(Configuration::class)
             ->disableOriginalConstructor()
@@ -97,10 +97,11 @@ class DatabaseHandlerTest extends AbstractTest
         self::assertEquals($databaseHandler, $databaseHandler->addIgnorePaths([]));
         self::assertTrue($databaseHandler->create());
     }
+
     /**
      * @test
      */
-    public function runFailsDueToBackupTaskIssues()
+    public function runFailsDueToBackupTaskIssues(): void
     {
         $configuration = $this->getMockBuilder(Configuration::class)
             ->disableOriginalConstructor()
@@ -162,11 +163,11 @@ class DatabaseHandlerTest extends AbstractTest
             $backupHandler
         );
 
-        self::assertEquals(ExportCommand::ERROR_EXPORT_FAILED, $databaseHandler->create());
+        self::assertEquals(false, $databaseHandler->create());
     }
 
     /**
-     * @return MockObject|EventManager
+     * @return MockObject&EventManager
      */
     private function getEventManager()
     {
@@ -176,7 +177,7 @@ class DatabaseHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|ConfigurationFactory
+     * @return MockObject&ConfigurationFactory
      */
     private function getConfigurationFactory()
     {
@@ -186,7 +187,7 @@ class DatabaseHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|BackupHandler
+     * @return MockObject&BackupHandler
      */
     private function getBackupHandler()
     {
@@ -196,7 +197,7 @@ class DatabaseHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|BackupFactory
+     * @return MockObject&BackupFactory
      */
     private function getBackupFactory()
     {

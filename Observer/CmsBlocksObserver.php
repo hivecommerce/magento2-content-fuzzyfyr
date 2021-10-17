@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace HiveCommerce\ContentFuzzyfyr\Observer;
 
+use Exception;
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use Magento\Cms\Model\Block;
 use Magento\Cms\Model\ResourceModel\Block\Collection as BlockCollection;
 use Magento\Cms\Model\ResourceModel\Block\CollectionFactory as BlockCollectionFactory;
 use Magento\Cms\Model\ResourceModel\Block as BlockResource;
@@ -32,6 +34,7 @@ class CmsBlocksObserver extends FuzzyfyrObserver
 
     /**
      * BlocksObserver constructor.
+     *
      * @param BlockCollectionFactory $blockCollectionFactory
      * @param BlockResourceFactory $blockResourceFactory
      */
@@ -44,7 +47,7 @@ class CmsBlocksObserver extends FuzzyfyrObserver
     /**
      * {@inheritdoc}
      */
-    public function isValid(Configuration $configuration)
+    public function isValid(Configuration $configuration): bool
     {
         return $configuration->isApplyToCmsBlocks();
     }
@@ -61,7 +64,7 @@ class CmsBlocksObserver extends FuzzyfyrObserver
         $blockCollection = $this->blockCollectionFactory->create();
         $blockCollection->load();
         foreach ($blockCollection->getItems() as $block) {
-            /** @var \Magento\Cms\Model\Block $block */
+            /** @var Block $block */
             $this->doUpdate($configuration, $block);
             $blockResource->save($block);
         }
@@ -69,9 +72,10 @@ class CmsBlocksObserver extends FuzzyfyrObserver
 
     /**
      * @param Configuration $configuration
-     * @param \Magento\Cms\Model\Block $block
+     * @param Block $block
+     * @return void
      */
-    protected function doUpdate(Configuration $configuration, \Magento\Cms\Model\Block $block)
+    protected function doUpdate(Configuration $configuration, Block $block): void
     {
         $this->updateData($block, 'content', $configuration, $configuration->getDummyContentText());
     }

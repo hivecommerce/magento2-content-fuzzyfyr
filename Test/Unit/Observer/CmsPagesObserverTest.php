@@ -30,7 +30,7 @@ class CmsPagesObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function stopOnFailedValidationSuccessfully()
+    public function stopOnFailedValidationSuccessfully(): void
     {
         $pageResourceFactory = $this->getPageResourceFactory();
         $pageResourceFactory->expects(self::never())
@@ -59,7 +59,7 @@ class CmsPagesObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $page = $this->getMockBuilder(Page::class)
             ->disableOriginalConstructor()
@@ -110,7 +110,7 @@ class CmsPagesObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Observer
+     * @return MockObject&Observer
      */
     private function getObserver()
     {
@@ -118,7 +118,7 @@ class CmsPagesObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Configuration
+     * @return MockObject&Configuration
      */
     private function getConfiguration()
     {
@@ -127,7 +127,7 @@ class CmsPagesObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Cms\Model\ResourceModel\PageFactory
+     * @return MockObject&\Magento\Cms\Model\ResourceModel\PageFactory
      */
     private function getPageResourceFactory(MockObject $instance = null)
     {
@@ -136,7 +136,7 @@ class CmsPagesObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Cms\Model\ResourceModel\Page\CollectionFactory
+     * @return MockObject&\Magento\Cms\Model\ResourceModel\Page\CollectionFactory
      */
     private function getPageCollectionFactory(MockObject $instance = null)
     {

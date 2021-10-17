@@ -14,26 +14,29 @@ namespace HiveCommerce\ContentFuzzyfyr\Api\Observer;
 
 use HiveCommerce\ContentFuzzyfyr\Console\Command\FuzzyfyrCommand;
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use Magento\Framework\DataObject;
+use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
 interface FuzzyfyrObserverInterface extends ObserverInterface
 {
     /**
-     * @param \Magento\Framework\Event\Observer $observer
+     * @param Observer $observer
      * @return Configuration
      */
-    public function getConfigurationByEvent(\Magento\Framework\Event\Observer $observer);
+    public function getConfigurationByEvent(Observer $observer): Configuration;
 
     /**
-     * @param \Magento\Framework\DataObject $entity
+     * @param DataObject $entity
      * @param string $fieldName
      * @param Configuration $configuration
      * @param string $value
+     * @return void
      */
     public function updateData(
-        \Magento\Framework\DataObject $entity,
-        $fieldName,
+        DataObject $entity,
+        string $fieldName,
         Configuration $configuration,
-        $value = FuzzyfyrCommand::DEFAULT_DUMMY_CONTENT_TEXT
-    );
+        string $value = FuzzyfyrCommand::DEFAULT_DUMMY_CONTENT_TEXT
+    ): void;
 }

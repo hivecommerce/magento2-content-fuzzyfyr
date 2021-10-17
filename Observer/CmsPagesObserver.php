@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace HiveCommerce\ContentFuzzyfyr\Observer;
 
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use Magento\Cms\Model\Page;
 use Magento\Cms\Model\ResourceModel\Page\Collection as PageCollection;
 use Magento\Cms\Model\ResourceModel\Page\CollectionFactory as PageCollectionFactory;
 use Magento\Cms\Model\ResourceModel\Page as PageResource;
@@ -31,6 +32,7 @@ class CmsPagesObserver extends FuzzyfyrObserver
 
     /**
      * PagesObserver constructor.
+     *
      * @param PageCollectionFactory $pageCollectionFactory
      * @param PageResourceFactory $pageResourceFactory
      */
@@ -43,7 +45,7 @@ class CmsPagesObserver extends FuzzyfyrObserver
     /**
      * {@inheritdoc}
      */
-    public function isValid(Configuration $configuration)
+    public function isValid(Configuration $configuration): bool
     {
         return $configuration->isApplyToCmsPages();
     }
@@ -60,7 +62,7 @@ class CmsPagesObserver extends FuzzyfyrObserver
         $pageCollection = $this->pageCollectionFactory->create();
         $pageCollection->load();
         foreach ($pageCollection->getItems() as $page) {
-            /** @var \Magento\Cms\Model\Page $page */
+            /** @var Page $page */
             $this->doUpdate($configuration, $page);
             $pageResource->save($page);
         }
@@ -68,9 +70,10 @@ class CmsPagesObserver extends FuzzyfyrObserver
 
     /**
      * @param Configuration $configuration
-     * @param \Magento\Cms\Model\Page $page
+     * @param Page $page
+     * @return void
      */
-    protected function doUpdate(Configuration $configuration, \Magento\Cms\Model\Page $page)
+    protected function doUpdate(Configuration $configuration, Page $page): void
     {
         $this->updateData($page, 'content', $configuration, $configuration->getDummyContentText());
         $this->updateData($page, 'content_heading', $configuration, $configuration->getDummyContentText());

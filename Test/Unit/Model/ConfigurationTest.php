@@ -24,7 +24,7 @@ class ConfigurationTest extends AbstractTest
     /**
      * @test
      */
-    public function checkGetterAndSetterSuccessfully()
+    public function checkGetterAndSetterSuccessfully(): void
     {
         $configuration = new Configuration();
 

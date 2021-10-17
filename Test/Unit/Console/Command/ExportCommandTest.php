@@ -32,7 +32,7 @@ class ExportCommandTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $state = $this->getState();
 
@@ -82,7 +82,7 @@ class ExportCommandTest extends AbstractTest
     /**
      * @test
      */
-    public function runFailesRunningBackup()
+    public function runFailesRunningBackup(): void
     {
         $state = $this->getState();
 
@@ -131,7 +131,7 @@ class ExportCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|State
+     * @return MockObject&State
      */
     private function getState()
     {
@@ -141,7 +141,7 @@ class ExportCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|EventManager
+     * @return MockObject&EventManager
      */
     private function getEventManager()
     {
@@ -151,7 +151,7 @@ class ExportCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|ConfigurationFactory
+     * @return MockObject&ConfigurationFactory
      */
     private function getConfigurationFactory()
     {
@@ -161,7 +161,7 @@ class ExportCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|BackupHandler
+     * @return MockObject&BackupHandler
      */
     private function getBackupHandler()
     {
@@ -171,7 +171,7 @@ class ExportCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|InputInterface
+     * @return MockObject&InputInterface
      */
     private function getInput()
     {
@@ -181,7 +181,7 @@ class ExportCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|OutputInterface
+     * @return MockObject&OutputInterface
      */
     private function getOutput()
     {

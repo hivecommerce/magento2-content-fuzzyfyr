@@ -34,7 +34,7 @@ class CustomersObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function stopOnFailedValidationSuccessfully()
+    public function stopOnFailedValidationSuccessfully(): void
     {
         $searchCriteria = $this->createMock(\Magento\Framework\Api\SearchCriteriaInterface::class);
         $searchCriteriaInterfaceFactory = $this->getSearchCriteriaInterfaceFactory($searchCriteria);
@@ -76,7 +76,7 @@ class CustomersObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $searchCriteria = $this->createMock(\Magento\Framework\Api\SearchCriteriaInterface::class);
         $searchCriteriaInterfaceFactory = $this->getSearchCriteriaInterfaceFactory($searchCriteria);
@@ -244,7 +244,7 @@ class CustomersObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Observer
+     * @return MockObject&Observer
      */
     private function getObserver()
     {
@@ -252,7 +252,7 @@ class CustomersObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Configuration
+     * @return MockObject&Configuration
      */
     private function getConfiguration()
     {
@@ -260,7 +260,7 @@ class CustomersObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|CustomerRepositoryInterface
+     * @return MockObject&CustomerRepositoryInterface
      */
     private function getCustomerRepository()
     {
@@ -268,7 +268,7 @@ class CustomersObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|QuoteRepository
+     * @return MockObject&QuoteRepository
      */
     private function getQuoteRepository()
     {
@@ -278,7 +278,7 @@ class CustomersObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|OrderAddressRepositoryInterface
+     * @return MockObject&OrderAddressRepositoryInterface
      */
     private function getOrderAddressRepository()
     {
@@ -289,7 +289,7 @@ class CustomersObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Customer\Model\ResourceModel\Customer\CollectionFactory
+     * @return MockObject&\Magento\Customer\Model\ResourceModel\Customer\CollectionFactory
      */
     private function getCustomerCollectionFactory(MockObject $instance = null)
     {
@@ -298,7 +298,7 @@ class CustomersObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Framework\Api\SearchCriteriaInterfaceFactory
+     * @return MockObject&\Magento\Framework\Api\SearchCriteriaInterfaceFactory
      */
     private function getSearchCriteriaInterfaceFactory(MockObject $instance = null)
     {

@@ -30,7 +30,7 @@ class UsersObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function stopOnFailedValidationSuccessfully()
+    public function stopOnFailedValidationSuccessfully(): void
     {
         $userResourceFactory = $this->getUserResourceFactory();
         $userResourceFactory->expects(self::never())
@@ -59,7 +59,7 @@ class UsersObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $user = $this->getMockBuilder(User::class)
             ->disableOriginalConstructor()
@@ -113,7 +113,7 @@ class UsersObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Observer
+     * @return MockObject&Observer
      */
     private function getObserver()
     {
@@ -121,7 +121,7 @@ class UsersObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Configuration
+     * @return MockObject&Configuration
      */
     private function getConfiguration()
     {
@@ -130,7 +130,7 @@ class UsersObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\User\Model\ResourceModel\UserFactory
+     * @return MockObject&\Magento\User\Model\ResourceModel\UserFactory
      */
     private function getUserResourceFactory(MockObject $instance = null)
     {
@@ -139,7 +139,7 @@ class UsersObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\User\Model\ResourceModel\User\CollectionFactory
+     * @return MockObject&\Magento\User\Model\ResourceModel\User\CollectionFactory
      */
     private function getUserCollectionFactory(MockObject $instance = null)
     {

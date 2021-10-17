@@ -17,6 +17,7 @@ use Magento\User\Model\ResourceModel\User\Collection as UserCollection;
 use Magento\User\Model\ResourceModel\User\CollectionFactory as UserCollectionFactory;
 use Magento\User\Model\ResourceModel\User as UserResource;
 use Magento\User\Model\ResourceModel\UserFactory as UserResourceFactory;
+use Magento\User\Model\User;
 
 class UsersObserver extends FuzzyfyrObserver
 {
@@ -43,7 +44,7 @@ class UsersObserver extends FuzzyfyrObserver
     /**
      * {@inheritdoc}
      */
-    public function isValid(Configuration $configuration)
+    public function isValid(Configuration $configuration): bool
     {
         return $configuration->isApplyToUsers();
     }
@@ -60,7 +61,7 @@ class UsersObserver extends FuzzyfyrObserver
         $userCollection = $this->userCollectionFactory->create();
         $userCollection->load();
         foreach ($userCollection->getItems() as $user) {
-            /** @var \Magento\User\Model\User $user */
+            /** @var User $user */
             $this->doUpdate($configuration, $user);
             $userResource->save($user);
         }
@@ -68,9 +69,10 @@ class UsersObserver extends FuzzyfyrObserver
 
     /**
      * @param Configuration $configuration
-     * @param \Magento\User\Model\User $user
+     * @param User $user
+     * @return void
      */
-    protected function doUpdate(Configuration $configuration, \Magento\User\Model\User $user)
+    protected function doUpdate(Configuration $configuration, User $user): void
     {
         $user->setEmail(
             sprintf(

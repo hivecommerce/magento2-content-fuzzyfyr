@@ -32,7 +32,7 @@ class CategoriesObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function stopOnFailedValidationSuccessfully()
+    public function stopOnFailedValidationSuccessfully(): void
     {
         $urlRewriteCollectionFactory = $this->getUrlRewriteCollectionFactory();
         $urlRewriteCollectionFactory->expects(self::never())
@@ -65,7 +65,7 @@ class CategoriesObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $urlRewrite = $this->getMockBuilder(\Magento\UrlRewrite\Model\UrlRewrite::class)
             ->disableOriginalConstructor()
@@ -144,7 +144,7 @@ class CategoriesObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Observer
+     * @return MockObject&Observer
      */
     private function getObserver()
     {
@@ -152,7 +152,7 @@ class CategoriesObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Configuration
+     * @return MockObject&Configuration
      */
     private function getConfiguration()
     {
@@ -161,7 +161,7 @@ class CategoriesObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Catalog\Model\ResourceModel\CategoryFactory
+     * @return MockObject&\Magento\Catalog\Model\ResourceModel\CategoryFactory
      */
     private function getCategoryResourceFactory(MockObject $instance = null)
     {
@@ -170,7 +170,7 @@ class CategoriesObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
+     * @return MockObject&\Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
      */
     private function getCategoryCollectionFactory(MockObject $instance = null)
     {
@@ -179,7 +179,7 @@ class CategoriesObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
+     * @return MockObject&\Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
      */
     private function getUrlRewriteCollectionFactory(MockObject $instance = null)
     {

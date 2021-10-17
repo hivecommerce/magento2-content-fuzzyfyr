@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace HiveCommerce\ContentFuzzyfyr\Test\Unit;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,25 +22,31 @@ use PHPUnit\Framework\TestCase;
 abstract class AbstractTest extends TestCase
 {
     /**
-     * {@inheritdoc}
+     * @template T
+     * @param class-string<T> $className
+     * @param array $arguments
+     * @return T
      */
-    public function getTestEntity($className, array $arguments = [])
+    public function getTestEntity(string $className, array $arguments = [])
     {
         $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
         return $objectManager->getObject($className, $arguments);
     }
 
     /**
-     * @param string $instanceName
-     * @param mixed $mock
-     * @return \PHPUnit\Framework\MockObject\MockObject
+     * @param class-string $instanceName
+     * @param MockObject|null $mock
+     * @return mixed
      */
-    public function getFactoryAsMock($instanceName, $mock = null)
+    public function getFactoryAsMock(string $instanceName, MockObject $mock = null)
     {
+        /**
+         * @var class-string $factoryFullName
+         */
         $factoryFullName = $instanceName . 'Factory';
         $parts = explode('\\', $factoryFullName);
 
-        if (!$mock) {
+        if ($mock === null) {
             $mock = $this->getMockBuilder($instanceName)
                 ->disableOriginalConstructor()
                 ->getMock();

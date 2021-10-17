@@ -30,7 +30,7 @@ class CmsBlocksObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function stopOnFailedValidationSuccessfully()
+    public function stopOnFailedValidationSuccessfully(): void
     {
         $blockResourceFactory = $this->getBlockResourceFactory();
         $blockResourceFactory->expects(self::never())
@@ -59,7 +59,7 @@ class CmsBlocksObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $block = $this->getMockBuilder(Block::class)
             ->disableOriginalConstructor()
@@ -117,7 +117,7 @@ class CmsBlocksObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Observer
+     * @return MockObject&Observer
      */
     private function getObserver()
     {
@@ -125,7 +125,7 @@ class CmsBlocksObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Configuration
+     * @return MockObject&Configuration
      */
     private function getConfiguration()
     {
@@ -134,7 +134,7 @@ class CmsBlocksObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Cms\Model\ResourceModel\BlockFactory
+     * @return MockObject&\Magento\Cms\Model\ResourceModel\BlockFactory
      */
     private function getBlockResourceFactory(MockObject $instance = null)
     {
@@ -143,7 +143,7 @@ class CmsBlocksObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Cms\Model\ResourceModel\Block\CollectionFactory
+     * @return MockObject&\Magento\Cms\Model\ResourceModel\Block\CollectionFactory
      */
     private function getBlockCollectionFactory(MockObject $instance = null)
     {

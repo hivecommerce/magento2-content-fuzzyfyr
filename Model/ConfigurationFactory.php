@@ -12,8 +12,11 @@ declare(strict_types=1);
 
 namespace HiveCommerce\ContentFuzzyfyr\Model;
 
+use Magento\Framework\ObjectManagerInterface;
+
 /**
  * Class ConfigurationFactory
+ *
  * @package HiveCommerce\ContentFuzzyfyr\Model
  */
 class ConfigurationFactory
@@ -21,7 +24,7 @@ class ConfigurationFactory
     /**
      * Object Manager instance
      *
-     * @var \Magento\Framework\ObjectManagerInterface
+     * @var ObjectManagerInterface
      */
     protected $_objectManager = null;
 
@@ -35,12 +38,12 @@ class ConfigurationFactory
     /**
      * Factory constructor
      *
-     * @param \Magento\Framework\ObjectManagerInterface $objectManager
+     * @param ObjectManagerInterface $objectManager
      * @param string $instanceName
      */
     public function __construct(
-        \Magento\Framework\ObjectManagerInterface $objectManager,
-        $instanceName = '\\HiveCommerce\\ContentFuzzyfyr\\Model\\Configuration'
+        ObjectManagerInterface $objectManager,
+        $instanceName = Configuration::class
     ) {
         $this->_objectManager = $objectManager;
         $this->_instanceName = $instanceName;
@@ -50,7 +53,7 @@ class ConfigurationFactory
      * Create class instance with specified parameters
      *
      * @param array $data
-     * @return \HiveCommerce\ContentFuzzyfyr\Model\Configuration
+     * @return Configuration
      */
     public function create(array $data = array())
     {
