@@ -64,7 +64,8 @@
     "cs-check": "vendor/bin/phpcs --standard=Magento2 --severity=10 --extensions=php,phtml --ignore=**/*.js,.git,bin,dist,docs,env,vendor,validate_m2_package.php .",
     "cs-fix": "vendor/bin/phpcbf",
     "analyze": "vendor/bin/phpstan analyze",
-    "test": "vendor/bin/phpunit"
+    "test": "vendor/bin/phpunit",
+    "coverage": "vendor/bin/phpunit --coverage-clover clover.xml"
   },
   "config": {
     "sort-packages": true
