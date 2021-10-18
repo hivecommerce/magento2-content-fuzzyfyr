@@ -12,6 +12,13 @@ jobs:
       matrix:
         operating-system: ['ubuntu-latest']
         php-versions: ['7.4']
+        magento: ['2.3.7-p2', '2.4.0', '2.4.1', '2.4.2', '2.4.3']
+        coveralls: [ false ]
+        include:
+          - operating-system: 'ubuntu-latest'
+            php-versions: '7.4'
+            magento: '2.4.3'
+            coveralls: true
 
     steps:
       - name: Checkout repo
@@ -28,6 +35,26 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
 
+      - name: Install Magento 2.3.7-p2
+        if: matrix.magento == '2.3.7-p2'
+        run: composer update --with-dependencies magento/framework:102.0.7-p2 magento/module-catalog:103.0.7-p2 magento/module-cms:103.0.7-p2 magento/module-customer:102.0.7-p2 magento/module-user:101.1.7
+
+      - name: Install Magento 2.4.0
+        if: matrix.magento == '2.4.0'
+        run: composer update --with-dependencies magento/framework:103.0.0 magento/module-catalog:104.0.0 magento/module-cms:104.0.0 magento/module-customer:103.0.0 magento/module-user:101.2.0
+
+      - name: Install Magento 2.4.1
+        if: matrix.magento == '2.4.1'
+        run: composer update --with-dependencies magento/framework:103.0.1 magento/module-catalog:104.0.1 magento/module-cms:104.0.1 magento/module-customer:103.0.1 magento/module-user:101.2.1
+
+      - name: Install Magento 2.4.2
+        if: matrix.magento == '2.4.2'
+        run: composer update --with-dependencies magento/framework:103.0.2 magento/module-catalog:104.0.2 magento/module-cms:104.0.2 magento/module-customer:103.0.2 magento/module-user:101.2.2
+
+      - name: Install Magento 2.4.3
+        if: matrix.magento == '2.4.3'
+        run: composer update --with-dependencies magento/framework:103.0.3 magento/module-catalog:104.0.3 magento/module-cms:104.0.3 magento/module-customer:103.0.3 magento/module-user:101.2.3
+
       - name: Codesniffer
         run: composer cs-check
 
@@ -36,3 +63,16 @@ jobs:
 
       - name: Unittests
         run: composer test
+        if: matrix.coveralls == false
+
+      - name: Unittests with coverage
+        if: matrix.coveralls == true
+        run: composer coverage
+
+      - name: Coveralls report
+        if: matrix.coveralls == true
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          composer require php-coveralls/php-coveralls
+          ./vendor/bin/php-coveralls --coverage_clover=clover.xml -v

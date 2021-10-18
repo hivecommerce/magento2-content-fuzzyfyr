@@ -6,5 +6,6 @@
 /tags
 /src
 .phpunit.result.cache
+clover.xml
 composer.phar
 rootCA.pem

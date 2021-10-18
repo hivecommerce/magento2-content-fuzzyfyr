@@ -14,6 +14,13 @@
         <include>
             <directory suffix=".php">./</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">dist</directory>
+            <directory suffix=".php">vendor</directory>
+            <directory suffix=".php">Test</directory>
+            <file>registration.php</file>
+            <file>validate_m2_package.php</file>
+        </exclude>
     </coverage>
     <testsuites>
         <testsuite name="unit">
