@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e4a3ae6343dff40f965b1013f55e089",
+    "content-hash": "06cee518091d0d5ea4b66c3444a52450",
     "packages": [
         {
             "name": "bitexpert/captainhook-infection",
