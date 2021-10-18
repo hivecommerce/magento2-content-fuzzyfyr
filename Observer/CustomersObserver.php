@@ -148,8 +148,14 @@ class CustomersObserver extends FuzzyfyrObserver
 
         foreach ($addresses as $address) {
             /** @var AddressInterface $address */
-            $address->setStreet([$configuration->getDummyContentText()]);
+            $address->setFirstname($configuration->getDummyContentText());
+            $address->setMiddlename($configuration->getDummyContentText());
+            $address->setLastname($configuration->getDummyContentText());
+            $address->setCompany($configuration->getDummyContentText());
             $address->setCity($configuration->getDummyContentText());
+            $address->setPostcode($configuration->getDummyContentText());
+            $address->setStreet([$configuration->getDummyContentText()]);
+            $address->setVatId($configuration->getDummyContentText());
         }
         $customer->setAddresses($addresses);
     }
