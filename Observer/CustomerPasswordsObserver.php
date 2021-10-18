@@ -13,6 +13,8 @@ declare(strict_types=1);
 namespace HiveCommerce\ContentFuzzyfyr\Observer;
 
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use Magento\Customer\Api\Data\CustomerInterface;
+use Magento\Customer\Model\Customer;
 use Magento\Customer\Model\ResourceModel\Customer\Collection as CustomerCollection;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use Magento\Customer\Api\CustomerRepositoryInterface;
@@ -44,7 +46,7 @@ class CustomerPasswordsObserver extends FuzzyfyrObserver
     /**
      * {@inheritdoc}
      */
-    public function isValid(Configuration $configuration)
+    public function isValid(Configuration $configuration): bool
     {
         return $configuration->isApplyToCustomers();
     }
@@ -59,19 +61,9 @@ class CustomerPasswordsObserver extends FuzzyfyrObserver
         $customerCollection = $this->customerCollectionFactory->create();
         $customerCollection->load();
         foreach ($customerCollection->getItems() as $customer) {
-            /** @var \Magento\Customer\Model\Customer $customer */
+            /** @var Customer $customer */
             $customerData = $this->customerRepository->getById($customer->getId());
-            $this->doUpdate($configuration, $customerData);
-            $this->customerRepository->save($customerData);
+            $this->customerRepository->save($customerData, $configuration->getDummyPassword());
         }
-    }
-
-    /**
-     * @param Configuration $configuration
-     * @param \Magento\Customer\Api\Data\CustomerInterface $customer
-     */
-    protected function doUpdate(Configuration $configuration, \Magento\Customer\Api\Data\CustomerInterface $customer)
-    {
-        $customer->setPassword($configuration->getDummyPassword());
     }
 }

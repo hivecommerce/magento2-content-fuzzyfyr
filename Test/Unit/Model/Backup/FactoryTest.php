@@ -28,7 +28,7 @@ class FactoryTest extends AbstractTest
     /**
      * @test
      */
-    public function createEntitySuccessfully()
+    public function createEntitySuccessfully(): void
     {
         $databaseHandler = $this->getDatabaseHandler();
         $backupEntity = $this->createMock(BackupInterface::class);
@@ -46,7 +46,7 @@ class FactoryTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|ObjectManagerInterface
+     * @return MockObject&ObjectManagerInterface
      */
     private function getObjectManager()
     {
@@ -54,7 +54,7 @@ class FactoryTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|DatabaseHandler
+     * @return MockObject&DatabaseHandler
      */
     private function getDatabaseHandler()
     {

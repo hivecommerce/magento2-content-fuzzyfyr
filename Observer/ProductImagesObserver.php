@@ -12,8 +12,10 @@ declare(strict_types=1);
 
 namespace HiveCommerce\ContentFuzzyfyr\Observer;
 
+use Exception;
 use HiveCommerce\ContentFuzzyfyr\Handler\MediaFileHandler;
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\ResourceModel\Product\Collection as ProductCollection;
 use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory as ProductCollectionFactory;
 
@@ -44,7 +46,7 @@ class ProductImagesObserver extends FuzzyfyrObserver
     /**
      * {@inheritdoc}
      */
-    public function isValid(Configuration $configuration)
+    public function isValid(Configuration $configuration): bool
     {
         return $configuration->isApplyToProducts();
     }
@@ -58,7 +60,7 @@ class ProductImagesObserver extends FuzzyfyrObserver
         $productCollection = $this->productCollectionFactory->create();
         $productCollection->load();
         foreach ($productCollection->getItems() as $product) {
-            /** @var \Magento\Catalog\Model\Product $product */
+            /** @var Product $product */
             $this->doUpdate($configuration, $product);
             $product->save();
         }
@@ -66,14 +68,18 @@ class ProductImagesObserver extends FuzzyfyrObserver
 
     /**
      * @param Configuration $configuration
-     * @param \Magento\Catalog\Model\Product $product
-     * @throws \Exception
+     * @param Product $product
+     * @return void
+     * @throws Exception
      */
-    protected function doUpdate(Configuration $configuration, \Magento\Catalog\Model\Product $product)
+    protected function doUpdate(Configuration $configuration, Product $product): void
     {
         $mediaGalleryEntries = $product->getMediaGalleryEntries();
+        if ($mediaGalleryEntries === null) {
+            $mediaGalleryEntries = [];
+        }
 
-        if ($configuration->isUseOnlyEmpty() && !empty($mediaGalleryEntries)) {
+        if ($configuration->isUseOnlyEmpty() && (count($mediaGalleryEntries) >0)) {
             return;
         }
 

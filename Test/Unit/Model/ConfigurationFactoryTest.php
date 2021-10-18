@@ -27,14 +27,14 @@ class ConfigurationFactoryTest extends AbstractTest
     /**
      * @test
      */
-    public function createEntitySuccessfully()
+    public function createEntitySuccessfully(): void
     {
         $expectedEntity = $this->createMock(Configuration::class);
 
         $om = $this->getObjectManager();
         $om->expects(self::once())
             ->method('create')
-            ->with('\\HiveCommerce\\ContentFuzzyfyr\\Model\\Configuration', ['foo' => 'bar'])
+            ->with(Configuration::class, ['foo' => 'bar'])
             ->willReturn($expectedEntity);
 
         $factory = new ConfigurationFactory($om);
@@ -43,7 +43,7 @@ class ConfigurationFactoryTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|ObjectManagerInterface
+     * @return MockObject&ObjectManagerInterface
      */
     private function getObjectManager()
     {

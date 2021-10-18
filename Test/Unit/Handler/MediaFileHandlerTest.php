@@ -30,7 +30,7 @@ class MediaFileHandlerTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfullyWithAlreadyExistingMediaFile()
+    public function runSuccessfullyWithAlreadyExistingMediaFile(): void
     {
         $inputFilePath = 'foo/bar/baz.png';
         $expectedMediaFilePath = 'media/baz.png';
@@ -75,7 +75,7 @@ class MediaFileHandlerTest extends AbstractTest
     /**
      * @test
      */
-    public function runFailsDueToMissingImageAsset()
+    public function runFailsDueToMissingImageAsset(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Could not resolve given image path: "foo/bar/baz.png"');
@@ -132,7 +132,7 @@ class MediaFileHandlerTest extends AbstractTest
     /**
      * @test
      */
-    public function runFailsDueToFailingToCreateMediaSubFolder()
+    public function runFailsDueToFailingToCreateMediaSubFolder(): void
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Could not create media folder: "hivecommerce/content/fuzzfyr"');
@@ -193,7 +193,7 @@ class MediaFileHandlerTest extends AbstractTest
     /**
      * @test
      */
-    public function runFailsDueToFailingToCopyFiles()
+    public function runFailsDueToFailingToCopyFiles(): void
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Could not copy media file to: "media/baz.png"');
@@ -257,7 +257,7 @@ class MediaFileHandlerTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $inputFilePath = 'foo/bar/baz.png';
         $expectedMediaFilePath = 'media/baz.png';
@@ -318,7 +318,7 @@ class MediaFileHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Config
+     * @return MockObject&Config
      */
     private function getConfig()
     {
@@ -328,7 +328,7 @@ class MediaFileHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Filesystem
+     * @return MockObject&Filesystem
      */
     private function getFilesystem()
     {
@@ -338,7 +338,7 @@ class MediaFileHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|File
+     * @return MockObject&File
      */
     private function getFile()
     {
@@ -348,7 +348,7 @@ class MediaFileHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|WriteInterface
+     * @return MockObject&WriteInterface
      */
     private function getMediaDirectory()
     {

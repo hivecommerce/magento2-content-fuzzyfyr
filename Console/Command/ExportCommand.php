@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace HiveCommerce\ContentFuzzyfyr\Console\Command;
 
+use Exception;
 use HiveCommerce\ContentFuzzyfyr\Handler\BackupHandler;
+use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
 use Magento\Framework\EntityManager\EventManager;
 use Symfony\Component\Console\Command\Command;
@@ -106,7 +108,7 @@ class ExportCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setName('dev:content:export')
             ->setDescription('Export fuzzyfied content')
@@ -206,7 +208,7 @@ class ExportCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // Set area code
-        $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
+        $this->state->setAreaCode(Area::AREA_ADMINHTML);
 
         /*
          * Configuration
@@ -231,7 +233,7 @@ class ExportCommand extends Command
                 $output,
                 $input->getOption(self::OPTION_DUMP_OUTPUT)
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->backupHandler->endTransaction();
             $output->writeln('Failed to export fuzzyfied content. Check your logs for more information.');
             return self::ERROR_EXPORT_FAILED;
@@ -251,20 +253,20 @@ class ExportCommand extends Command
     protected function loadConfiguration(Configuration $configuration, InputInterface $input)
     {
         // --- Flags
-        $configuration->setUseOnlyEmpty($input->getOption(self::FLAG_ONLY_EMPTY));
-        $configuration->setApplyToCategories($input->getOption(self::FLAG_CATEGORIES));
-        $configuration->setApplyToCmsBlocks($input->getOption(self::FLAG_CMS_BLOCKS));
-        $configuration->setApplyToCmsPages($input->getOption(self::FLAG_CMS_PAGES));
-        $configuration->setApplyToCustomers($input->getOption(self::FLAG_CUSTOMERS));
-        $configuration->setApplyToProducts($input->getOption(self::FLAG_PRODUCTS));
-        $configuration->setApplyToUsers($input->getOption(self::FLAG_USERS));
+        $configuration->setUseOnlyEmpty((bool)$input->getOption(self::FLAG_ONLY_EMPTY));
+        $configuration->setApplyToCategories((bool)$input->getOption(self::FLAG_CATEGORIES));
+        $configuration->setApplyToCmsBlocks((bool)$input->getOption(self::FLAG_CMS_BLOCKS));
+        $configuration->setApplyToCmsPages((bool)$input->getOption(self::FLAG_CMS_PAGES));
+        $configuration->setApplyToCustomers((bool)$input->getOption(self::FLAG_CUSTOMERS));
+        $configuration->setApplyToProducts((bool)$input->getOption(self::FLAG_PRODUCTS));
+        $configuration->setApplyToUsers((bool)$input->getOption(self::FLAG_USERS));
 
         // --- Options
-        $configuration->setDummyContentText($input->getOption(self::OPTION_DUMMY_CONTENT_TEXT));
-        $configuration->setDummyPassword($input->getOption(self::OPTION_DUMMY_CONTENT_PASSWORD));
-        $configuration->setDummyContentEmail($input->getOption(self::OPTION_DUMMY_CONTENT_EMAIL));
-        $configuration->setDummyContentUrl($input->getOption(self::OPTION_DUMMY_CONTENT_URL));
-        $configuration->setDummyPhoneNumber($input->getOption(self::OPTION_DUMMY_CONTENT_PHONE));
+        $configuration->setDummyContentText((string)$input->getOption(self::OPTION_DUMMY_CONTENT_TEXT));
+        $configuration->setDummyPassword((string)$input->getOption(self::OPTION_DUMMY_CONTENT_PASSWORD));
+        $configuration->setDummyContentEmail((string)$input->getOption(self::OPTION_DUMMY_CONTENT_EMAIL));
+        $configuration->setDummyContentUrl((string)$input->getOption(self::OPTION_DUMMY_CONTENT_URL));
+        $configuration->setDummyPhoneNumber((string)$input->getOption(self::OPTION_DUMMY_CONTENT_PHONE));
 
         return $configuration;
     }

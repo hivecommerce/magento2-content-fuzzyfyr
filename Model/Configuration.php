@@ -78,7 +78,7 @@ class Configuration
     /**
      * @return bool
      */
-    public function isUseOnlyEmpty()
+    public function isUseOnlyEmpty(): bool
     {
         return $this->useOnlyEmpty;
     }
@@ -87,7 +87,7 @@ class Configuration
      * @param bool $useOnlyEmpty
      * @return Configuration
      */
-    public function setUseOnlyEmpty($useOnlyEmpty)
+    public function setUseOnlyEmpty(bool $useOnlyEmpty): Configuration
     {
         $this->useOnlyEmpty = $useOnlyEmpty;
         return $this;
@@ -96,7 +96,7 @@ class Configuration
     /**
      * @return bool
      */
-    public function isApplyToCategories()
+    public function isApplyToCategories(): bool
     {
         return $this->applyToCategories;
     }
@@ -105,7 +105,7 @@ class Configuration
      * @param bool $applyToCategories
      * @return Configuration
      */
-    public function setApplyToCategories($applyToCategories)
+    public function setApplyToCategories(bool $applyToCategories): Configuration
     {
         $this->applyToCategories = $applyToCategories;
         return $this;
@@ -114,7 +114,7 @@ class Configuration
     /**
      * @return bool
      */
-    public function isApplyToCmsBlocks()
+    public function isApplyToCmsBlocks(): bool
     {
         return $this->applyToCmsBlocks;
     }
@@ -123,7 +123,7 @@ class Configuration
      * @param bool $applyToCmsBlocks
      * @return Configuration
      */
-    public function setApplyToCmsBlocks($applyToCmsBlocks)
+    public function setApplyToCmsBlocks(bool $applyToCmsBlocks): Configuration
     {
         $this->applyToCmsBlocks = $applyToCmsBlocks;
         return $this;
@@ -132,7 +132,7 @@ class Configuration
     /**
      * @return bool
      */
-    public function isApplyToCmsPages()
+    public function isApplyToCmsPages(): bool
     {
         return $this->applyToCmsPages;
     }
@@ -141,7 +141,7 @@ class Configuration
      * @param bool $applyToCmsPages
      * @return Configuration
      */
-    public function setApplyToCmsPages($applyToCmsPages)
+    public function setApplyToCmsPages(bool $applyToCmsPages): Configuration
     {
         $this->applyToCmsPages = $applyToCmsPages;
         return $this;
@@ -150,7 +150,7 @@ class Configuration
     /**
      * @return bool
      */
-    public function isApplyToCustomers()
+    public function isApplyToCustomers(): bool
     {
         return $this->applyToCustomers;
     }
@@ -159,7 +159,7 @@ class Configuration
      * @param bool $applyToCustomers
      * @return Configuration
      */
-    public function setApplyToCustomers($applyToCustomers)
+    public function setApplyToCustomers(bool $applyToCustomers): Configuration
     {
         $this->applyToCustomers = $applyToCustomers;
         return $this;
@@ -168,7 +168,7 @@ class Configuration
     /**
      * @return bool
      */
-    public function isApplyToProducts()
+    public function isApplyToProducts(): bool
     {
         return $this->applyToProducts;
     }
@@ -177,7 +177,7 @@ class Configuration
      * @param bool $applyToProducts
      * @return Configuration
      */
-    public function setApplyToProducts($applyToProducts)
+    public function setApplyToProducts(bool $applyToProducts): Configuration
     {
         $this->applyToProducts = $applyToProducts;
         return $this;
@@ -186,7 +186,7 @@ class Configuration
     /**
      * @return bool
      */
-    public function isApplyToUsers()
+    public function isApplyToUsers(): bool
     {
         return $this->applyToUsers;
     }
@@ -195,7 +195,7 @@ class Configuration
      * @param bool $applyToUsers
      * @return Configuration
      */
-    public function setApplyToUsers($applyToUsers)
+    public function setApplyToUsers(bool $applyToUsers): Configuration
     {
         $this->applyToUsers = $applyToUsers;
         return $this;
@@ -204,7 +204,7 @@ class Configuration
     /**
      * @return string
      */
-    public function getDummyContentText()
+    public function getDummyContentText(): string
     {
         return $this->dummyContentText;
     }
@@ -213,7 +213,7 @@ class Configuration
      * @param string $dummyContentText
      * @return Configuration
      */
-    public function setDummyContentText($dummyContentText)
+    public function setDummyContentText(string $dummyContentText): Configuration
     {
         $this->dummyContentText = $dummyContentText;
         return $this;
@@ -222,7 +222,7 @@ class Configuration
     /**
      * @return string
      */
-    public function getDummyPassword()
+    public function getDummyPassword(): string
     {
         return $this->dummyPassword;
     }
@@ -231,7 +231,7 @@ class Configuration
      * @param string $dummyPassword
      * @return Configuration
      */
-    public function setDummyPassword($dummyPassword)
+    public function setDummyPassword(string $dummyPassword): Configuration
     {
         $this->dummyPassword = $dummyPassword;
         return $this;
@@ -240,7 +240,7 @@ class Configuration
     /**
      * @return string
      */
-    public function getDummyContentEmail()
+    public function getDummyContentEmail(): string
     {
         return $this->dummyContentEmail;
     }
@@ -249,7 +249,7 @@ class Configuration
      * @param string $dummyContentEmail
      * @return Configuration
      */
-    public function setDummyContentEmail($dummyContentEmail)
+    public function setDummyContentEmail(string $dummyContentEmail): Configuration
     {
         $this->dummyContentEmail = $dummyContentEmail;
         return $this;
@@ -258,7 +258,7 @@ class Configuration
     /**
      * @return string
      */
-    public function getDummyContentUrl()
+    public function getDummyContentUrl(): string
     {
         return $this->dummyContentUrl;
     }
@@ -267,7 +267,7 @@ class Configuration
      * @param string $dummyContentUrl
      * @return Configuration
      */
-    public function setDummyContentUrl($dummyContentUrl)
+    public function setDummyContentUrl(string $dummyContentUrl): Configuration
     {
         $this->dummyContentUrl = $dummyContentUrl;
         return $this;
@@ -276,7 +276,7 @@ class Configuration
     /**
      * @return string
      */
-    public function getDummyPhoneNumber()
+    public function getDummyPhoneNumber(): string
     {
         return $this->dummyPhoneNumber;
     }
@@ -285,7 +285,7 @@ class Configuration
      * @param string $dummyPhoneNumber
      * @return Configuration
      */
-    public function setDummyPhoneNumber($dummyPhoneNumber)
+    public function setDummyPhoneNumber(string $dummyPhoneNumber): Configuration
     {
         $this->dummyPhoneNumber = $dummyPhoneNumber;
         return $this;
@@ -294,7 +294,7 @@ class Configuration
     /**
      * @return string
      */
-    public function getDummyImagePath()
+    public function getDummyImagePath(): string
     {
         return $this->dummyImagePath;
     }
@@ -303,7 +303,7 @@ class Configuration
      * @param string $dummyImagePath
      * @return Configuration
      */
-    public function setDummyImagePath($dummyImagePath)
+    public function setDummyImagePath(string $dummyImagePath): Configuration
     {
         $this->dummyImagePath = $dummyImagePath;
         return $this;
@@ -312,7 +312,7 @@ class Configuration
     /**
      * @return array
      */
-    public function getExtendedData()
+    public function getExtendedData(): array
     {
         return $this->extendedData;
     }
@@ -321,7 +321,7 @@ class Configuration
      * @param array $extendedData
      * @return Configuration
      */
-    public function setExtendedData($extendedData)
+    public function setExtendedData(array $extendedData): Configuration
     {
         $this->extendedData = $extendedData;
         return $this;

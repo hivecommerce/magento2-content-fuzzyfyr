@@ -30,7 +30,7 @@ class ProductsObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function stopOnFailedValidationSuccessfully()
+    public function stopOnFailedValidationSuccessfully(): void
     {
         $productResourceFactory = $this->getProductResourceFactory();
         $productResourceFactory->expects(self::never())
@@ -62,7 +62,7 @@ class ProductsObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $product = $this->getMockBuilder(Product::class)
             ->disableOriginalConstructor()
@@ -113,7 +113,7 @@ class ProductsObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Observer
+     * @return MockObject&Observer
      */
     private function getObserver()
     {
@@ -121,7 +121,7 @@ class ProductsObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Configuration
+     * @return MockObject&Configuration
      */
     private function getConfiguration()
     {
@@ -130,7 +130,7 @@ class ProductsObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Catalog\Model\ResourceModel\ProductFactory
+     * @return MockObject&\Magento\Catalog\Model\ResourceModel\ProductFactory
      */
     private function getProductResourceFactory(MockObject $instance = null)
     {
@@ -139,7 +139,7 @@ class ProductsObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
+     * @return MockObject&\Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
      */
     private function getProductCollectionFactory(MockObject $instance = null)
     {

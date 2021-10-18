@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace HiveCommerce\ContentFuzzyfyr\Handler;
 
+use Exception;
 use Magento\Framework\App\MaintenanceMode;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Setup\BackupRollbackFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Filesystem\Io\File;
@@ -71,8 +73,10 @@ class BackupHandler
 
     /**
      * Begin database transaction
+     *
+     * @return void
      */
-    public function beginTransaction()
+    public function beginTransaction(): void
     {
         $this->maintenanceModeInitialState = $this->maintenanceMode->isOn();
         $this->maintenanceMode->set(true);
@@ -81,8 +85,10 @@ class BackupHandler
 
     /**
      * End database transaction
+     *
+     * @return void
      */
-    public function endTransaction()
+    public function endTransaction(): void
     {
         $this->setup->getConnection()->rollBack();
         // disable maintenance only, if it has been disabled in the beginning
@@ -95,15 +101,22 @@ class BackupHandler
     /**
      * @param OutputInterface $output
      * @param string $backupPath
-     * @throws \Exception
+     * @return void
+     * @throws Exception
      */
-    public function run(OutputInterface $output, $backupPath)
+    public function run(OutputInterface $output, string $backupPath): void
     {
         /*
          * Backup path
          */
-        $backupPath = realpath($backupPath);
-        if (!$this->ioFile->checkAndCreateFolder($backupPath, self::BACKUP_DIRECTORY_FILEMODE)) {
+        try {
+            $backupPath = realpath($backupPath);
+            if ($backupPath !== false) {
+                $this->ioFile->checkAndCreateFolder($backupPath, self::BACKUP_DIRECTORY_FILEMODE);
+            } else {
+                throw new \RuntimeException('Could not create backup folder');
+            }
+        } catch (LocalizedException $e) {
             throw new \RuntimeException(
                 sprintf(
                     'Could not create backup folder: "%s"',

@@ -31,7 +31,7 @@ class FuzzyfyrCommandTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $state = $this->getState();
         $state->expects(self::any())
@@ -66,7 +66,7 @@ class FuzzyfyrCommandTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfullyInProductionModeWithForceOption()
+    public function runSuccessfullyInProductionModeWithForceOption(): void
     {
         $state = $this->getState();
         $state->expects(self::any())
@@ -123,7 +123,7 @@ class FuzzyfyrCommandTest extends AbstractTest
     /**
      * @test
      */
-    public function runFailsInProductionMode()
+    public function runFailsInProductionMode(): void
     {
         $state = $this->getState();
         $state->expects(self::any())
@@ -151,7 +151,7 @@ class FuzzyfyrCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|State
+     * @return MockObject&State
      */
     private function getState()
     {
@@ -161,7 +161,7 @@ class FuzzyfyrCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|EventManager
+     * @return MockObject&EventManager
      */
     private function getEventManager()
     {
@@ -171,7 +171,7 @@ class FuzzyfyrCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|ConfigurationFactory
+     * @return MockObject&ConfigurationFactory
      */
     private function getConfigurationFactory()
     {
@@ -181,7 +181,7 @@ class FuzzyfyrCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|InputInterface
+     * @return MockObject&InputInterface
      */
     private function getInput()
     {
@@ -191,7 +191,7 @@ class FuzzyfyrCommandTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|OutputInterface
+     * @return MockObject&OutputInterface
      */
     private function getOutput()
     {

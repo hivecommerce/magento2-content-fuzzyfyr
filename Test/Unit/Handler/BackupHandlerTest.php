@@ -15,6 +15,8 @@ namespace HiveCommerce\ContentFuzzyfyr\Test\Unit\Handler;
 use HiveCommerce\ContentFuzzyfyr\Handler\BackupHandler;
 use HiveCommerce\ContentFuzzyfyr\Test\Unit\AbstractTest;
 use Magento\Framework\App\MaintenanceMode;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Phrase;
 use Magento\Framework\Setup\BackupRollback;
 use Magento\Framework\Setup\BackupRollbackFactory;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
@@ -32,7 +34,7 @@ class BackupHandlerTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $expectedBackupPath = sys_get_temp_dir();
 
@@ -89,7 +91,7 @@ class BackupHandlerTest extends AbstractTest
     /**
      * @test
      */
-    public function runFailsOnCopyingDumpFile()
+    public function runFailsOnCopyingDumpFile(): void
     {
         $this->expectException(\RuntimeException::class);
 
@@ -148,7 +150,7 @@ class BackupHandlerTest extends AbstractTest
     /**
      * @test
      */
-    public function runFailsOnCreatingBackupFolder()
+    public function runFailsOnCreatingBackupFolder(): void
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Could not create backup folder: "/tmp"');
@@ -179,7 +181,8 @@ class BackupHandlerTest extends AbstractTest
         $ioFile->expects(self::once())
             ->method('checkAndCreateFolder')
             ->with($expectedBackupPath, BackupHandler::BACKUP_DIRECTORY_FILEMODE)
-            ->willReturn(false);
+            ->willThrowException(new LocalizedException(
+                new Phrase("Unable to create directory '.$expectedBackupPath.'. Access forbidden.")));
 
         $backupHandler = new BackupHandler(
             $maintenanceMode,
@@ -193,7 +196,7 @@ class BackupHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|MaintenanceMode
+     * @return MockObject&MaintenanceMode
      */
     private function getMaintenanceMode()
     {
@@ -203,7 +206,7 @@ class BackupHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|BackupRollbackFactory
+     * @return MockObject&BackupRollbackFactory
      */
     private function getBackupRollbackFactory()
     {
@@ -213,7 +216,7 @@ class BackupHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|ModuleDataSetupInterface
+     * @return MockObject&ModuleDataSetupInterface
      */
     private function getModuleDataSetup()
     {
@@ -223,7 +226,7 @@ class BackupHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|File
+     * @return MockObject&File
      */
     private function getFile()
     {
@@ -233,7 +236,7 @@ class BackupHandlerTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|OutputInterface
+     * @return MockObject&OutputInterface
      */
     private function getOutput()
     {

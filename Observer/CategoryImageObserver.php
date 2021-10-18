@@ -14,12 +14,15 @@ namespace HiveCommerce\ContentFuzzyfyr\Observer;
 
 use HiveCommerce\ContentFuzzyfyr\Handler\CategoryImageHandler;
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
+use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Category\Collection as CategoryCollection;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 use Magento\Catalog\Model\ResourceModel\Category as CategoryResource;
 use Magento\Catalog\Model\ResourceModel\CategoryFactory as CategoryResourceFactory;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollection;
 use Magento\UrlRewrite\Model\ResourceModel\UrlRewriteCollectionFactory;
+use Magento\UrlRewrite\Model\UrlRewrite;
 
 class CategoryImageObserver extends FuzzyfyrObserver
 {
@@ -67,7 +70,7 @@ class CategoryImageObserver extends FuzzyfyrObserver
     /**
      * {@inheritdoc}
      */
-    public function isValid(Configuration $configuration)
+    public function isValid(Configuration $configuration): bool
     {
         return $configuration->isApplyToCategories();
     }
@@ -89,7 +92,7 @@ class CategoryImageObserver extends FuzzyfyrObserver
             ->addFieldToFilter('entity_type', ['eq' => 'category'])
             ->load();
         foreach ($urlRewriteCollection->getItems() as $urlRewrite) {
-            /** @var \Magento\UrlRewrite\Model\UrlRewrite $urlRewrite */
+            /** @var UrlRewrite $urlRewrite */
             $urlRewrite->delete();
         }
 
@@ -100,7 +103,7 @@ class CategoryImageObserver extends FuzzyfyrObserver
         $categoryCollection = $this->categoryCollectionFactory->create();
         $categoryCollection->load();
         foreach ($categoryCollection->getItems() as $category) {
-            /** @var \Magento\Catalog\Model\Category $category */
+            /** @var Category $category */
             if (self::ROOT_CATEGORY_ID === $category->getId()) {
                 // skip root category
                 continue;
@@ -113,13 +116,19 @@ class CategoryImageObserver extends FuzzyfyrObserver
 
     /**
      * @param Configuration $configuration
-     * @param \Magento\Catalog\Model\Category $category
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @param Category $category
+     * @return void
+     * @throws LocalizedException
      */
-    protected function doUpdate(Configuration $configuration, \Magento\Catalog\Model\Category $category)
+    protected function doUpdate(Configuration $configuration, Category $category): void
     {
+        $imageUrl = $category->getImageUrl();
+        if (!is_string($imageUrl)) {
+            $imageUrl = '';
+        }
+
         if ($configuration->isUseOnlyEmpty() &&
-            0 !== strlen(trim($category->getImageUrl()))
+            0 !== strlen(trim($imageUrl))
         ) {
             return;
         }

@@ -31,7 +31,7 @@ class CustomerPasswordsObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function stopOnFailedValidationSuccessfully()
+    public function stopOnFailedValidationSuccessfully(): void
     {
         $customerRepository = $this->getCustomerRepository();
         $customerRepository->expects(self::never())
@@ -60,7 +60,7 @@ class CustomerPasswordsObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function runSuccessfully()
+    public function runSuccessfully(): void
     {
         $customer = $this->getMockBuilder(Customer::class)
             ->disableOriginalConstructor()
@@ -121,9 +121,6 @@ class CustomerPasswordsObserverTest extends AbstractTest
                 'setCustomAttributes'
             ])
             ->getMock();
-        $customerData->expects(self::once())
-            ->method('setPassword')
-            ->with('password');
 
         $customerRepository = $this->getCustomerRepository();
         $customerRepository->expects(self::once())
@@ -165,7 +162,7 @@ class CustomerPasswordsObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Observer
+     * @return MockObject&Observer
      */
     private function getObserver()
     {
@@ -173,7 +170,7 @@ class CustomerPasswordsObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|Configuration
+     * @return MockObject&Configuration
      */
     private function getConfiguration()
     {
@@ -181,7 +178,7 @@ class CustomerPasswordsObserverTest extends AbstractTest
     }
 
     /**
-     * @return MockObject|CustomerRepositoryInterface
+     * @return MockObject&CustomerRepositoryInterface
      */
     private function getCustomerRepository()
     {
@@ -190,7 +187,7 @@ class CustomerPasswordsObserverTest extends AbstractTest
 
     /**
      * @param MockObject $instance
-     * @return MockObject|\Magento\Customer\Model\ResourceModel\Customer\CollectionFactory
+     * @return MockObject&\Magento\Customer\Model\ResourceModel\Customer\CollectionFactory
      */
     private function getCustomerCollectionFactory(MockObject $instance = null)
     {

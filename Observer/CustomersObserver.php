@@ -14,9 +14,12 @@ namespace HiveCommerce\ContentFuzzyfyr\Observer;
 
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
 use Magento\Customer\Api\Data\AddressInterface;
+use Magento\Customer\Api\Data\CustomerInterface;
+use Magento\Customer\Model\Customer;
 use Magento\Customer\Model\ResourceModel\Customer\Collection as CustomerCollection;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollectionFactory;
 use Magento\Customer\Api\CustomerRepositoryInterface;
+use Magento\Sales\Api\Data\OrderAddressInterface;
 use Magento\Sales\Api\OrderAddressRepositoryInterface;
 use Magento\Sales\Model\ResourceModel\Order\Address\Collection as OrderAddressCollection;
 use Magento\Quote\Api\QuoteAddressRepositoryInterface;
@@ -71,7 +74,7 @@ class CustomersObserver extends FuzzyfyrObserver
     /**
      * {@inheritdoc}
      */
-    public function isValid(Configuration $configuration)
+    public function isValid(Configuration $configuration): bool
     {
         return $configuration->isApplyToCustomers();
     }
@@ -89,7 +92,7 @@ class CustomersObserver extends FuzzyfyrObserver
         $customerCollection = $this->customerCollectionFactory->create();
         $customerCollection->load();
         foreach ($customerCollection->getItems() as $customer) {
-            /** @var \Magento\Customer\Model\Customer $customer */
+            /** @var Customer $customer */
             $customerData = $this->customerRepository->getById($customer->getId());
             $this->doUpdateCustomer($configuration, $customerData);
             $this->customerRepository->save($customerData);
@@ -101,8 +104,11 @@ class CustomersObserver extends FuzzyfyrObserver
          */
         $quoteCollection = $this->quoteRepository->getList($searchCriteria);
         foreach ($quoteCollection->getItems() as $quote) {
-            $this->doUpdateQuoteAddress($configuration, $quote->getBillingAddress());
-            $this->quoteRepository->save($quote);
+            $billingAddress = $quote->getBillingAddress();
+            if($billingAddress !== null) {
+                $this->doUpdateQuoteAddress($configuration, $billingAddress);
+                $this->quoteRepository->save($quote);
+            }
         }
 
         /*
@@ -111,6 +117,7 @@ class CustomersObserver extends FuzzyfyrObserver
         /** @var OrderAddressCollection $orderAddressCollection */
         $orderAddressCollection = $this->orderAddressRepository->getList($searchCriteria);
         foreach ($orderAddressCollection->getItems() as $orderAddress) {
+            /** @var OrderAddressInterface $orderAddress */
             $this->doUpdateOrderAddress($configuration, $orderAddress);
             $this->orderAddressRepository->save($orderAddress);
         }
@@ -118,12 +125,13 @@ class CustomersObserver extends FuzzyfyrObserver
 
     /**
      * @param Configuration $configuration
-     * @param \Magento\Customer\Api\Data\CustomerInterface $customer
+     * @param CustomerInterface $customer
+     * @return void
      */
     protected function doUpdateCustomer(
         Configuration $configuration,
-        \Magento\Customer\Api\Data\CustomerInterface $customer
-    ) {
+        CustomerInterface $customer
+    ): void {
         $customer->setEmail(
             sprintf(
                 $configuration->getDummyContentEmail(),
@@ -134,6 +142,10 @@ class CustomersObserver extends FuzzyfyrObserver
         $customer->setLastname($configuration->getDummyContentText());
 
         $addresses = $customer->getAddresses();
+        if($addresses === null) {
+            $addresses = [];
+        }
+
         foreach ($addresses as $address) {
             /** @var AddressInterface $address */
             $address->setStreet([$configuration->getDummyContentText()]);
@@ -145,11 +157,12 @@ class CustomersObserver extends FuzzyfyrObserver
     /**
      * @param Configuration $configuration
      * @param \Magento\Quote\Api\Data\AddressInterface $quoteAddress
+     * @return void
      */
     protected function doUpdateQuoteAddress(
         Configuration $configuration,
         \Magento\Quote\Api\Data\AddressInterface $quoteAddress
-    ) {
+    ): void {
         $quoteAddress->setFirstname($configuration->getDummyContentText());
         $quoteAddress->setMiddlename($configuration->getDummyContentText());
         $quoteAddress->setLastname($configuration->getDummyContentText());
@@ -163,12 +176,13 @@ class CustomersObserver extends FuzzyfyrObserver
 
     /**
      * @param Configuration $configuration
-     * @param \Magento\Sales\Api\Data\OrderAddressInterface $orderAddress
+     * @param OrderAddressInterface $orderAddress
+     * @return void
      */
     protected function doUpdateOrderAddress(
         Configuration $configuration,
-        \Magento\Sales\Api\Data\OrderAddressInterface $orderAddress
-    ) {
+        OrderAddressInterface $orderAddress
+    ): void {
         $orderAddress->setFirstname($configuration->getDummyContentText());
         $orderAddress->setMiddlename($configuration->getDummyContentText());
         $orderAddress->setLastname($configuration->getDummyContentText());

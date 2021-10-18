@@ -26,7 +26,7 @@ class FuzzyObserverTest extends AbstractTest
     /**
      * @test
      */
-    public function validateDefaultSuccessfully()
+    public function validateDefaultSuccessfully(): void
     {
         $configuration = $this->createMock(Configuration::class);
 

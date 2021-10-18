@@ -12,18 +12,21 @@ declare(strict_types=1);
 
 namespace HiveCommerce\ContentFuzzyfyr\Handler\Backup;
 
+use Exception;
 use HiveCommerce\ContentFuzzyfyr\Console\Command\ExportCommand;
 use HiveCommerce\ContentFuzzyfyr\Handler\BackupHandler;
+use Magento\Framework\Backup\Db;
 use Magento\Framework\Backup\Db\BackupFactory;
 use Magento\Framework\EntityManager\EventManager;
 use HiveCommerce\ContentFuzzyfyr\Model\Configuration;
 use HiveCommerce\ContentFuzzyfyr\Model\ConfigurationFactory;
+use RuntimeException;
 
 /**
  * Class Db
  * @package HiveCommerce\ContentFuzzyfyr\Handler\Backup
  */
-class DatabaseHandler extends \Magento\Framework\Backup\Db
+class DatabaseHandler extends Db
 {
     /**
      * @var EventManager
@@ -74,15 +77,14 @@ class DatabaseHandler extends \Magento\Framework\Backup\Db
             ]);
 
             if (!parent::create()) {
-                throw new \RuntimeException('Failed to create database backup');
+                throw new RuntimeException('Failed to create database backup');
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->backupHandler->endTransaction();
-            return ExportCommand::ERROR_EXPORT_FAILED;
+            return false;
         }
 
         $this->backupHandler->endTransaction();
-
         return true;
     }
 
