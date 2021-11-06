@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.8.0
+
+### Added
+
+- Add Mark Shust's Docker setup to simplify local development
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Made hivecommerce/magento2-content-fuzzyfyr compatible with Magento 2.4.0 - 2.4.3
+- Migrated from allin-data/magento2-content-fuzzyfyr to hivecommerce/magento2-content-fuzzyfyr
+
 ## 1.7.0
 
 - Extended customer fuzzyfier to fuzzyfy quote and order addresses.
