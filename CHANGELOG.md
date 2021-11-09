@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.8.1
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#16](https://github.com/hivecommerce/magento2-content-fuzzyfyr/pull/16) Turn captainhook-infection into dev dependency
+
 ## 1.8.0
 
 ### Added
