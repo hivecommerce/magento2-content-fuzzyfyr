@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "164eb93d99e572bf3455b07e34f95097",
+    "content-hash": "43f899ca1e6816ba367b3b8fdabb1046",
     "packages": [
         {
             "name": "brick/math",
@@ -9029,16 +9029,16 @@
         },
         {
             "name": "magento/magento-coding-standard",
-            "version": "14",
+            "version": "15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/magento/magento-coding-standard.git",
-                "reference": "daf56b857bec7add42108651365af3861dec290f"
+                "reference": "ca25070a18507ec89127c7828bbced56f0793e34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/magento/magento-coding-standard/zipball/daf56b857bec7add42108651365af3861dec290f",
-                "reference": "daf56b857bec7add42108651365af3861dec290f",
+                "url": "https://api.github.com/repos/magento/magento-coding-standard/zipball/ca25070a18507ec89127c7828bbced56f0793e34",
+                "reference": "ca25070a18507ec89127c7828bbced56f0793e34",
                 "shasum": ""
             },
             "require": {
@@ -9069,9 +9069,9 @@
             "description": "A set of Magento specific PHP CodeSniffer rules.",
             "support": {
                 "issues": "https://github.com/magento/magento-coding-standard/issues",
-                "source": "https://github.com/magento/magento-coding-standard/tree/v14"
+                "source": "https://github.com/magento/magento-coding-standard/tree/v15"
             },
-            "time": "2021-11-02T12:16:53+00:00"
+            "time": "2021-11-09T10:35:30+00:00"
         },
         {
             "name": "myclabs/deep-copy",
