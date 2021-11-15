@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43f899ca1e6816ba367b3b8fdabb1046",
+    "content-hash": "20a7263795a2dbd9fcd3afd1d5811917",
     "packages": [
         {
             "name": "brick/math",
@@ -8462,20 +8462,20 @@
         },
         {
             "name": "bitexpert/phpstan-magento",
-            "version": "v0.9.0",
+            "version": "v0.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bitExpert/phpstan-magento.git",
-                "reference": "8d56fd0b9635d6c8737bde60101851b0c811ee4c"
+                "reference": "02712e0ff33aa23777039f5662b99122d622198e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bitExpert/phpstan-magento/zipball/8d56fd0b9635d6c8737bde60101851b0c811ee4c",
-                "reference": "8d56fd0b9635d6c8737bde60101851b0c811ee4c",
+                "url": "https://api.github.com/repos/bitExpert/phpstan-magento/zipball/02712e0ff33aa23777039f5662b99122d622198e",
+                "reference": "02712e0ff33aa23777039f5662b99122d622198e",
                 "shasum": ""
             },
             "require": {
-                "nette/neon": "^3.1",
+                "nette/neon": "^3.3.1",
                 "php": "^7.2.0",
                 "phpstan/phpstan": "^0.12.23"
             },
@@ -8483,18 +8483,18 @@
                 "magento/framework": "<101.0.0"
             },
             "require-dev": {
-                "captainhook/captainhook": "^5.10.1",
-                "captainhook/plugin-composer": "^5.3.1",
+                "captainhook/captainhook": "^5.10.4",
+                "captainhook/plugin-composer": "^5.3.2",
                 "madewithlove/license-checker": "^0.10.0",
                 "magento/framework": ">=101.0.0",
-                "mikey179/vfsstream": "^1.6.8",
-                "nikic/php-parser": "^4.10.5",
+                "mikey179/vfsstream": "^1.6.10",
+                "nikic/php-parser": "^4.13.1",
                 "phpstan/extension-installer": "^1.1.0",
-                "phpstan/phpstan-phpunit": "^0.12.20",
-                "phpstan/phpstan-strict-rules": "^0.12.9",
-                "phpunit/phpunit": "^9.5.5",
+                "phpstan/phpstan-phpunit": "^0.12.22",
+                "phpstan/phpstan-strict-rules": "^0.12.11",
+                "phpunit/phpunit": "^9.5.10",
                 "roave/security-advisories": "dev-latest",
-                "squizlabs/php_codesniffer": "^3.6.0"
+                "squizlabs/php_codesniffer": "^3.6.1"
             },
             "type": "phpstan-extension",
             "extra": {
@@ -8523,9 +8523,9 @@
             "description": "PHPStan Magento Extension",
             "support": {
                 "issues": "https://github.com/bitExpert/phpstan-magento/issues",
-                "source": "https://github.com/bitExpert/phpstan-magento/tree/v0.9.0"
+                "source": "https://github.com/bitExpert/phpstan-magento/tree/v0.10.0"
             },
-            "time": "2021-08-07T08:00:32+00:00"
+            "time": "2021-11-13T11:45:14+00:00"
         },
         {
             "name": "captainhook/captainhook",
@@ -9133,16 +9133,16 @@
         },
         {
             "name": "nette/neon",
-            "version": "v3.2.2",
+            "version": "v3.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/neon.git",
-                "reference": "e4ca6f4669121ca6876b1d048c612480e39a28d5"
+                "reference": "1f4e5f6a30bf45b6c2c932be7396ea70692ee607"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/neon/zipball/e4ca6f4669121ca6876b1d048c612480e39a28d5",
-                "reference": "e4ca6f4669121ca6876b1d048c612480e39a28d5",
+                "url": "https://api.github.com/repos/nette/neon/zipball/1f4e5f6a30bf45b6c2c932be7396ea70692ee607",
+                "reference": "1f4e5f6a30bf45b6c2c932be7396ea70692ee607",
                 "shasum": ""
             },
             "require": {
@@ -9152,12 +9152,15 @@
             "require-dev": {
                 "nette/tester": "^2.0",
                 "phpstan/phpstan": "^0.12",
-                "tracy/tracy": "^2.3"
+                "tracy/tracy": "^2.8.8"
             },
+            "bin": [
+                "bin/neon-lint"
+            ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -9192,9 +9195,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/neon/issues",
-                "source": "https://github.com/nette/neon/tree/v3.2.2"
+                "source": "https://github.com/nette/neon/tree/v3.3.1"
             },
-            "time": "2021-02-28T12:30:32+00:00"
+            "time": "2021-11-09T01:00:15+00:00"
         },
         {
             "name": "ondram/ci-detector",
