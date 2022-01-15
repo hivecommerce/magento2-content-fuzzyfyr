@@ -1,5 +1,5 @@
 parameters:
-    level: max
+    level: 7
     checkMissingIterableValueType: false
     magento:
         checkServiceContracts: false
@@ -13,5 +13,10 @@ parameters:
         - Model
         - Observer
         - Test
-    bootstrapFiles:
-        - vendor/bitexpert/phpstan-magento/autoload.php
+    ignoreErrors:
+        -
+            message: '~is never read, only written~'
+            path: Handler/MediaFileHandler.php
+        -
+            message: '~Left side of && is always true~'
+            path: Observer/FuzzyfyrObserver.php
