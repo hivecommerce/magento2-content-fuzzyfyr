@@ -1,0 +1,23 @@
+{
+    "$schema": "vendor/infection/infection/resources/schema.json",
+    "logs": {
+        "text": "infection.log",
+        "stryker": {
+            "badge": "main"
+        }
+    },
+    "source": {
+        "directories": [
+            "Api",
+            "Block",
+            "Console",
+            "Handler",
+            "Model",
+            "Observer"
+        ]
+    },
+    "mutators": {
+        "@default": true
+    }
+}
+
