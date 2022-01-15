@@ -8,5 +8,5 @@
 .phpunit.result.cache
 clover.xml
 composer.phar
-infection.json
+infection.log
 rootCA.pem
