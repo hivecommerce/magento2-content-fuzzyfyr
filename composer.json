@@ -30,7 +30,7 @@
     "captainhook/captainhook": "^5.10",
     "captainhook/plugin-composer": "^5.3",
     "infection/infection": "0.22.0|^0.26.1",
-    "magento/magento-coding-standard": "^15",
+    "magento/magento-coding-standard": "^17",
     "phpstan/extension-installer": "^1.1",
     "phpstan/phpstan": "^1.4",
     "phpstan/phpstan-strict-rules": "^1.1",
