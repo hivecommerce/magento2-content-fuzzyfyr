@@ -10,7 +10,7 @@ version: "3"
 
 services:
   app:
-    image: markoshust/magento-nginx:1.18-5
+    image: markoshust/magento-nginx:1.18-7
     ports:
       - "80:8000"
       - "443:8443"
@@ -24,7 +24,7 @@ services:
       - ssldata:/etc/nginx/certs
 
   phpfpm:
-    image: markoshust/magento-php:7.4-fpm-10
+    image: markoshust/magento-php:8.1-fpm-0
     links:
       - db
     volumes: *appvolumes
@@ -39,10 +39,10 @@ services:
       - dbdata:/var/lib/mysql
 
   redis:
-    image: redis:5.0-alpine
+    image: redis:6.2-alpine
 
   elasticsearch:
-    image: markoshust/magento-elasticsearch:7.9.3-1
+    image: markoshust/magento-elasticsearch:7.16-0
     ports:
       - "9200:9200"
       - "9300:9300"
