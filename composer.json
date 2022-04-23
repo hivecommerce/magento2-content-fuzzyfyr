@@ -17,25 +17,24 @@
     }
   ],
   "require": {
-    "php": "~7.4.0|~8.0.0",
-    "magento/framework": "~102.0.7-p2|~103.0.0|~103.0.1|~103.0.2|~103.0.3",
-    "magento/module-catalog": "~103.0.7-p2|~104.0.0|~104.0.1|~104.0.2|~104.0.3",
-    "magento/module-cms": "~103.0.7-p2|~104.0.0|~104.0.1|~104.0.2|~104.0.3",
-    "magento/module-customer": "~102.0.7-p2|~103.0.0|~103.0.1|~103.0.2|~103.0.3",
-    "magento/module-user": "~101.1.7|~101.2.0|~101.2.1|~101.2.2|~101.2.3"
+    "php": "~7.4.0|~8.0.0|~8.1.0",
+    "magento/framework": "~102.0.7-p2|~103.0.0|~103.0.1|~103.0.2|~103.0.3|~103.0.4",
+    "magento/module-catalog": "~103.0.7-p2|~104.0.0|~104.0.1|~104.0.2|~104.0.3|~104.0.4",
+    "magento/module-cms": "~103.0.7-p2|~104.0.0|~104.0.1|~104.0.2|~104.0.3|~104.0.4",
+    "magento/module-customer": "~102.0.7-p2|~103.0.0|~103.0.1|~103.0.2|~103.0.3|~103.0.4",
+    "magento/module-user": "~101.1.7|~101.2.0|~101.2.1|~101.2.2|~101.2.3|~101.2.4"
   },
   "require-dev": {
     "bitexpert/captainhook-infection": "^0.6.0",
-    "bitexpert/phpstan-magento": "^0.19.0",
-    "captainhook/captainhook": "^5.10",
-    "captainhook/plugin-composer": "^5.3",
-    "infection/infection": "0.22.0|^0.26.1",
+    "bitexpert/phpstan-magento": "^0.20.0",
+    "captainhook/captainhook": "^5.10.8",
+    "captainhook/plugin-composer": "^5.3.3",
+    "infection/infection": "0.22.0|^0.26.6",
     "magento/magento-coding-standard": "^15",
     "phpstan/extension-installer": "^1.1",
-    "phpstan/phpstan": "^1.4",
+    "phpstan/phpstan": "^1.5.4",
     "phpstan/phpstan-strict-rules": "^1.1",
-    "phpunit/phpunit": "^9.5.10",
-    "roave/security-advisories": "dev-latest",
+    "phpunit/phpunit": "^9.5.20",
     "squizlabs/php_codesniffer": "^3.6"
   },
   "conflict": {
@@ -73,6 +72,11 @@
     "coverage": "vendor/bin/phpunit --coverage-clover clover.xml"
   },
   "config": {
-    "sort-packages": true
+    "sort-packages": true,
+    "allow-plugins": {
+      "infection/extension-installer": true,
+      "captainhook/plugin-composer": true,
+      "phpstan/extension-installer": true
+    }
   }
 }
