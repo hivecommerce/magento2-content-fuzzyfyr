@@ -26,7 +26,7 @@
   },
   "require-dev": {
     "bitexpert/captainhook-infection": "^0.6.0",
-    "bitexpert/phpstan-magento": "^0.20.0",
+    "bitexpert/phpstan-magento": "^0.21.0",
     "captainhook/captainhook": "^5.10.8",
     "captainhook/plugin-composer": "^5.3.3",
     "infection/infection": "0.22.0|^0.26.6",
