@@ -65,6 +65,9 @@ bin/clinotty bin/magento setup:install \
   --elasticsearch-port=$ES_PORT \
   --use-rewrites=1
 
+echo "Disable Magento 2FAuth module..."
+bin/magento module:disable Magento_TwoFactorAuth
+
 echo "Installing ContentFuzzyfyr Composer module..."
 bin/rootnotty chmod +x /var/www/html/HiveCommerce/ContentFuzzyfyr/validate_m2_package.php
 bin/rootnotty chown -R app.app /dist
