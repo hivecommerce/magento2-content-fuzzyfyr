@@ -25,7 +25,7 @@
     "magento/module-user": "~101.1.7|~101.2.0|~101.2.1|~101.2.2|~101.2.3|~101.2.4"
   },
   "require-dev": {
-    "bitexpert/captainhook-infection": "^0.6.0",
+    "bitexpert/captainhook-infection": "^0.7.0",
     "bitexpert/phpstan-magento": "^0.25.0",
     "captainhook/captainhook": "^5.10.8",
     "captainhook/plugin-composer": "^5.3.3",
