@@ -29,7 +29,7 @@
     "bitexpert/phpstan-magento": "^0.30.1",
     "captainhook/captainhook": "^5.10.8",
     "captainhook/plugin-composer": "^5.3.3",
-    "infection/infection": "0.22.0|^0.26.6",
+    "infection/infection": "^0.29.6",
     "magento/magento-coding-standard": "15",
     "phpstan/extension-installer": "^1.1",
     "phpstan/phpstan": "^1.7.2",
